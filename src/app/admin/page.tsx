@@ -1,3 +1,5 @@
+import { classes, container } from "@/shared/tw";
+
 export default function Admin() {
   return (
     <Dashboard />
@@ -36,7 +38,7 @@ const users: User[] = [
 
 export function Dashboard() {
   return (
-    <div className="w-full; grid p-8 gap-8">
+    <div className={classes(container, "w-full grid p-8 gap-8")}>
       <div className="header flex w-full justify-between">
         <div className="flex-1">
           <h2 className="text-xl">Inscrito</h2>
