@@ -36,7 +36,7 @@ const users: User[] = [
   { id: "6", name: "Jane Doe", email: "", status: "inactive", role: "user" },
 ]
 
-export function Dashboard() {
+function Dashboard() {
   return (
     <div className={classes(container, "w-full grid p-8 gap-8")}>
       <div className="header flex w-full justify-between">
