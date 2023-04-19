@@ -1,6 +1,6 @@
-import Image, { ImageProps } from 'next/image';
+import Image, { ImageProps } from "next/image";
 
-export const Logo = (props: Omit<ImageProps, 'src' | 'alt'>) => (
+export const Logo = (props: Omit<ImageProps, "src" | "alt">) => (
   <div>
     <Image
       {...props}
