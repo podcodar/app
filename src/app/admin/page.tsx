@@ -34,7 +34,7 @@ const users: User[] = [
   { id: "4", name: "Jane Doe", email: "", status: "inactive", role: "user" },
   { id: "5", name: "John Doe", email: "", status: "inactive", role: "user" },
   { id: "6", name: "Jane Doe", email: "", status: "inactive", role: "user" },
-]
+];
 
 function Dashboard() {
   return (

@@ -1,10 +1,11 @@
 // This code is based on the example from https://tailwindui.com/components/application-ui/navigation/navbars
 "use client";
-import { Fragment, PropsWithChildren } from "react";
+import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Logo } from "./Logo";
 import { classes } from "@/shared/tw";
+import Image from "next/image";
 
 const user = {
   name: "Tom Cook",
@@ -19,10 +20,7 @@ const navigation = [
   { name: "Agenda", href: "#", current: false },
 ];
 
-const userNavigation = [
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
-];
+const profileLinks = [{ name: "Settings", href: "#" }, { name: "Sign out", href: "#" },];
 
 export default function Navbar() {
   return (
@@ -39,15 +37,15 @@ export default function Navbar() {
                   <div className="ml-10 flex items-baseline space-x-4">
                     {navigation.map((item) => (
                       <a
-                        key={item.name}
-                        href={item.href}
+                        aria-current={item.current ? "page" : undefined}
                         className={classes(
                           item.current
                             ? "bg-gray-900 text-white"
                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
                           "rounded-md px-3 py-2 text-sm font-medium"
                         )}
-                        aria-current={item.current ? "page" : undefined}
+                        href={item.href}
+                        key={item.name}
                       >
                         {item.name}
                       </a>
@@ -58,11 +56,11 @@ export default function Navbar() {
               <div className="hidden md:block">
                 <div className="ml-4 flex items-center md:ml-6">
                   <button
-                    type="button"
                     className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    type="button"
                   >
                     <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                    <BellIcon aria-hidden="true" className="h-6 w-6" />
                   </button>
 
                   {/* Profile dropdown */}
@@ -70,7 +68,13 @@ export default function Navbar() {
                     <div>
                       <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span className="sr-only">Open user menu</span>
-                        <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                        <Image
+                          alt=""
+                          className="h-8 w-8 rounded-full"
+                          height="32"
+                          src={user.imageUrl}
+                          width="32"
+                        />
                       </Menu.Button>
                     </div>
                     <Transition
@@ -83,15 +87,15 @@ export default function Navbar() {
                       leaveTo="transform opacity-0 scale-95"
                     >
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        {userNavigation.map((item) => (
+                        {profileLinks.map((item) => (
                           <Menu.Item key={item.name}>
                             {({ active }) => (
                               <a
-                                href={item.href}
                                 className={classes(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
+                                href={item.href}
                               >
                                 {item.name}
                               </a>
@@ -108,9 +112,9 @@ export default function Navbar() {
                 <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
-                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                    <XMarkIcon aria-hidden="true" className="block h-6 w-6" />
                   ) : (
-                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                    <Bars3Icon aria-hidden="true" className="block h-6 w-6" />
                   )}
                 </Disclosure.Button>
               </div>
@@ -121,16 +125,16 @@ export default function Navbar() {
             <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
               {navigation.map((item) => (
                 <Disclosure.Button
-                  key={item.name}
+                  aria-current={item.current ? "page" : undefined}
                   as="a"
-                  href={item.href}
                   className={classes(
                     item.current
                       ? "bg-gray-900 text-white"
                       : "text-gray-300 hover:bg-gray-700 hover:text-white",
                     "block rounded-md px-3 py-2 text-base font-medium"
                   )}
-                  aria-current={item.current ? "page" : undefined}
+                  href={item.href}
+                  key={item.name}
                 >
                   {item.name}
                 </Disclosure.Button>
@@ -139,27 +143,33 @@ export default function Navbar() {
             <div className="border-t border-gray-700 pb-3 pt-4">
               <div className="flex items-center px-5">
                 <div className="flex-shrink-0">
-                  <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
+                  <Image
+                    alt=""
+                    className="h-10 w-10 rounded-full"
+                    height="40"
+                    src={user.imageUrl}
+                    width="40"
+                  />
                 </div>
                 <div className="ml-3">
                   <div className="text-base font-medium leading-none text-white">{user.name}</div>
                   <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
                 </div>
                 <button
-                  type="button"
                   className="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  type="button"
                 >
                   <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  <BellIcon aria-hidden="true" className="h-6 w-6" />
                 </button>
               </div>
               <div className="mt-3 space-y-1 px-2">
-                {userNavigation.map((item) => (
+                {profileLinks.map((item) => (
                   <Disclosure.Button
-                    key={item.name}
                     as="a"
-                    href={item.href}
                     className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                    href={item.href}
+                    key={item.name}
                   >
                     {item.name}
                   </Disclosure.Button>
