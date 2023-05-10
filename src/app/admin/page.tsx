@@ -1,11 +1,5 @@
 import { classes, container } from "@/shared/tw";
 
-export default function Admin() {
-  return (
-    <Dashboard />
-  );
-}
-
 type Status = "active" | "inactive";
 
 type Role = "admin" | "user";
@@ -36,7 +30,7 @@ const users: User[] = [
   { id: "6", name: "Jane Doe", email: "", status: "inactive", role: "user" },
 ];
 
-function Dashboard() {
+export default function Dashboard() {
   return (
     <div className={classes(container, "w-full grid p-8 gap-8")}>
       <div className="header flex w-full justify-between">
