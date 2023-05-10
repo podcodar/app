@@ -1,19 +1,4 @@
 import { classes, container } from "@/shared/tw";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
-import { authOptions } from "@/shared/auth";
-
-export default async function Admin() {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    redirect("/login?callbackUrl=/admin");
-  }
-
-  return (
-    <Dashboard />
-  );
-}
 
 type Status = "active" | "inactive";
 
@@ -45,7 +30,7 @@ const users: User[] = [
   { id: "6", name: "Jane Doe", email: "", status: "inactive", role: "user" },
 ];
 
-function Dashboard() {
+export default function Dashboard() {
   return (
     <div className={classes(container, "w-full grid p-8 gap-8")}>
       <div className="header flex w-full justify-between">
