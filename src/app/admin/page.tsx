@@ -1,6 +1,15 @@
 import { classes, container } from "@/shared/tw";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "@/shared/auth";
 
-export default function Admin() {
+export default async function Admin() {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    redirect("/login?callbackUrl=/admin");
+  }
+
   return (
     <Dashboard />
   );
