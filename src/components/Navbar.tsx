@@ -14,13 +14,17 @@ const user = {
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
+  { name: "Home", href: "/app", current: true },
+  { name: "Dashboard", href: "/app/dashboard", current: false },
   { name: "Inscritos", href: "#", current: false },
   { name: "Projetos", href: "#", current: false },
   { name: "Agenda", href: "#", current: false },
 ];
 
-const profileLinks = [{ name: "Settings", href: "#" }, { name: "Sign out", href: "#" },];
+const profileLinks = [
+  { name: "Settings", href: "#" },
+  { name: "Sign out", href: "#" },
+];
 
 export default function Navbar() {
   return (
@@ -152,8 +156,12 @@ export default function Navbar() {
                   />
                 </div>
                 <div className="ml-3">
-                  <div className="text-base font-medium leading-none text-white">{user.name}</div>
-                  <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
+                  <div className="text-base font-medium leading-none text-white">
+                    {user.name}
+                  </div>
+                  <div className="text-sm font-medium leading-none text-gray-400">
+                    {user.email}
+                  </div>
                 </div>
                 <button
                   className="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
