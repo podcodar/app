@@ -21,10 +21,7 @@ const navigation = [
   { name: "Agenda", href: "#", current: false },
 ];
 
-const profileLinks = [
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
-];
+const profileLinks = [{ name: "Settings", href: "#" }, { name: "Sign out", href: "#" },];
 
 export default function Navbar() {
   return (
