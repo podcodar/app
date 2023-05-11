@@ -18,3 +18,9 @@ export function getOriginPath() {
 }
 
 export const ORIGIN_URL_KEY = "x-url";
+
+const NO_SESSION_REDIRECT = "/login?callbackUrl=";
+
+export function makeRedirectURL(origin: string) {
+  return `${NO_SESSION_REDIRECT}${origin}`;
+}
