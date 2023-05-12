@@ -1,13 +1,17 @@
 import { headers } from "next/headers";
 import { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
-import { NO_SESSION_REDIRECT, ORIGIN_URL_KEY, githubCredentials } from "./settings";
+import {
+  NO_SESSION_REDIRECT,
+  ORIGIN_URL_KEY,
+  githubCredentials,
+} from "./settings";
 
 export const authOptions: NextAuthOptions = {
   providers: [GithubProvider(githubCredentials)],
   pages: {
-    signIn: "/login"
-  }
+    signIn: "/login",
+  },
 };
 
 export function getOriginPath() {

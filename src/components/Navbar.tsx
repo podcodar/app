@@ -22,7 +22,7 @@ const navigation = [
   { name: "Agenda", href: "#", current: false },
 ];
 
-const profileLinks = [{ name: "Settings", onClick: () => {} }, { name: "Sign out", onClick: () => signOut() }];
+const profileLinks = [{ name: "Settings", onClick: () => {} }, { name: "Sign out", onClick: () => signOut() },];
 
 export default function Navbar() {
   return (
