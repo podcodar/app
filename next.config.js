@@ -4,8 +4,8 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ["images.unsplash.com"],
-  },
+    domains: ["images.unsplash.com", "avatars.githubusercontent.com"],
+  }
 };
 
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
