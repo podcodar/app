@@ -1,5 +1,4 @@
 import GithubSignInButton from "@/components/GithubSignInButton";
-import SignOutButton from "@/components/SignOutButton";
 import { authOptions } from "@/shared/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -15,7 +14,6 @@ const SignInPage = async () => {
   return (
     <section className='flex flex-col gap-8 items-center justify-center'>
       <GithubSignInButton />
-      <SignOutButton />
     </section>
   );
 };
