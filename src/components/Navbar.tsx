@@ -1,6 +1,7 @@
 // This code is based on the example from https://tailwindui.com/components/application-ui/navigation/navbars
 "use client";
 import { Fragment } from "react";
+import { signOut } from "next-auth/react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Logo } from "./Logo";
@@ -16,7 +17,7 @@ const navigation = [
   { name: "Agenda", href: "#", current: false },
 ];
 
-const profileLinks = [{ name: "Settings", href: "#" }, { name: "Sign out", href: "#" },];
+const profileLinks = [{ name: "Settings", onClick: () => {} }, { name: "Sign out", onClick: () => signOut() },];
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -90,15 +91,16 @@ export default function Navbar() {
                         {profileLinks.map((item) => (
                           <Menu.Item key={item.name}>
                             {({ active }) => (
-                              <a
+                              <Disclosure.Button
+                                as="button"
                                 className={classes(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
-                                href={item.href}
+                                onClick={item.onClick}
                               >
                                 {item.name}
-                              </a>
+                              </Disclosure.Button>
                             )}
                           </Menu.Item>
                         ))}
@@ -170,10 +172,10 @@ export default function Navbar() {
               <div className="mt-3 space-y-1 px-2">
                 {profileLinks.map((item) => (
                   <Disclosure.Button
-                    as="a"
+                    as="button"
                     className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                    href={item.href}
                     key={item.name}
+                    onClick={item.onClick}
                   >
                     {item.name}
                   </Disclosure.Button>
