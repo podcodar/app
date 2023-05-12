@@ -1,12 +1,11 @@
-import Navbar from "@/components/Navbar";
-import { container } from "@/shared/tw";
 import { Metadata } from "next";
 import { PropsWithChildren } from "react";
-import AuthProvider from "@/contexts/AuthProvider";
 import { getServerSession } from "next-auth";
-import { authOptions, makeRedirectURL } from "@/shared/auth";
 import { redirect } from "next/navigation";
-import { getOriginPath } from "@/shared/server";
+import { container } from "@/shared/tw";
+import { authOptions, makeRedirectURL, getOriginPath  } from "@/shared/auth";
+import Navbar from "@/components/Navbar";
+import AuthProvider from "@/contexts/AuthProvider";
 
 export const metadata: Metadata = {
   title: "PodCodar",
