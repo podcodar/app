@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ORIGIN_URL_KEY } from "@/shared/auth";
+import { ORIGIN_URL_KEY } from "@/shared/settings";
 
 export function middleware(request: NextRequest) {
   // add origin path to redirect when not session available
