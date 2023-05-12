@@ -10,12 +10,24 @@ type User = {
   email: string;
   status: Status;
   role: Role;
-}
+};
 
 // list with 6 random Users generated
 const users: User[] = [
-  { id: "1", name: "John Doe", email: "john@doe.co", status: "active", role: "admin" },
-  { id: "2", name: "Jane Doe", email: "jane@doe.co", status: "active", role: "admin" },
+  {
+    id: "1",
+    name: "John Doe",
+    email: "john@doe.co",
+    status: "active",
+    role: "admin",
+  },
+  {
+    id: "2",
+    name: "Jane Doe",
+    email: "jane@doe.co",
+    status: "active",
+    role: "admin",
+  },
   { id: "3", name: "John Doe", email: "", status: "inactive", role: "user" },
   { id: "4", name: "Jane Doe", email: "", status: "inactive", role: "user" },
   { id: "5", name: "John Doe", email: "", status: "inactive", role: "user" },
@@ -36,7 +48,9 @@ export default function Dashboard() {
       <div className="header flex w-full justify-between">
         <div className="flex-1">
           <h2 className="text-xl">Inscrito</h2>
-          <p className="text-sm text-gray-500">Lista de todos os inscritos pelo formulário da PodCodar</p>
+          <p className="text-sm text-gray-500">
+            Lista de todos os inscritos pelo formulário da PodCodar
+          </p>
         </div>
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Add new user

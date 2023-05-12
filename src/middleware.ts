@@ -7,10 +7,10 @@ export function middleware(request: NextRequest) {
   headers.set(ORIGIN_URL_KEY, request.nextUrl.pathname);
 
   return NextResponse.next({
-    request: { headers }
+    request: { headers },
   });
-};
+}
 
 export const config = {
-  matcher: ["/app/:path*", "/admin/:path*"]
+  matcher: ["/app/:path*", "/admin/:path*"],
 };

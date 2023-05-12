@@ -12,7 +12,7 @@ const SignInPage = async () => {
   }
 
   return (
-    <section className='flex flex-col gap-8 items-center justify-center'>
+    <section className="flex flex-col gap-8 items-center justify-center">
       <GithubSignInButton />
     </section>
   );
