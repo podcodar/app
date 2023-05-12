@@ -6,13 +6,8 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Logo } from "./Logo";
 import { classes } from "@/shared/tw";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
-const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
 const navigation = [
   { name: "Home", href: "/app", current: true },
   { name: "Dashboard", href: "/app/dashboard", current: false },
@@ -24,6 +19,10 @@ const navigation = [
 const profileLinks = [{ name: "Settings", href: "#" }, { name: "Sign out", href: "#" },];
 
 export default function Navbar() {
+  const { data: session } = useSession();
+
+  const user = session?.user;
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -73,7 +72,7 @@ export default function Navbar() {
                           alt=""
                           className="h-8 w-8 rounded-full"
                           height="32"
-                          src={user.imageUrl}
+                          src={user?.image as string}
                           width="32"
                         />
                       </Menu.Button>
@@ -148,16 +147,16 @@ export default function Navbar() {
                     alt=""
                     className="h-10 w-10 rounded-full"
                     height="40"
-                    src={user.imageUrl}
+                    src={user?.image as string}
                     width="40"
                   />
                 </div>
                 <div className="ml-3">
                   <div className="text-base font-medium leading-none text-white">
-                    {user.name}
+                    {user?.name}
                   </div>
                   <div className="text-sm font-medium leading-none text-gray-400">
-                    {user.email}
+                    {user?.email}
                   </div>
                 </div>
                 <button
