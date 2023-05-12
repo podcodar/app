@@ -8,7 +8,8 @@
     "start": "next start",
     "fmt": "prettier --write . && next lint --fix",
     "lint": "next lint",
-    "analyze": "ANALYZE=true yarn build"
+    "analyze": "ANALYZE=true yarn build",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
@@ -28,6 +29,8 @@
   "devDependencies": {
     "@podcodar/eslint-config-next": "^1.4.2",
     "autoprefixer": "^10.4.14",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
     "postcss": "^8.4.22",
     "prettier": "^2.8.8",
     "tailwindcss": "^3.3.1"
