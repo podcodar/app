@@ -1,4 +1,4 @@
-import GithubSignInButton from "@/components/GithubSignInButton";
+import SignInForm from "@/components/SignInForm";
 import { authOptions } from "@/shared/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -12,8 +12,8 @@ const SignInPage = async () => {
   }
 
   return (
-    <section className="flex flex-col gap-8 items-center justify-center">
-      <GithubSignInButton />
+    <section className='flex flex-col gap-8 items-center justify-center bg-gray-800'>
+      <SignInForm />
     </section>
   );
 };
