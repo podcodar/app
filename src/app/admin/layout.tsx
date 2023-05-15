@@ -1,12 +1,11 @@
-import Navbar from "@/components/Navbar";
-import { container } from "@/shared/tw";
 import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 import { PropsWithChildren } from "react";
 import AuthProvider from "@/contexts/AuthProvider";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/shared/auth";
-import { redirect } from "next/navigation";
-import { headers } from "next/headers";
+import { authOptions, makeRedirectURL, getOriginPath } from "@/shared/auth";
+import Navbar from "@/components/Navbar";
+import { container } from "@/shared/tw";
 
 export const metadata: Metadata = {
   title: "PodCodar Admin",
@@ -16,11 +15,9 @@ export default async function RootLayout({ children }: PropsWithChildren) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    const headerObj = headers();
-    const origin = headerObj.get("x-url") ?? "";
-
-    return redirect(`/login?callbackUrl=${origin}`);
-  };
+    const origin = getOriginPath();
+    return redirect(makeRedirectURL(origin));
+  }
 
   return (
     <body>
@@ -29,7 +26,9 @@ export default async function RootLayout({ children }: PropsWithChildren) {
           <Navbar />
 
           <div className={container}>
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+              Dashboard
+            </h1>
           </div>
         </header>
 
