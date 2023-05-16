@@ -3,9 +3,11 @@
 import { signIn } from "next-auth/react";
 import { ReactNode } from "react";
 
+type LoginProvidersType = "github"; // | "google"
+
 type PropsType = {
   children: ReactNode;
-  provider: string;
+  provider: LoginProvidersType;
 };
 
 const SignInButton = ({ children, provider }: PropsType) => {
