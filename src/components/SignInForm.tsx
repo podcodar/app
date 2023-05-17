@@ -8,7 +8,7 @@ export default function SignInForm() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Image
             alt="PodCodar Llama"
-            className="mx-auto w-auto h-32"
+            className="mx-auto"
             height={128}
             priority
             src="/images/logo.svg"
