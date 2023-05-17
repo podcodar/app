@@ -22,6 +22,8 @@ npm run dev
 yarn dev
 ```
 
+- Now we use PNPM
+
 Com o passo anterior feito, abra o link [http://localhost:3000](http://localhost:3000) para ver o resultado.
 
 ## Tecnologias Utilizadas

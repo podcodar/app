@@ -1,3 +1,6 @@
+import TaskList from "@/components/TaskList";
+import { items } from "@/shared/settings";
+
 export default function Page() {
   return (
     <>
@@ -11,7 +14,7 @@ export default function Page() {
         </header>
         <main>
           <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-            {/* Your content */}
+            <TaskList items={items} />
           </div>
         </main>
       </div>
