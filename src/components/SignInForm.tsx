@@ -1,7 +1,11 @@
 import Image from "next/image";
 import SignInButton from "./SignInButton";
 
-export default function SignInForm() {
+type Props = {
+  error?: string;
+};
+
+export default function SignInForm(props: Props) {
   return (
     <>
       <div className="flex min-h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -23,6 +27,11 @@ export default function SignInForm() {
           <div className="mt-5">
             <SignInButton provider="github">Continue with Github</SignInButton>
           </div>
+          {props.error && (
+            <p className="text-red-300 text-center py-4 text-sm">
+              {props.error}
+            </p>
+          )}
         </div>
       </div>
     </>
