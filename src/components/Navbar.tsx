@@ -9,13 +9,7 @@ import { classes } from "@/shared/tw";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 
-const navigation = [
-  { name: "Home", href: "/app", current: true },
-  { name: "Dashboard", href: "/app/dashboard", current: false },
-  { name: "Inscritos", href: "#", current: false },
-  { name: "Projetos", href: "#", current: false },
-  { name: "Agenda", href: "#", current: false },
-];
+const navigation = [{ name: "Home", href: "/app", current: true }];
 
 const profileLinks = [{ name: "Settings", onClick: () => {} }, { name: "Sign out", onClick: () => signOut() },];
 
