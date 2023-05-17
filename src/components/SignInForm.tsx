@@ -8,12 +8,11 @@ export default function SignInForm() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Image
             alt="PodCodar Llama"
-            className="mx-auto h-10 w-auto"
-            height={100}
+            className="mx-auto w-auto h-32"
+            height={128}
             priority
             src="/images/logo.svg"
-            style={{ height: "100px" }}
-            width={100}
+            width={128}
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
             Sign in to your account
