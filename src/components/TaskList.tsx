@@ -22,12 +22,16 @@ export default TaskList;
 
 function ExpandableTaskItem({ item }: { item: TaskItem }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
   // function which will not be re-created for each re-rendering
   const handleClick = useCallback(
     () => setIsExpanded((expanded) => !expanded),
     []
   );
+  const handleCheckboxChange = useCallback(() => {
+    setIsChecked((checked) => !checked);
+  }, []);
 
   const icon = (
     <span className="block h-6 w-6">
@@ -37,12 +41,24 @@ function ExpandableTaskItem({ item }: { item: TaskItem }) {
 
   return (
     <div key={item.id}>
-      <div
-        className="p-3 flex justify-between bg-gray-50 border-b items-center cursor-pointer"
-        onClick={handleClick}
-      >
-        {item.label}
-        {icon}
+      <div className="flex bg-gray-50 border-b center">
+        <div className="">
+          {" "}
+          <input
+            checked={isChecked}
+            className="mr-2 mt-3 ml-2 h-6 w-6 inline-block"
+            id={item.id}
+            onChange={handleCheckboxChange}
+            type="checkbox"
+          />
+        </div>
+        <div
+          className="text-xl p-3 flex justify-between bg-gray-50 grow border-b cursor-pointer"
+          onClick={handleClick}
+        >
+          {item.label}
+          {icon}
+        </div>
       </div>
       {isExpanded && <div className="border-b p-5">{item.content}</div>}
     </div>
