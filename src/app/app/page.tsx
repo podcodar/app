@@ -1,6 +1,5 @@
 import TaskList from "@/components/TaskList";
 import { items } from "@/shared/settings";
-import { classes, container } from "@/shared/tw";
 
 export default function Dashboard() {
   return (

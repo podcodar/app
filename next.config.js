@@ -5,7 +5,7 @@ const nextConfig = {
   },
   images: {
     domains: ["images.unsplash.com", "avatars.githubusercontent.com"],
-  }
+  },
 };
 
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
