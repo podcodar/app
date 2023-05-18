@@ -4,7 +4,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "PodCodar App",
-  description: "Seja bem viades ao app da comunidade PodCodar!",
+  description: "Sejam bem vindes ao app da comunidade PodCodar!",
   icons: {
     icon: {
       url: "/images/logo.svg",
