@@ -10,6 +10,13 @@ export const metadata: Metadata = {
       url: "/images/logo.svg",
       type: "image/svg",
     },
+  },
+  openGraph: {
+    type: "website",
+    images: {
+      url: "/images/logo.svg",
+      type: "image/svg",
+    },
   }
 };
 
