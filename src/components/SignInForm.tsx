@@ -24,7 +24,8 @@ export default function SignInForm(props: Props) {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <div className="mt-5">
+          <div className="mt-5 flex gap-4 flex-col">
+            <SignInButton provider="google">Continue with Google</SignInButton>
             <SignInButton provider="github">Continue with Github</SignInButton>
           </div>
           {props.error && (

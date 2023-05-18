@@ -1,9 +1,7 @@
 "use client";
-
-import { signIn } from "next-auth/react";
 import { ReactNode } from "react";
-
-type LoginProviders = "github"; // | "google"
+import { signIn } from "next-auth/react";
+import { LoginProviders } from "@/shared/auth";
 
 type Props = {
   children: ReactNode;
