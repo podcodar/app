@@ -1,5 +1,5 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { ChevronDownIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { TaskItem } from "@/entities/tasks";
 
@@ -33,6 +33,18 @@ function ExpandableTaskItem({ item }: { item: TaskItem }) {
     setIsChecked((checked) => !checked);
   }, []);
 
+  useEffect(() => {
+    const checkbox = window.localStorage.getItem(`TASK_CHECKED:${item.id}`);
+    if (checkbox !== null) setIsChecked(JSON.parse(checkbox as any));
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      `TASK_CHECKED:${item.id}`,
+      JSON.stringify(isChecked)
+    );
+  }, [isChecked, item.id]);
+
   const icon = (
     <span className="block h-6 w-6">
       {isExpanded ? <ChevronDownIcon /> : <ChevronLeftIcon />}
@@ -64,9 +76,3 @@ function ExpandableTaskItem({ item }: { item: TaskItem }) {
     </div>
   );
 }
-
-//expandableTaskItem -> Valor vai ser recebido como propriedade.
-
-//L41. Conditional Rendering. If isExpanded is true it will show tem content, otherwise will be collapsed, not rendered.
-//L37. Everytime the user clicks on the label the state is updated, setting the new state as the argument passed. Index, turns to nextIndex  at L20,21 for escope questions.
-//Console is showind true and false
