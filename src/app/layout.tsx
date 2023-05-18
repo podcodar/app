@@ -1,9 +1,16 @@
 import { PropsWithChildren } from "react";
 import "./globals.css";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "PodCodar App",
-  description: "PodCodar community app",
+  description: "Seja bem viades ao app da comunidade PodCodar!",
+  icons: {
+    icon: {
+      url: "/images/logo.svg",
+      type: "image/svg",
+    },
+  }
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
