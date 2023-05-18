@@ -17,7 +17,7 @@ export const metadata: Metadata = {
       url: "/images/logo.svg",
       type: "image/svg",
     },
-  }
+  },
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
