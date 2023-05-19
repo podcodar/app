@@ -45,15 +45,14 @@ function ExpandableTaskItem({ item }: { item: TaskItem }) {
   return (
     <div key={item.id}>
       <div className="flex bg-gray-50 border-b center">
-        <div className="">
-          <input
-            checked={isChecked}
-            className="mr-2 mt-3 ml-2 h-6 w-6 inline-block"
-            id={item.id}
-            onChange={handleCheckboxChange}
-            type="checkbox"
-          />
-        </div>
+        <input
+          checked={isChecked}
+          className="mr-2 mt-3 ml-2 h-6 w-6 inline-block"
+          id={item.id}
+          onChange={handleCheckboxChange}
+          type="checkbox"
+        />
+
         <div
           className="text-xl p-3 flex justify-between bg-gray-50 grow border-b cursor-pointer"
           onClick={handleClick}
