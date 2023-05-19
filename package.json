@@ -10,6 +10,8 @@
     "lint-staged": "lint-staged",
     "lint": "next lint",
     "analyze": "ANALYZE=true yarn build",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -28,6 +30,7 @@
     "typescript": "5.0.2"
   },
   "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^10.1.0",
     "@podcodar/eslint-config-next": "^1.6.0",
     "autoprefixer": "^10.4.14",
     "husky": "^8.0.3",
@@ -35,6 +38,7 @@
     "postcss": "^8.4.23",
     "prettier": "^2.8.8",
     "prisma": "^4.14.1",
+    "prisma-erd-generator": "^1.7.0",
     "tailwindcss": "^3.3.2",
     "ts-node": "^10.9.1"
   }
