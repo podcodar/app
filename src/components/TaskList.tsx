@@ -7,7 +7,7 @@ export type TaskProps = {
   items: TaskItem[];
 };
 
-function TaskList({ items }: TaskProps) {
+export default function TaskList({ items }: TaskProps) {
   // TODO: Fetch real list
   return (
     <div className="border-x border-t rounded">
@@ -18,32 +18,23 @@ function TaskList({ items }: TaskProps) {
   );
 }
 
-export default TaskList;
-
 function ExpandableTaskItem({ item }: { item: TaskItem }) {
+  const storage = createTaskLocalStorage(item.id);
+  const [isChecked, setIsChecked] = useState(storage.get());
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
 
   // function which will not be re-created for each re-rendering
-  const handleClick = useCallback(
-    () => setIsExpanded((expanded) => !expanded),
-    []
-  );
+  const handleClick = useCallback(() => {
+    setIsExpanded((expanded) => !expanded);
+  }, []);
+
   const handleCheckboxChange = useCallback(() => {
     setIsChecked((checked) => !checked);
   }, []);
 
   useEffect(() => {
-    const checkbox = window.localStorage.getItem(`TASK_CHECKED:${item.id}`);
-    if (checkbox !== null) setIsChecked(JSON.parse(checkbox as any));
-  }, []);
-
-  useEffect(() => {
-    window.localStorage.setItem(
-      `TASK_CHECKED:${item.id}`,
-      JSON.stringify(isChecked)
-    );
-  }, [isChecked, item.id]);
+    storage.set(isChecked);
+  }, [isChecked]);
 
   const icon = (
     <span className="block h-6 w-6">
@@ -55,7 +46,6 @@ function ExpandableTaskItem({ item }: { item: TaskItem }) {
     <div key={item.id}>
       <div className="flex bg-gray-50 border-b center">
         <div className="">
-          {" "}
           <input
             checked={isChecked}
             className="mr-2 mt-3 ml-2 h-6 w-6 inline-block"
@@ -75,4 +65,18 @@ function ExpandableTaskItem({ item }: { item: TaskItem }) {
       {isExpanded && <div className="border-b p-5">{item.content}</div>}
     </div>
   );
+}
+
+const TASK_KEY_PREFIX = "TASK_CHECKED";
+
+function createTaskLocalStorage(itemId: TaskItem["id"]) {
+  const taskCheckId = `${TASK_KEY_PREFIX}:${itemId}`;
+
+  const get = (): boolean =>
+    JSON.parse(localStorage.getItem(taskCheckId) ?? "false");
+
+  const set = (value: boolean) =>
+    localStorage.setItem(taskCheckId, JSON.stringify(value));
+
+  return { get, set };
 }
