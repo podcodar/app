@@ -1,5 +1,5 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { ChevronDownIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { TaskItem } from "@/entities/tasks";
 
@@ -7,7 +7,7 @@ export type TaskProps = {
   items: TaskItem[];
 };
 
-function TaskList({ items }: TaskProps) {
+export default function TaskList({ items }: TaskProps) {
   // TODO: Fetch real list
   return (
     <div className="border-x border-t rounded">
@@ -18,16 +18,23 @@ function TaskList({ items }: TaskProps) {
   );
 }
 
-export default TaskList;
-
 function ExpandableTaskItem({ item }: { item: TaskItem }) {
+  const storage = createTaskLocalStorage(item.id);
+  const [isChecked, setIsChecked] = useState(storage.get());
   const [isExpanded, setIsExpanded] = useState(false);
 
   // function which will not be re-created for each re-rendering
-  const handleClick = useCallback(
-    () => setIsExpanded((expanded) => !expanded),
-    []
-  );
+  const handleClick = useCallback(() => {
+    setIsExpanded((expanded) => !expanded);
+  }, []);
+
+  const handleCheckboxChange = useCallback(() => {
+    setIsChecked((checked) => !checked);
+  }, []);
+
+  useEffect(() => {
+    storage.set(isChecked);
+  }, [isChecked]);
 
   const icon = (
     <span className="block h-6 w-6">
@@ -37,20 +44,38 @@ function ExpandableTaskItem({ item }: { item: TaskItem }) {
 
   return (
     <div key={item.id}>
-      <div
-        className="p-3 flex justify-between bg-gray-50 border-b items-center cursor-pointer"
-        onClick={handleClick}
-      >
-        {item.label}
-        {icon}
+      <div className="flex bg-gray-50 border-b center">
+        <input
+          checked={isChecked}
+          className="mr-2 mt-3 ml-2 h-6 w-6 inline-block"
+          id={item.id}
+          onChange={handleCheckboxChange}
+          type="checkbox"
+        />
+
+        <div
+          className="text-xl p-3 flex justify-between bg-gray-50 grow border-b cursor-pointer"
+          onClick={handleClick}
+        >
+          {item.label}
+          {icon}
+        </div>
       </div>
       {isExpanded && <div className="border-b p-5">{item.content}</div>}
     </div>
   );
 }
 
-//expandableTaskItem -> Valor vai ser recebido como propriedade.
+const TASK_KEY_PREFIX = "TASK_CHECKED";
 
-//L41. Conditional Rendering. If isExpanded is true it will show tem content, otherwise will be collapsed, not rendered.
-//L37. Everytime the user clicks on the label the state is updated, setting the new state as the argument passed. Index, turns to nextIndex  at L20,21 for escope questions.
-//Console is showind true and false
+function createTaskLocalStorage(itemId: TaskItem["id"]) {
+  const taskCheckId = `${TASK_KEY_PREFIX}:${itemId}`;
+
+  const get = (): boolean =>
+    JSON.parse(localStorage.getItem(taskCheckId) ?? "false");
+
+  const set = (value: boolean) =>
+    localStorage.setItem(taskCheckId, JSON.stringify(value));
+
+  return { get, set };
+}

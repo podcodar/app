@@ -20,14 +20,12 @@ export default async function RootLayout({ children }: PropsWithChildren) {
   }
 
   return (
-    <body>
-      <AuthProvider>
-        <header className="bg-white shadow">
-          <Navbar />
-        </header>
+    <AuthProvider>
+      <header className="bg-white shadow">
+        <Navbar />
+      </header>
 
-        <div className={container}>{children}</div>
-      </AuthProvider>
-    </body>
+      <div className={container}>{children}</div>
+    </AuthProvider>
   );
 }
