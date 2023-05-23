@@ -1,4 +1,3 @@
-"use client";
 export default function OnboardingForm() {
   return (
     <div className="absolute h-screen w-screen z-10 top-0 left-0 bg-slate-800 overflow-auto">
