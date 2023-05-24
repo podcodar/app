@@ -4,7 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "purple-dark": "#5d417A",
+        podCyan: "rgb(var(--pod-cyan) / <alpha-value>)",
+        podOrange: "rgb(var(--pod-orange) / <alpha-value>)",
+        podPink: "rgb(var(--pod-pink) / <alpha-value>)",
+        podPurple: "rgb(var(--pod-purple) / <alpha-value>)",
       },
     },
   },

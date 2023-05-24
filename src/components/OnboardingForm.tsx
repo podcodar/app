@@ -29,6 +29,7 @@ export default function OnboardingForm() {
               <div className="mt-2">
                 <select
                   className="select"
+                  defaultValue={"selected"}
                   id="gender"
                   name="gender"
                 >
@@ -37,7 +38,6 @@ export default function OnboardingForm() {
                       {gender}
                     </option>
                   ))}
-                  <option selected>Selecione</option>
                 </select>
               </div>
             </div>
@@ -120,6 +120,7 @@ export default function OnboardingForm() {
               <div className="mt-2">
                 <select
                   className="select"
+                  defaultValue={"selected"}
                   id="education-level"
                   name="education-level"
                 >
@@ -128,7 +129,6 @@ export default function OnboardingForm() {
                       {level}
                     </option>
                   ))}
-                  <option selected>Selecione</option>
                 </select>
               </div>
             </div>
