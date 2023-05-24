@@ -28,11 +28,9 @@ const genders = [
 export default function OnboardingForm() {
   return (
     <div className="absolute h-screen w-screen z-10 top-0 left-0 bg-slate-800 overflow-auto">
-      <form className="bg-purple-dark w-full md:w-9/12 mx-auto my-10 p-8 rounded-lg">
+      <form className="formContainer">
         <div className=" border-gray-900/10">
-          <h2 className="text-base text-center font-semibold leading-7 text-white">
-            Formulário de Inscrição
-          </h2>
+          <h2 className="formTitle">Formulário de Inscrição</h2>
 
           <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="sm:col-span-2">
@@ -219,11 +217,9 @@ export default function OnboardingForm() {
         </div>
       </form>
 
-      <form className="bg-purple-dark w-full md:w-9/12 mx-auto my-10 p-8 rounded-lg">
+      <form className="formContainer">
         <div className=" border-gray-900/10">
-          <h2 className="text-base text-center font-semibold leading-7 text-white">
-            Experiência e Interesses
-          </h2>
+          <h2 className="formTitle">Experiência e Interesses</h2>
         </div>
 
         <div className="sm:col-span-2 my-5">
@@ -313,11 +309,9 @@ export default function OnboardingForm() {
         </div>
       </form>
 
-      <form className="bg-purple-dark w-full md:w-9/12 mx-auto my-10 p-8 rounded-lg">
+      <form className="formContainer">
         <div className=" border-gray-900/10">
-          <h2 className="text-base text-center font-semibold leading-7 text-white">
-            Expectativa e Objetivos
-          </h2>
+          <h2 className="formTitle">Expectativa e Objetivos</h2>
         </div>
         <div className="sm:col-span-2 my-5">
           <label className="label" htmlFor="questionFive">
