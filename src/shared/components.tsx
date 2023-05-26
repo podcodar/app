@@ -5,12 +5,20 @@ import {
   SelectHTMLAttributes,
   FormHTMLAttributes,
   HTMLAttributes,
+  TextareaHTMLAttributes,
 } from "react";
 
 const focusStyles = "focus:ring-2 focus:ring-inset focus:ring-indigo-600";
 
+export const Textarea = (
+  props: TextareaHTMLAttributes<HTMLTextAreaElement>
+) => {
+  const styles = "w-full rounded-lg border-gray-200 p-3 text-sm";
+  return <textarea {...props} className={classes(styles, props.className)} />;
+};
+
 export const Title = (props: HTMLAttributes<HTMLHeadingElement>) => {
-  const styles = ` text-base text-center font-semibold leading-7 text-white
+  const styles = ` text-base text-lg text-center font-semibold leading-7 text-white
   `;
   return <h2 {...props} className={classes(styles, props.className)} />;
 };
@@ -32,7 +40,7 @@ export const Select = (props: SelectHTMLAttributes<HTMLSelectElement>) => {
 };
 
 export const Label = (props: LabelHTMLAttributes<HTMLLabelElement>) => {
-  const styles = "block text-sm font-medium leading-6 text-white";
+  const styles = "block text-sm font-medium leading-6 text-white text-justify";
   return <label {...props} className={classes(styles, props.className)} />;
 };
 
