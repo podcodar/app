@@ -8,7 +8,7 @@ type Props = {
   };
 };
 
-// This error disabling should be removed as we use the username param in the future
+// FIXME: This error disabling should be removed as we use the username param in the future
 // eslint-disable-next-line no-unused-vars
 export default async function ProfilePage({ params: { username } }: Props) {
   const session = await getServerSession(authOptions);
@@ -17,7 +17,7 @@ export default async function ProfilePage({ params: { username } }: Props) {
     <div className="min-h-full">
       <div className="bg-white shadow">
         <div className="flex items-center gap-4 mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <Profile session={session} />
+          <Profile session={session} username={username} />
         </div>
       </div>
     </div>
