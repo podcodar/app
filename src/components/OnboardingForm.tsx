@@ -1,20 +1,18 @@
-import { genders, educationLevels } from "@/shared/onboardingUtils";
+import { Input, Label, Select, Form, Title } from "@/shared/components";
+import { genders, educationLevels } from "@/shared/onboarding";
 
 export default function OnboardingForm() {
   return (
     <div className="absolute h-screen w-screen z-10 top-0 left-0 bg-slate-800 overflow-auto">
-      <form className="formContainer">
+      <Form>
         <div className=" border-gray-900/10">
-          <h2 className="formTitle">Formulário de Inscrição</h2>
+          <Title> Formulário de Inscrição</Title>
 
           <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="sm:col-span-2">
-              <label className="label" htmlFor="nome-social">
-                Nome Social
-              </label>
+              <Label htmlFor="nome-social">Nome Social</Label>
               <div className="mt-2">
-                <input
-                  className="input"
+                <Input
                   id="nome-social"
                   name="nome-social"
                   type="text"
@@ -23,12 +21,9 @@ export default function OnboardingForm() {
             </div>
 
             <div className="sm:col-span-2">
-              <label className="label" htmlFor="gender">
-                Gênero
-              </label>
+              <Label htmlFor="gender">Gênero</Label>
               <div className="mt-2">
-                <select
-                  className="select"
+                <Select
                   defaultValue={"selected"}
                   id="gender"
                   name="gender"
@@ -38,17 +33,14 @@ export default function OnboardingForm() {
                       {gender}
                     </option>
                   ))}
-                </select>
+                </Select>
               </div>
             </div>
 
             <div className="sm:col-span-2">
-              <label className="label" htmlFor="idade">
-                Idade
-              </label>
+              <Label htmlFor="idade">Idade</Label>
               <div className="mt-2">
-                <input
-                  className="input"
+                <Input
                   id="idade"
                   name="idade"
                   type="text" //As text
@@ -57,12 +49,10 @@ export default function OnboardingForm() {
             </div>
 
             <div className="sm:col-span-22">
-              <label className="label" htmlFor="telefone">
-                Telefone
-              </label>
+              <Label htmlFor="telefone">Telefone</Label>
               <div className="mt-2">
-                <input
-                  className="input placeholder-gray-400"
+                <Input
+                  className="placeholder-gray-400"
                   id="telefone"
                   name="telefone"
                   placeholder="(00) 00000-0000"
@@ -72,12 +62,9 @@ export default function OnboardingForm() {
             </div>
 
             <div className="sm:col-span-22">
-              <label className="label" htmlFor="pais">
-                País
-              </label>
+              <Label htmlFor="pais">País</Label>
               <div className="mt-2">
-                <input
-                  className="input"
+                <Input
                   id="pais"
                   name="pais"
                   type="text"
@@ -86,12 +73,9 @@ export default function OnboardingForm() {
             </div>
 
             <div className="sm:col-span-2">
-              <label className="label" htmlFor="cidade-estado">
-                Cidade/Estado
-              </label>
+              <Label htmlFor="cidade-estado">Cidade/Estado</Label>
               <div className="mt-2">
-                <input
-                  className="input"
+                <Input
                   id="cidade-estado"
                   name="cidade-estado"
                   type="text"
@@ -100,12 +84,9 @@ export default function OnboardingForm() {
             </div>
 
             <div className="sm:col-span-2">
-              <label className="label" htmlFor="email">
-                Email
-              </label>
+              <Label htmlFor="email">Email</Label>
               <div className="mt-2">
-                <input
-                  className="input"
+                <Input
                   id="email"
                   name="email"
                   type="email"
@@ -114,12 +95,9 @@ export default function OnboardingForm() {
             </div>
 
             <div className="sm:col-span-2">
-              <label className="label" htmlFor="education-level">
-                Formação
-              </label>
+              <Label htmlFor="education-level">Formação</Label>
               <div className="mt-2">
-                <select
-                  className="select"
+                <Select
                   defaultValue={"selected"}
                   id="education-level"
                   name="education-level"
@@ -129,17 +107,14 @@ export default function OnboardingForm() {
                       {level}
                     </option>
                   ))}
-                </select>
+                </Select>
               </div>
             </div>
 
             <div className="sm:col-span-2">
-              <label className="label" htmlFor="profissao">
-                Profissão
-              </label>
+              <Label htmlFor="profissao">Profissão</Label>
               <div className="mt-2">
-                <input
-                  className="input"
+                <Input
                   id="profissao"
                   name="profissao"
                   type="text"
@@ -148,12 +123,9 @@ export default function OnboardingForm() {
             </div>
 
             <div className="sm:col-span-2">
-              <label className="label" htmlFor="empresa-organizacao">
-                Empresa/Organização
-              </label>
+              <Label htmlFor="empresa-organizacao">Empresa/Organização</Label>
               <div className="mt-2">
-                <input
-                  className="input"
+                <Input
                   id="empresa-organizacao"
                   name="empresa-organizacao"
                   type="text"
@@ -162,12 +134,9 @@ export default function OnboardingForm() {
             </div>
 
             <div className="sm:col-span-2">
-              <label className="label" htmlFor="github-portifolio">
-                GitHub/Portifólio
-              </label>
+              <Label htmlFor="github-portifolio">GitHub/Portifólio</Label>
               <div className="mt-2">
-                <input
-                  className="input"
+                <Input
                   id="github-portifolio"
                   name="github-portifolio"
                   type="text"
@@ -176,12 +145,9 @@ export default function OnboardingForm() {
             </div>
 
             <div className="sm:col-span-2">
-              <label className="label" htmlFor="linkedin">
-                LinkedIn
-              </label>
+              <Label htmlFor="linkedin">LinkedIn</Label>
               <div className="mt-2">
-                <input
-                  className="input"
+                <Input
                   id="linkedin"
                   name="linkedin"
                   type="text"
@@ -190,20 +156,19 @@ export default function OnboardingForm() {
             </div>
           </div>
         </div>
-      </form>
+      </Form>
 
-      <form className="formContainer">
+      <Form>
         <div className=" border-gray-900/10">
-          <h2 className="formTitle">Experiência e Interesses</h2>
+          <Title>Experiência e Interesses</Title>
         </div>
 
         <div className="sm:col-span-2 my-5">
-          <label className="label" htmlFor="questionOne">
+          <Label htmlFor="questionOne">
             Qual sua experiência com tecnologia?
-          </label>
+          </Label>
           <div className="mt-2">
-            <input
-              className="input"
+            <Input
               id="questionOne"
               name="questionOne"
               type="text"
@@ -212,12 +177,11 @@ export default function OnboardingForm() {
         </div>
 
         <div className="sm:col-span-2 my-5">
-          <label className="label" htmlFor="questionTwo">
+          <Label htmlFor="questionTwo">
             Quais contato com alguma linguagem de programação? Se sim, qual?
-          </label>
+          </Label>
           <div className="mt-2">
-            <input
-              className="input"
+            <Input
               id="questionTwo"
               name="questionTwo"
               type="text"
@@ -226,13 +190,12 @@ export default function OnboardingForm() {
         </div>
 
         <div className="sm:col-span-2 my-5">
-          <label className="label" htmlFor="questionThree">
+          <Label htmlFor="questionThree">
             Quais são os frameworks, bibliotecas ou tecnologias que você já teve
             contato?
-          </label>
+          </Label>
           <div className="mt-2">
-            <input
-              className="input"
+            <Input
               id="questionThree"
               name="questionThree"
               type="text"
@@ -241,13 +204,12 @@ export default function OnboardingForm() {
         </div>
 
         <div className="sm:col-span-2 my-5">
-          <label className="label" htmlFor="questionFour">
+          <Label htmlFor="questionFour">
             Você já trabalhou em projetos de programação? Se sim, descreva-os
             brevemente.
-          </label>
+          </Label>
           <div className="mt-2">
-            <input
-              className="input"
+            <Input
               id="questionFour"
               name="questionFour"
               type="text"
@@ -255,13 +217,12 @@ export default function OnboardingForm() {
           </div>
         </div>
         <div className="sm:col-span-2 my-5">
-          <label className="label" htmlFor="questionFour">
+          <Label htmlFor="questionFour">
             Quais são as suas principais áreas de interesse em tecnologia? (Web
             Development, Mobile Development, Design, Data Science, etc.)
-          </label>
+          </Label>
           <div className="mt-2">
-            <input
-              className="input"
+            <Input
               id="questionFour"
               name="questionFour"
               type="text"
@@ -270,31 +231,29 @@ export default function OnboardingForm() {
         </div>
 
         <div className="sm:col-span-2 my-5">
-          <label className="label" htmlFor="hobbie">
+          <Label htmlFor="hobbie">
             Quais são seus hobbies e interesses fora da tecnologia?
-          </label>
+          </Label>
           <div className="mt-2">
-            <input
-              className="input"
+            <Input
               id="hobbie"
               name="hobbie"
               type="text"
             />
           </div>
         </div>
-      </form>
+      </Form>
 
-      <form className="formContainer">
+      <Form>
         <div className=" border-gray-900/10">
-          <h2 className="formTitle">Expectativa e Objetivos</h2>
+          <Title>Expectativa e Objetivos</Title>
         </div>
         <div className="sm:col-span-2 my-5">
-          <label className="label" htmlFor="questionFive">
+          <Label htmlFor="questionFive">
             Por que você deseja ingressar na PodCodar?
-          </label>
+          </Label>
           <div className="mt-2">
-            <input
-              className="input"
+            <Input
               id="questionFive"
               name="questionFive"
               type="text"
@@ -303,13 +262,12 @@ export default function OnboardingForm() {
         </div>
 
         <div className="sm:col-span-2 my-5">
-          <label className="label" htmlFor="questionSix">
+          <Label htmlFor="questionSix">
             Quais são seus objetivos pessoais/profissionais relacionados à
             programação?
-          </label>
+          </Label>
           <div className="mt-2">
-            <input
-              className="input"
+            <Input
               id="questionSix"
               name="questionSix"
               type="text"
@@ -318,12 +276,11 @@ export default function OnboardingForm() {
         </div>
 
         <div className="sm:col-span-2 my-5">
-          <label className="label" htmlFor="questionSeven">
+          <Label htmlFor="questionSeven">
             O que você espera aprender ou alcançar participando da comunidade?
-          </label>
+          </Label>
           <div className="mt-2">
-            <input
-              className="input"
+            <Input
               id="questionSeven"
               name="questionSeven"
               type="text"
@@ -332,13 +289,12 @@ export default function OnboardingForm() {
         </div>
 
         <div className="sm:col-span- my-5">
-          <label className="label" htmlFor="questionEight">
+          <Label htmlFor="questionEight">
             Você está disposto a contribuir para a comunidade interagindo e
             compartilhando seu conhecimento ou experiência?
-          </label>
+          </Label>
           <div className="mt-2">
-            <input
-              className="input"
+            <Input
               id="questionEight"
               name="questionEight"
               type="text"
@@ -347,13 +303,12 @@ export default function OnboardingForm() {
         </div>
 
         <div className="sm:col-span-2 my-5">
-          <label className="label" htmlFor="questionNine">
+          <Label htmlFor="questionNine">
             Quais são os tipos de recursos, atividades ou eventos que você
             gostaria de ver na comunidade?
-          </label>
+          </Label>
           <div className="mt-2">
-            <input
-              className="input"
+            <Input
               id="questionNine"
               name="questionNine"
               type="text"
@@ -361,15 +316,14 @@ export default function OnboardingForm() {
           </div>
         </div>
         <div className="sm:col-span-2 my-5">
-          <label className="label" htmlFor="questionTen">
+          <Label htmlFor="questionTen">
             Qual forma você acha mais interessante para se envolver com a
             comunidade? (Participação nos Meetups, interação online,
             contribuição em projetos colaborativos, participação nas Trilhas de
             Mentorias, etc.)
-          </label>
+          </Label>
           <div className="mt-2">
-            <input
-              className="input"
+            <Input
               id="questionTen"
               name="questionTen"
               type="text"
@@ -377,13 +331,12 @@ export default function OnboardingForm() {
           </div>
         </div>
         <div className="sm:col-span-2 my-5">
-          <label className="label" htmlFor="questionEleven">
+          <Label htmlFor="questionEleven">
             Quais são seus canais de comunicação preferidos? (Whatsapp, Slack,
             Discord, redes sociais…)
-          </label>
+          </Label>
           <div className="mt-2">
-            <input
-              className="input"
+            <Input
               id="questionEleven"
               name="questionEleven"
               type="text"
@@ -392,13 +345,12 @@ export default function OnboardingForm() {
         </div>
 
         <div className="sm:col-span-2 my-5">
-          <label className="label" htmlFor="questionTwelve">
+          <Label htmlFor="questionTwelve">
             Você está interessado em participar dos grupos de estudo, projetos
             ou mentorias dentro da comunidade?
-          </label>
+          </Label>
           <div className="mt-2">
-            <input
-              className="input"
+            <Input
               id="questionTwelve"
               name="questionTwelve"
               type="text"
@@ -406,13 +358,12 @@ export default function OnboardingForm() {
           </div>
         </div>
         <div className="sm:col-span-2 my-5">
-          <label className="label" htmlFor="questionThirteen">
+          <Label htmlFor="questionThirteen">
             Como você costuma aprender novos conceitos ou tecnologias
             relacionadas à programação? (Livros, cursos online, tutoriais, etc.)
-          </label>
+          </Label>
           <div className="mt-2">
-            <input
-              className="input"
+            <Input
               id="questionThirteen"
               name="questionThirteen"
               type="text"
@@ -420,20 +371,19 @@ export default function OnboardingForm() {
           </div>
         </div>
         <div className="sm:col-span-2 my-5">
-          <label className="label" htmlFor="questionFourteen">
+          <Label htmlFor="questionFourteen">
             Existe algo específico que você gostaria de aprender ou explorar na
             comunidade?
-          </label>
+          </Label>
           <div className="mt-2">
-            <input
-              className="input"
+            <Input
               id="questionFourteen"
               name="questionFourteen"
               type="text"
             />
           </div>
         </div>
-      </form>
+      </Form>
     </div>
   );
 }

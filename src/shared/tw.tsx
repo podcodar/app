@@ -1,4 +1,6 @@
-export function classes(...classes: string[]) {
+type Optional<T> = T | null | undefined;
+
+export function classes(...classes: Optional<string>[]) {
   return classes.filter(Boolean).join(" ");
 }
 

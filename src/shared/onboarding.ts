@@ -15,6 +15,7 @@ export const educationLevels = [
   "Doutorado Completo",
   "Outro (especifique)",
 ];
+
 export const genders = [
   "Masculino",
   "Feminino",
