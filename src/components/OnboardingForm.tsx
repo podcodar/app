@@ -51,7 +51,7 @@ export default function OnboardingForm() {
                 <Input
                   id="idade"
                   name="idade"
-                  type="text" //As text
+                  type="text"
                 />
               </div>
             </div>
@@ -64,7 +64,7 @@ export default function OnboardingForm() {
                   id="telefone"
                   name="telefone"
                   placeholder="(00) 00000-0000"
-                  type="text" //As text
+                  type="text"
                 />
               </div>
             </div>
