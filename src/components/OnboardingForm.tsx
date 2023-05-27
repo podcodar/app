@@ -31,7 +31,7 @@ export default function OnboardingForm() {
               <Label htmlFor="gender">Gênero</Label>
               <div className="mt-2">
                 <Select
-                  defaultValue={"selected"}
+                  defaultValue={""}
                   id="gender"
                   name="gender"
                 >
@@ -40,6 +40,7 @@ export default function OnboardingForm() {
                       {gender}
                     </option>
                   ))}
+                  <option value="">Selecione</option>
                 </Select>
               </div>
             </div>
@@ -105,7 +106,7 @@ export default function OnboardingForm() {
               <Label htmlFor="education-level">Formação</Label>
               <div className="mt-2">
                 <Select
-                  defaultValue={"selected"}
+                  defaultValue=""
                   id="education-level"
                   name="education-level"
                 >
@@ -114,6 +115,7 @@ export default function OnboardingForm() {
                       {level}
                     </option>
                   ))}
+                  <option value="">Selecione</option>
                 </Select>
               </div>
             </div>
@@ -124,6 +126,7 @@ export default function OnboardingForm() {
                 <Input
                   id="profissao"
                   name="profissao"
+                  placeholder="Opcional"
                   type="text"
                 />
               </div>
@@ -135,6 +138,7 @@ export default function OnboardingForm() {
                 <Input
                   id="empresa-organizacao"
                   name="empresa-organizacao"
+                  placeholder="Opcional"
                   type="text"
                 />
               </div>
@@ -146,6 +150,7 @@ export default function OnboardingForm() {
                 <Input
                   id="github-portifolio"
                   name="github-portifolio"
+                  placeholder="Opcional"
                   type="text"
                 />
               </div>
@@ -157,6 +162,7 @@ export default function OnboardingForm() {
                 <Input
                   id="linkedin"
                   name="linkedin"
+                  placeholder="Opcional"
                   type="text"
                 />
               </div>

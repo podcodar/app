@@ -24,3 +24,5 @@ export const genders = [
   "Agênero",
   "Transgênero",
 ];
+
+genders.sort();
