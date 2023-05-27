@@ -18,7 +18,7 @@ export const Textarea = (
 };
 
 export const Title = (props: HTMLAttributes<HTMLHeadingElement>) => {
-  const styles = ` text-base text-lg text-center font-semibold leading-7 text-white
+  const styles = `text-base text-lg text-center font-semibold leading-7 text-white
   `;
   return <h2 {...props} className={classes(styles, props.className)} />;
 };
