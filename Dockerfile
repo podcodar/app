@@ -1,10 +1,10 @@
 ## base stage
 FROM node:lts-alpine as base
-RUN npm i -g npm &&  npm i -g pnpm concurrently
+WORKDIR /app
+RUN npm i -g npm pnpm concurrently
 
 ## dependencies stage
 FROM base as dependencies
-WORKDIR /app
 COPY package.json pnpm-lock* ./
 COPY prisma ./prisma
 RUN pnpm i && pnpm db:generate

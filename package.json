@@ -13,7 +13,7 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate",
     "db:studio": "prisma studio",
-    "dk:start": "concurrently 'pnpm dev' 'pnpm db:studio'",
+    "dk:start": "concurrently 'pnpm dev' 'pnpm db:studio --browser none'",
     "dc:up": "docker-compose up",
     "dc:down": "docker-compose down",
     "dc:logs": "docker-compose logs",
