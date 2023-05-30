@@ -65,4 +65,20 @@ describe("user test cases", () => {
 
     expect(dependentTasks).toHaveLength(1);
   });
+
+  it("should not be able to add a user with a duplicated username", async () => {
+    const createFailingUser = prisma.user.create({
+      data: {
+        username: "amy",
+        name: "user",
+        email: "test@gmail.com",
+      },
+    });
+
+    expect(createFailingUser).rejects.toThrowError();
+
+    await createFailingUser.catch((e) => {
+      expect((e as Error).message).toContain("username");
+    });
+  });
 });
