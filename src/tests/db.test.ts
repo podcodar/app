@@ -14,4 +14,18 @@ describe("user test cases", () => {
     expect(user).not.toBeNull();
     expect(user?.username).toBe(username);
   });
+
+  it("should be able to fetch user`s tasks", async () => {
+    const user = await prisma.user.findFirst({
+      where: { id: 2 },
+    });
+
+    expect(user).not.toBeNull();
+
+    const userTasks = await prisma.userTasks.findMany({
+      where: { userId: user!.id },
+    });
+
+    expect(userTasks).toHaveLength(2);
+  });
 });
