@@ -11,8 +11,9 @@
     "lint": "next lint",
     "analyze": "ANALYZE=true yarn build",
     "db:generate": "prisma generate",
-    "db:migrate": "dotenv -e .env.local prisma migrate",
-    "db:studio": "dotenv -e .env.local prisma studio",
+    "db:migrate": "prisma migrate",
+    "db:studio": "prisma studio",
+    "dk:start": "concurrently 'pnpm dev' 'pnpm dev'",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -34,7 +35,7 @@
     "@mermaid-js/mermaid-cli": "^10.1.0",
     "@podcodar/eslint-config-next": "^1.6.0",
     "autoprefixer": "^10.4.14",
-    "dotenv-cli": "^7.2.1",
+    "concurrently": "^8.0.1",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
     "postcss": "^8.4.23",
