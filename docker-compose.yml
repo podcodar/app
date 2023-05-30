@@ -1,23 +1,32 @@
-version: "3"
+version: "3.8"
 
 services:
   app:
-    build: .
-    env_file: .env.development
+    build:
+      context: .
+      target: development
+    env_file: .env.postgres
+    restart: always
     ports:
       - "3000:3000" # app
       - "5555:5555" # studio
     volumes:
       - .:/app
+      - /app/node_modules
     depends_on:
       - db
 
   db:
     image: postgres
-    env_file: .env.development
+    env_file: .env.postgres
     ports:
       - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
 
 networks:
   default:
     name: podcodar-app
+
+volumes:
+  db:
