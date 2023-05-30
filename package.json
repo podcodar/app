@@ -15,9 +15,10 @@
     "db:migrate": "prisma migrate",
     "db:studio": "prisma studio",
     "dk:start": "concurrently 'pnpm dev' 'pnpm db:studio --browser none'",
-    "dc:up": "docker-compose up",
-    "dc:down": "docker-compose down",
-    "dc:logs": "docker-compose logs",
+    "app:up": "docker-compose up app",
+    "e2e:up": "docker-compose up integration-test",
+    "down": "docker-compose down",
+    "logs": "docker-compose logs",
     "shell": "docker-compose exec app /bin/sh",
     "prepare": "husky install"
   },
