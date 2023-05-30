@@ -43,4 +43,26 @@ describe("user test cases", () => {
       expect(userTasks.length).toBeGreaterThan(0);
     }
   });
+
+  it("should be able to fetch dependent tasks from a giving task", async () => {
+    const task = await prisma.task.findFirst({ where: { id: 2 } });
+
+    expect(task).not.toBeNull();
+
+    let dependentTasks = await prisma.tasksDependencies.findMany({
+      where: { task: task! },
+    });
+
+    expect(dependentTasks).toHaveLength(0);
+
+    const anotherTask = await prisma.task.findFirst({ where: { id: 1 } });
+
+    expect(anotherTask).not.toBeNull();
+
+    dependentTasks = await prisma.tasksDependencies.findMany({
+      where: { task: anotherTask! },
+    });
+
+    expect(dependentTasks).toHaveLength(1);
+  });
 });
