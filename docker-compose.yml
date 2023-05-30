@@ -20,6 +20,7 @@ services:
     build:
       context: .
       target: development
+    container_name: "e2e-test"
     env_file: .env.postgres.test
     command:
       - /bin/sh
@@ -33,8 +34,6 @@ services:
       - /app/node_modules
     depends_on:
       - db
-    profiles:
-      - test
 
   db:
     image: postgres
