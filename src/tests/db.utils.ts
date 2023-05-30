@@ -4,9 +4,9 @@ export const seed = async () => {
   // create product categories
   await prisma.user.createMany({
     data: [
-      { email: "amy@example.com", name: "Amy", username: "amy" },
-      { email: "josh@example.com", name: "Josh", username: "josh" },
-      { email: "danny@example.com", name: "Danny", username: "danny" },
+      { id: 1, email: "amy@example.com", name: "Amy", username: "amy" },
+      { id: 2, email: "josh@example.com", name: "Josh", username: "josh" },
+      { id: 3, email: "danny@example.com", name: "Danny", username: "danny" },
     ],
   });
 
