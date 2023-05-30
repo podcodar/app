@@ -8,8 +8,8 @@ ADMIN ADMIN
     
   "User" {
     Int id "🗝️"
-    String email 
     String name 
+    String email 
     String username 
     Roles roles 
     }
