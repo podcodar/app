@@ -11,6 +11,16 @@
       "database": "podcodar-app-db",
       "username": "podcodar",
       "password": "my-password"
+    },
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "podcoadr-test-db",
+      "username": "podcodar",
+      "database": "podcodar-app-test-db",
+      "password": "my-password"
     }
   ]
 }

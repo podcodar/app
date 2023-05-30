@@ -16,6 +16,26 @@ services:
     depends_on:
       - db
 
+  integration-test:
+    build:
+      context: .
+      target: development
+    env_file: .env.postgres.test
+    command:
+      - /bin/sh
+      - -c
+      - |
+        pnpm db:migrate reset --force
+        pnpm db:migrate dev
+        pnpm test
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - db
+    profiles:
+      - test
+
   db:
     image: postgres
     env_file: .env.postgres
