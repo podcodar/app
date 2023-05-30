@@ -1,3 +1,6 @@
 {
-  "extends": "@podcodar/eslint-config-next"
+  "extends": "@podcodar/eslint-config-next",
+  "env": {
+    "jest": true
+  }
 }
