@@ -5,34 +5,34 @@ erDiagram
             USER USER
 ADMIN ADMIN
         }
-
+    
   "User" {
     Int id "🗝️"
-    String email
-    String name
-    String username
-    Roles roles
+    String email 
+    String name 
+    String username 
+    Roles roles 
     }
-
+  
 
   "Task" {
     Int id "🗝️"
-    String title
-    String description
+    String title 
+    String description 
     }
-
+  
 
   "UserTasks" {
-    Boolean completed
-    DateTime createdAt
-    DateTime updatedAt
+    Boolean completed 
+    DateTime createdAt 
+    DateTime updatedAt 
     }
-
+  
 
   "TasksDependencies" {
 
     }
-
+  
     "User" o|--}o "Roles" : "enum:roles"
     "User" o{--}o "UserTasks" : "tasks"
     "Task" o{--}o "UserTasks" : "users"
