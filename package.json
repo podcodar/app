@@ -9,11 +9,15 @@
     "fmt": "prettier --write . && next lint --fix",
     "lint-staged": "lint-staged",
     "lint": "next lint",
-    "analyze": "ANALYZE=true yarn build",
+    "analyze": "ANALYZE=true pnpm build",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate",
     "db:studio": "prisma studio",
-    "dk:start": "concurrently 'pnpm dev' 'pnpm dev'",
+    "dk:start": "concurrently 'pnpm dev' 'pnpm db:studio'",
+    "dc:up": "docker-compose up",
+    "dc:down": "docker-compose down",
+    "dc:logs": "docker-compose logs",
+    "shell": "docker-compose exec app /bin/sh",
     "prepare": "husky install"
   },
   "dependencies": {
