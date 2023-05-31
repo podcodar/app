@@ -1,3 +1,9 @@
+"use client";
+import { genders, educationLevels } from "@/shared/onboarding";
+import { formSchema } from "@/shared/onboarding";
+import { TypeFormSchema } from "@/shared/tw";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Input,
   Label,
@@ -6,12 +12,23 @@ import {
   Title,
   Textarea,
 } from "@/shared/components";
-import { genders, educationLevels } from "@/shared/onboarding";
 
 export default function OnboardingForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TypeFormSchema>({
+    resolver: zodResolver(formSchema),
+  });
+
+  function onSubmit(data: TypeFormSchema) {
+    console.log(data);
+  }
+
   return (
     <div className="absolute h-screen w-screen z-10 top-0 left-0 bg-slate-800 overflow-auto">
-      <Form>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <div className=" border-gray-900/10">
           <Title> Formulário de Inscrição</Title>
 
@@ -21,9 +38,10 @@ export default function OnboardingForm() {
               <div className="mt-2">
                 <Input
                   id="nome-social"
-                  name="nome-social"
                   type="text"
+                  {...register("nomeSocial")}
                 />
+                {errors.nomeSocial && <span>{errors.nomeSocial.message}</span>}
               </div>
             </div>
 
@@ -33,7 +51,7 @@ export default function OnboardingForm() {
                 <Select
                   defaultValue={""}
                   id="gender"
-                  name="gender"
+                  {...register("gender")}
                 >
                   {genders.map((gender) => (
                     <option key={gender} value={gender}>
@@ -50,9 +68,10 @@ export default function OnboardingForm() {
               <div className="mt-2">
                 <Input
                   id="idade"
-                  name="idade"
-                  type="text"
+                  type="number"
+                  {...register("idade")}
                 />
+                {errors.idade && <span>{errors.idade.message}</span>}
               </div>
             </div>
 
@@ -62,11 +81,12 @@ export default function OnboardingForm() {
                 <Input
                   className="placeholder-gray-400"
                   id="telefone"
-                  name="telefone"
-                  placeholder="(00) 00000-0000"
-                  type="text"
+                  placeholder="00 00000 0000"
+                  type="number"
+                  {...register("telefone")}
                 />
               </div>
+              {errors.telefone && <span>{errors.telefone.message}</span>}
             </div>
 
             <div className="sm:col-span-22">
@@ -74,10 +94,11 @@ export default function OnboardingForm() {
               <div className="mt-2">
                 <Input
                   id="pais"
-                  name="pais"
                   type="text"
+                  {...register("pais")}
                 />
               </div>
+              {errors.pais && <span>{errors.pais.message}</span>}
             </div>
 
             <div className="sm:col-span-2">
@@ -85,10 +106,13 @@ export default function OnboardingForm() {
               <div className="mt-2">
                 <Input
                   id="cidade-estado"
-                  name="cidade-estado"
                   type="text"
+                  {...register("cidadeEstado")}
                 />
               </div>
+              {errors.cidadeEstado && (
+                <span>{errors.cidadeEstado.message}</span>
+              )}
             </div>
 
             <div className="sm:col-span-2">
@@ -96,10 +120,11 @@ export default function OnboardingForm() {
               <div className="mt-2">
                 <Input
                   id="email"
-                  name="email"
                   type="email"
+                  {...register("email")}
                 />
               </div>
+              {errors.email && <span>{errors.email.message}</span>}
             </div>
 
             <div className="sm:col-span-2">
@@ -125,9 +150,9 @@ export default function OnboardingForm() {
               <div className="mt-2">
                 <Input
                   id="profissao"
-                  name="profissao"
                   placeholder="Opcional"
                   type="text"
+                  {...register("profissao")}
                 />
               </div>
             </div>
@@ -137,9 +162,9 @@ export default function OnboardingForm() {
               <div className="mt-2">
                 <Input
                   id="empresa-organizacao"
-                  name="empresa-organizacao"
                   placeholder="Opcional"
                   type="text"
+                  {...register("empresaOrganizacao")}
                 />
               </div>
             </div>
@@ -149,9 +174,9 @@ export default function OnboardingForm() {
               <div className="mt-2">
                 <Input
                   id="github-portifolio"
-                  name="github-portifolio"
                   placeholder="Opcional"
                   type="text"
+                  {...register("githubPortifolio")}
                 />
               </div>
             </div>
@@ -161,17 +186,18 @@ export default function OnboardingForm() {
               <div className="mt-2">
                 <Input
                   id="linkedin"
-                  name="linkedin"
                   placeholder="Opcional"
                   type="text"
+                  {...register("linkedin")}
                 />
               </div>
             </div>
           </div>
         </div>
+        <button type="submit"> Enviar </button>
       </Form>
 
-      <Form>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <div className="sm:col-span-2">
           <Label className="text-lg mb-8" htmlFor="q-one">
             Estamos ansiosos para conhecê-lo melhor! Por favor, compartilhe um
@@ -179,12 +205,17 @@ export default function OnboardingForm() {
             tecnologia que mais despertam o seu interesse.
           </Label>
           <div className="mt-2">
-            <Textarea id="q-one" rows={5} />
+            <Textarea
+              id="q-one"
+              rows={5}
+              {...register("qOne")}
+            />
           </div>
         </div>
+        <button type="submit"> Enviar </button>
       </Form>
 
-      <Form>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <div className="sm:col-span-2">
           <Label className="text-lg mb-8" htmlFor="q-two">
             Por favor, compartilhe conosco o motivo pelo qual você deseja
@@ -192,9 +223,14 @@ export default function OnboardingForm() {
             participando da comunidade?
           </Label>
           <div className="mt-2">
-            <Textarea id="q-two" rows={5} />
+            <Textarea
+              id="q-two"
+              rows={5}
+              {...register("qTwo")}
+            />
           </div>
         </div>
+        <button type="submit"> Enviar </button>
       </Form>
     </div>
   );
