@@ -9,7 +9,6 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import { getUserSession } from "@/entities/users";
-import makeImageSizes from "@/shared/makeImageSizes";
 
 type Props = {
   session: Session | null;
@@ -28,24 +27,30 @@ const infoList = [
 export default function Profile({ session, username }: Props) {
   const { name, image } = getUserSession(session);
 
-  const imageSizes = {
-    small: "20vw",
-    medium: "20vw",
-    large: "20vw",
-  };
+  <div className="max-w-[200px] max-h-[200px] flex flex-1">
+    <Image
+      alt={name}
+      className="h-full w-full object-cover"
+      height={200}
+      src={image}
+      width={200}
+    />
+  </div>;
 
   return (
     <div className="p-4 w-full rounded-lg bg-podPurple">
       <div className="flex flex-col items-center justify-center lg:justify-between lg:flex-row gap-4 items-center min-w-[270px]">
         <div className="relative rounded-full min-h-[200px] min-w-[200px] border border-white border-8">
           {image ? (
-            <Image
-              alt={name}
-              className="object-contain rounded-full"
-              fill
-              sizes={makeImageSizes(imageSizes)}
-              src={image}
-            />
+            <div className="max-w-[200px] max-h-[200px] flex flex-1">
+              <Image
+                alt={name}
+                className="rounded-full h-full w-full object-cover"
+                height={200}
+                src={image}
+                width={200}
+              />
+            </div>
           ) : (
             <UserIcon className="text-white" />
           )}
