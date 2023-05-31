@@ -7,6 +7,7 @@ import {
   HTMLAttributes,
   TextareaHTMLAttributes,
 } from "react";
+import NextImage, { ImageProps } from "next/image";
 
 const focusStyles = "focus:ring-2 focus:ring-inset focus:ring-indigo-600";
 
@@ -51,4 +52,14 @@ export const Input = (props: InputHTMLAttributes<HTMLInputElement>) => {
     ${focusStyles}
   `;
   return <input {...props} className={classes(styles, props.className)} />;
+};
+
+export const Image = (props: ImageProps) => {
+  const wrapperStyle = `max-w-[${props.width}px] max-h-[${props.height}px] flex flex-1`;
+  const imageStyle = "h-full w-full object-cover";
+  return (
+    <div className={wrapperStyle}>
+      <NextImage {...props} className={classes(imageStyle, props.className)} />
+    </div>
+  );
 };

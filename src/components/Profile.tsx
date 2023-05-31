@@ -1,5 +1,5 @@
 import { Session } from "next-auth";
-import Image from "next/image";
+import { Image } from "@/shared/components";
 import {
   BuildingOfficeIcon,
   LinkIcon,
@@ -27,30 +27,18 @@ const infoList = [
 export default function Profile({ session, username }: Props) {
   const { name, image } = getUserSession(session);
 
-  <div className="max-w-[200px] max-h-[200px] flex flex-1">
-    <Image
-      alt={name}
-      className="h-full w-full object-cover"
-      height={200}
-      src={image}
-      width={200}
-    />
-  </div>;
-
   return (
-    <div className="p-4 w-full rounded-lg bg-podPurple">
-      <div className="flex flex-col items-center justify-center lg:justify-between lg:flex-row gap-4 items-center min-w-[270px]">
-        <div className="relative rounded-full min-h-[200px] min-w-[200px] border border-white border-8">
+    <div className="p-4 w-full rounded-lg bg-pod-purple">
+      <div className="flex flex-col justify-center lg:justify-between lg:flex-row gap-4 items-center min-w-[270px]">
+        <div className="relative rounded-full min-h-[200px] min-w-[200px] border-white border-8">
           {image ? (
-            <div className="max-w-[200px] max-h-[200px] flex flex-1">
-              <Image
-                alt={name}
-                className="rounded-full h-full w-full object-cover"
-                height={200}
-                src={image}
-                width={200}
-              />
-            </div>
+            <Image
+              alt={name}
+              className="rounded-full"
+              height={200}
+              src={image}
+              width={200}
+            />
           ) : (
             <UserIcon className="text-white" />
           )}
