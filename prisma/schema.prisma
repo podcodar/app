@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "./erd.md"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("POSTGRES_URL")
+}
+
+model User {
+  id       Int         @id @default(autoincrement())
+  name     String
+  email    String      @unique
+  username String      @unique
+  roles    Roles[]
+  tasks    UserTasks[]
+}
+
+enum Roles {
+  USER
+  ADMIN
+}
+
+model Task {
+  id          Int                 @id @default(autoincrement())
+  title       String              @unique
+  description String
+  users       UserTasks[]
+  followUp    TasksDependencies[] @relation("followUp")
+  dependsOn   TasksDependencies[] @relation("dependsOn")
+}
+
+model UserTasks {
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  Task      Task     @relation(fields: [taskId], references: [id])
+  taskId    Int
+  completed Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([userId, taskId])
+}
+
+model TasksDependencies {
+  task            Task @relation("followUp", fields: [taskId], references: [id])
+  taskId          Int
+  dependentTask   Task @relation("dependsOn", fields: [dependentTaskId], references: [id])
+  dependentTaskId Int
+
+  @@id([taskId, dependentTaskId])
+}

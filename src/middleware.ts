@@ -11,6 +11,7 @@ export function middleware(request: NextRequest) {
   });
 }
 
+export const runtime = "nodejs";
 export const config = {
   matcher: ["/app/:path*", "/admin/:path*"],
 };
