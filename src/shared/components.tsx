@@ -28,15 +28,13 @@ export const Textarea = forwardRef(function CustomTextarea(
 });
 
 export const Title = (props: HTMLAttributes<HTMLHeadingElement>) => {
-  const styles = `text-base text-lg text-center font-semibold leading-7 text-white
-  `;
+  const styles =
+    "text-base text-lg text-center font-semibold leading-7 text-white";
   return <h2 {...props} className={classes(styles, props.className)} />;
 };
 
 export const Form = (props: FormHTMLAttributes<HTMLFormElement>) => {
-  const styles = `
-  bg-pod-purple w-full  mx-auto my-10 p-8 rounded-lg
-  md:w-9/12`;
+  const styles = "bg-pod-purple w-full mx-auto my-10 p-8 rounded-lg md:w-9/12";
   return <form {...props} className={classes(styles, props.className)} />;
 };
 
@@ -45,7 +43,8 @@ export const Select = forwardRef(function CustomSelect(
   ref: LegacyRef<HTMLSelectElement>
 ) {
   const styles = `
-    block w-full rounded-md border-0 py-1.5 px-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300
+    block w-full rounded-md border-0 py-1.5 px-1.5 text-black
+    shadow-sm ring-1 ring-inset ring-gray-300
     sm:max-w-xs sm:text-sm sm:leading-6
     ${focusStyles}
   `;
@@ -68,10 +67,11 @@ export const Input = forwardRef(function CustomInput(
   ref: LegacyRef<HTMLInputElement>
 ) {
   const styles = ` 
-      block w-full rounded-md border-0 py-1.5 px-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300  
-      placeholder:text-gray-400 sm:text-sm sm:leading-6 
-      ${focusStyles}
-    `;
+    block w-full rounded-md border-0 py-1.5 px-1.5 text-black
+    shadow-sm ring-1 ring-inset ring-gray-300
+    placeholder:text-gray-400 sm:text-sm sm:leading-6 
+    ${focusStyles}
+  `;
   return (
     <input
       {...props}
