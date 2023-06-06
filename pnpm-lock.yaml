@@ -7,9 +7,15 @@ dependencies:
   "@heroicons/react":
     specifier: ^2.0.18
     version: 2.0.18(react@18.2.0)
+  "@hookform/resolvers":
+    specifier: ^3.1.0
+    version: 3.1.0(react-hook-form@7.44.2)
   "@next/bundle-analyzer":
     specifier: ^13.4.4
     version: 13.4.4
+  "@prisma/client":
+    specifier: 4.15.0
+    version: 4.15.0(prisma@4.15.0)
   "@types/node":
     specifier: 18.16.3
     version: 18.16.3
@@ -37,9 +43,15 @@ dependencies:
   react-dom:
     specifier: 18.2.0
     version: 18.2.0(react@18.2.0)
+  react-hook-form:
+    specifier: ^7.44.2
+    version: 7.44.2(react@18.2.0)
   typescript:
     specifier: 5.0.2
     version: 5.0.2
+  zod:
+    specifier: ^3.21.4
+    version: 3.21.4
 
 devDependencies:
   "@mermaid-js/mermaid-cli":
@@ -634,6 +646,17 @@ packages:
       react: ">= 16"
     dependencies:
       react: 18.2.0
+    dev: false
+
+  /@hookform/resolvers@3.1.0(react-hook-form@7.44.2):
+    resolution:
+      {
+        integrity: sha512-z0A8K+Nxq+f83Whm/ajlwE6VtQlp/yPHZnXw7XWVPIGm1Vx0QV8KThU3BpbBRfAZ7/dYqCKKBNnQh85BkmBKkA==,
+      }
+    peerDependencies:
+      react-hook-form: ^7.0.0
+    dependencies:
+      react-hook-form: 7.44.2(react@18.2.0)
     dev: false
 
   /@humanwhocodes/config-array@0.11.8:
@@ -1275,7 +1298,6 @@ packages:
     dependencies:
       "@prisma/engines-version": 4.15.0-28.8fbc245156db7124f997f4cecdd8d1219e360944
       prisma: 4.15.0
-    dev: true
 
   /@prisma/debug@4.15.0:
     resolution:
@@ -1295,7 +1317,6 @@ packages:
       {
         integrity: sha512-sVOig4tjGxxlYaFcXgE71f/rtFhzyYrfyfNFUsxCIEJyVKU9rdOWIlIwQ2NQ7PntvGnn+x0XuFo4OC1jvPJKzg==,
       }
-    dev: true
 
   /@prisma/engines@4.15.0:
     resolution:
@@ -1303,7 +1324,6 @@ packages:
         integrity: sha512-FTaOCGs0LL0OW68juZlGxFtYviZa4xdQj/rQEdat2txw0s3Vu/saAPKjNVXfIgUsGXmQ72HPgNr6935/P8FNAA==,
       }
     requiresBuild: true
-    dev: true
 
   /@prisma/generator-helper@4.15.0:
     resolution:
@@ -6424,7 +6444,6 @@ packages:
     requiresBuild: true
     dependencies:
       "@prisma/engines": 4.15.0
-    dev: true
 
   /progress@2.0.3:
     resolution:
@@ -6569,6 +6588,18 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+
+  /react-hook-form@7.44.2(react@18.2.0):
+    resolution:
+      {
+        integrity: sha512-IyihmIbCwzDI/iqlecTRa7+4BCnzNx40upSlGvIU7qwENhTf6APatm4bmL9ANtWKPYlD67SIlxfls7GwCUe+Lg==,
+      }
+    engines: { node: ">=12.22.0" }
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /react-is@16.13.1:
     resolution:

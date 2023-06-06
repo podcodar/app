@@ -34,7 +34,7 @@ function ExpandableTaskItem({ item }: { item: TaskItem }) {
 
   useEffect(() => {
     storage.set(isChecked);
-  }, [isChecked]);
+  }, [isChecked, storage]);
 
   const icon = (
     <span className="block h-6 w-6">
