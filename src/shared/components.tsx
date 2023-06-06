@@ -75,17 +75,17 @@ export const Input = forwardRef(
     props: InputHTMLAttributes<HTMLInputElement>,
     ref: LegacyRef<HTMLInputElement>
   ) => {
-    const styles = `
-    block w-full rounded-md border-0 py-1.5 px-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300
-    placeholder:text-gray-400 sm:text-sm sm:leading-6
-    ${focusStyles}
-  `;
-  return (
-  <input
-    {...props}
-    className={classes(styles, props.className)}
-    ref={ref}
-  />
+    const styles = ` 
+      block w-full rounded-md border-0 py-1.5 px-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300  
+      placeholder:text-gray-400 sm:text-sm sm:leading-6 
+      ${focusStyles}
+    `;
+    return (
+      <input
+        {...props}
+        className={classes(styles, props.className)}
+        ref={ref}
+      />
     );
   }
 );
