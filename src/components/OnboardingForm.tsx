@@ -1,7 +1,7 @@
 "use client";
 import { genders, educationLevels } from "@/shared/onboarding";
 import { formSchema } from "@/shared/onboarding";
-import { TypeFormSchema } from "@/shared/tw";
+import { FormSchema } from "@/shared/onboarding";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -18,11 +18,11 @@ export default function OnboardingForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TypeFormSchema>({
+  } = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
   });
 
-  function onSubmit(data: TypeFormSchema) {
+  function onSubmit(data: FormSchema) {
     console.log(data);
   }
 

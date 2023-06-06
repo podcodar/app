@@ -29,6 +29,8 @@ export const genders = [
   "Prefiro não responder",
 ];
 
+export type FormSchema = z.infer<typeof formSchema>;
+
 export const formSchema = z.object({
   nomeSocial: z
     .string()

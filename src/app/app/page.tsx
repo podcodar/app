@@ -1,6 +1,5 @@
 import TaskList from "@/components/TaskList";
 import { items } from "@/shared/settings";
-import * as React from "react";
 
 export default function Dashboard() {
   return (
