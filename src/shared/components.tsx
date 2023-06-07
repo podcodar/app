@@ -2,7 +2,6 @@ import tw from "tailwind-styled-components";
 import { classes } from "@/shared/tw";
 import {
   InputHTMLAttributes,
-  LabelHTMLAttributes,
   SelectHTMLAttributes,
   FormHTMLAttributes,
   HTMLAttributes,
@@ -58,10 +57,14 @@ export const Select = forwardRef(function CustomSelect(
   );
 });
 
-export const Label = (props: LabelHTMLAttributes<HTMLLabelElement>) => {
-  const styles = "block text-sm font-medium leading-6 text-white text-justify";
-  return <label {...props} className={classes(styles, props.className)} />;
-};
+export const Label = tw.label`
+  block
+  text-sm
+  font-medium
+  leading-6
+  text-white
+  text-justify
+`;
 
 export const Input = forwardRef(function CustomInput(
   props: InputHTMLAttributes<HTMLInputElement>,
