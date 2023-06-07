@@ -29,8 +29,8 @@ export default function Profile({ session, username }: Props) {
 
   return (
     <div className="p-4 w-full rounded-lg bg-pod-purple">
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 w-1/2 lg:w-full mx-auto items-center min-w-[270px]">
-        <div className="relative rounded-full min-h-[200px] min-w-[200px] border-white border-8 mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 w-1/2 lg:w-full mx-auto items-center min-w-[17rem]">
+        <div className="relative rounded-full min-h-[12rem] min-w-[12rem] border-white border-8 mx-auto">
           {image ? (
             <Image
               alt={name}
