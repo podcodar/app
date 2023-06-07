@@ -102,6 +102,9 @@ devDependencies:
   prisma-erd-generator:
     specifier: ^1.7.0
     version: 1.7.0(@mermaid-js/mermaid-cli@10.1.0)(@prisma/client@4.15.0)(@prisma/generator-helper@4.15.0)
+  tailwind-styled-components:
+    specifier: ^2.2.0
+    version: 2.2.0(react-dom@18.2.0)(react@18.2.0)
   tailwindcss:
     specifier: ^3.3.2
     version: 3.3.2(ts-node@10.9.1)
@@ -7307,6 +7310,27 @@ packages:
     dependencies:
       "@pkgr/utils": 2.4.1
       tslib: 2.5.2
+
+  /tailwind-merge@1.13.0:
+    resolution:
+      {
+        integrity: sha512-mUTmDbcU+IhOvJ0c42eLQ/nRkvolTqfpVaVQRSxfJAv9TabS6Y2zW/1wKpKLdKzyL3Gh8j6NTLl6MWNmvOM6kA==,
+      }
+    dev: true
+
+  /tailwind-styled-components@2.2.0(react-dom@18.2.0)(react@18.2.0):
+    resolution:
+      {
+        integrity: sha512-Ogemwk0p69aU8WE/ooJZHjqstdJgT5R6HGU6TFz2uSnveSEtvW+C6aWOjGCvCr5H/bREv0IbbQ4yODknRrLBRQ==,
+      }
+    peerDependencies:
+      react: ">= 16.8.0"
+      react-dom: ">= 16.8.0"
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      tailwind-merge: 1.13.0
+    dev: true
 
   /tailwindcss@3.3.2(ts-node@10.9.1):
     resolution:
