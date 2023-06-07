@@ -82,15 +82,26 @@ export const Input = forwardRef(function CustomInput(
   );
 });
 
-export const Image = (props: ImageProps) => {
-  const wrapperStyle = `max-w-[${props.width}px] max-h-[${props.height}px] flex flex-1`;
-  const imageStyle = "h-full w-full object-cover";
-  return (
-    <div className={wrapperStyle}>
-      <NextImage {...props} className={classes(imageStyle, props.className)} />
-    </div>
-  );
-};
+export const Image = (props: ImageProps) => (
+  <ImageWrapper height={props.height} width={props.width}>
+    <ImageStyled {...props} />
+  </ImageWrapper>
+);
+
+type WrapperProps = Pick<ImageProps, "width" | "height">;
+
+const ImageWrapper = tw.div<WrapperProps>`
+  flex
+  flex-1
+  max-w-[${(p) => p.width}px]
+  max-h-[${(p) => p.height}px]
+`;
+
+const ImageStyled = tw(NextImage)`
+  h-full
+  w-full
+  object-cover
+`;
 
 export const Container = tw.div`
   mx-auto
