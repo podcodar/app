@@ -15,7 +15,7 @@ export default function Form() {
   const searchParams = useSearchParams();
   const urlStep = searchParams.get("step") ?? "0";
 
-  const { step, hasNext, hasPrevious, moveNextStep, movePrevStep } =
+  const { step, canMoveNext, canMovePrevious, moveNextStep, movePrevStep } =
     useOnboardingForm(parseInt(urlStep, 10));
 
   const content = steps[step];
@@ -28,7 +28,7 @@ export default function Form() {
         <div className="bg-red-100 flex justify-between">
           <button
             className="disabled:text-gray-400"
-            disabled={!hasPrevious}
+            disabled={!canMovePrevious}
             onClick={movePrevStep}
           >
             prev
@@ -46,7 +46,7 @@ export default function Form() {
 
           <button
             className="disabled:text-gray-400"
-            disabled={!hasNext}
+            disabled={!canMoveNext}
             onClick={moveNextStep}
           >
             next
