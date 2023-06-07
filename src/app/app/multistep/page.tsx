@@ -1,6 +1,7 @@
 "use client";
 import OnboardingRegistrationForm from "@/components/forms/OnboardingRegistrationForm";
 import { useOnboardingForm } from "@/hooks/useOnboardingForm";
+import { useSearchParams } from "next/navigation";
 
 const steps = [
   <OnboardingRegistrationForm key={0} />,
@@ -11,8 +12,12 @@ const steps = [
 ];
 
 export default function Form() {
+  const searchParams = useSearchParams();
+  const urlStep = searchParams.get("step") ?? "0";
+
   const { step, hasNext, hasPrevious, moveNextStep, movePrevStep } =
-    useOnboardingForm(); // TODO: get initial state from query params
+    useOnboardingForm(parseInt(urlStep, 10));
+
   const content = steps[step];
 
   return (
