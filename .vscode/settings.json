@@ -1,6 +1,14 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
+  "editor.quickSuggestions": {
+    "strings": true // forces VS Code to trigger completions when editing "string" content
+  },
+  "tailwindCSS.experimental.classRegex": [
+    "tw`([^`]*)", // tw`...`
+    "tw\\.[^`]+`([^`]*)`", // tw.xxx<xxx>`...`
+    "tw\\(.*?\\).*?`([^`]*)" // tw(Component)<xxx>`...`
+  ],
   "sqltools.connections": [
     {
       "previewLimit": 50,
