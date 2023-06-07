@@ -5,7 +5,7 @@ import { PropsWithChildren } from "react";
 import AuthProvider from "@/contexts/AuthProvider";
 import { authOptions, makeRedirectURL, getOriginPath } from "@/shared/auth";
 import Navbar from "@/components/Navbar";
-import { container } from "@/shared/tw";
+import { Container } from "@/shared/components";
 
 export const metadata: Metadata = {
   title: "PodCodar Admin",
@@ -25,11 +25,11 @@ export default async function RootLayout({ children }: PropsWithChildren) {
         <header className="bg-white shadow">
           <Navbar />
 
-          <div className={container}>
+          <Container>
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">
               Dashboard
             </h1>
-          </div>
+          </Container>
         </header>
 
         {children}
