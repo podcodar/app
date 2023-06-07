@@ -29,8 +29,8 @@ export default function Profile({ session, username }: Props) {
 
   return (
     <div className="p-4 w-full rounded-lg bg-pod-purple">
-      <div className="flex flex-col justify-center lg:justify-between lg:flex-row gap-4 items-center min-w-[270px]">
-        <div className="relative rounded-full min-h-[200px] min-w-[200px] border-white border-8">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 w-1/2 lg:w-full mx-auto items-center min-w-[17rem]">
+        <div className="relative rounded-full min-h-[12rem] min-w-[12rem] border-white border-8 mx-auto">
           {image ? (
             <Image
               alt={name}
@@ -43,13 +43,15 @@ export default function Profile({ session, username }: Props) {
             <UserIcon className="text-white" />
           )}
         </div>
-        <div className="flex flex-col text-white pb-4 lg:pb-0 border-slate-300">
-          <h1 className="text-3xl font-bold tracking-tight">{name}</h1>
-          <p className="text-slate-300">@{username}</p>
-          <p className="mt-4 text-xl">Software Engineer</p>
+        <div className="grid grid-cols-1 text-white pb-4 lg:pb-0 border-slate-300 border-b lg:border-none">
+          <h1 className="text-3xl font-bold tracking-tight mx-auto lg:mx-0">
+            {name}
+          </h1>
+          <p className="text-slate-300 mx-auto lg:mx-0">@{username}</p>
+          <p className="mt-4 text-xl mx-auto lg:mx-0">Software Engineer</p>
         </div>
-        <div className="flex flex-col items-start lg:items-center text-white pb-4 lg:pb-0 border-slate-300 min-w-[200px]">
-          <ul className="flex flex-col gap-2 list-none my-auto lg:flex-wrap">
+        <div className="grid grid-cols-1 text-white pb-4 lg:pb-0 border-slate-300 border-b lg:border-none">
+          <ul className="grid grid-cols-1 gap-2 list-none my-auto">
             {infoList.map((item) => {
               return (
                 <li className="flex gap-2" key={item.title}>
@@ -60,7 +62,7 @@ export default function Profile({ session, username }: Props) {
             })}
           </ul>
         </div>
-        <div className="flex flex-col justify-start lg:self-start text-white pb-4 lg:pb-0 border-slate-300">
+        <div className="grid grid-cols-1 justify-start lg:self-start text-white pb-4 lg:pb-0 border-slate-300">
           <h1 className="text-xl">Conquistas</h1>
           <div className="flex flex-wrap">
             <StarIcon className="h-12" />
