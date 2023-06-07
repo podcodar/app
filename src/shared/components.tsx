@@ -3,8 +3,6 @@ import { classes } from "@/shared/tw";
 import {
   InputHTMLAttributes,
   SelectHTMLAttributes,
-  FormHTMLAttributes,
-  HTMLAttributes,
   TextareaHTMLAttributes,
 } from "react";
 import NextImage, { ImageProps } from "next/image";
@@ -27,16 +25,23 @@ export const Textarea = forwardRef(function CustomTextarea(
   );
 });
 
-export const Title = (props: HTMLAttributes<HTMLHeadingElement>) => {
-  const styles =
-    "text-base text-lg text-center font-semibold leading-7 text-white";
-  return <h2 {...props} className={classes(styles, props.className)} />;
-};
+export const Title = tw.h1`
+  text-lg
+  text-center
+  font-semibold
+  leading-7
+  text-white
+`;
 
-export const Form = (props: FormHTMLAttributes<HTMLFormElement>) => {
-  const styles = "bg-pod-purple w-full mx-auto my-10 p-8 rounded-lg md:w-9/12";
-  return <form {...props} className={classes(styles, props.className)} />;
-};
+export const Form = tw.form`
+  bg-pod-purple
+  w-full
+  mx-auto
+  my-10
+  p-8
+  rounded-lg
+  md:w-9/12
+`;
 
 export const Select = forwardRef(function CustomSelect(
   props: SelectHTMLAttributes<HTMLSelectElement>,
