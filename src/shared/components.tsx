@@ -1,29 +1,5 @@
 import tw from "tailwind-styled-components";
-import { classes } from "@/shared/tw";
-import {
-  InputHTMLAttributes,
-  SelectHTMLAttributes,
-  TextareaHTMLAttributes,
-} from "react";
 import NextImage, { ImageProps } from "next/image";
-
-import { forwardRef, LegacyRef } from "react";
-
-const focusStyles = "focus:ring-2 focus:ring-inset focus:ring-indigo-600";
-
-export const Textarea = forwardRef(function CustomTextarea(
-  props: TextareaHTMLAttributes<HTMLTextAreaElement>,
-  ref: LegacyRef<HTMLTextAreaElement>
-) {
-  const styles = "w-full rounded-lg border-gray-200 p-3 text-sm";
-  return (
-    <textarea
-      {...props}
-      className={classes(styles, props.className)}
-      ref={ref}
-    />
-  );
-});
 
 export const Title = tw.h1`
   text-lg
@@ -43,25 +19,6 @@ export const Form = tw.form`
   md:w-9/12
 `;
 
-export const Select = forwardRef(function CustomSelect(
-  props: SelectHTMLAttributes<HTMLSelectElement>,
-  ref: LegacyRef<HTMLSelectElement>
-) {
-  const styles = `
-    block w-full rounded-md border-0 py-1.5 px-1.5 text-black
-    shadow-sm ring-1 ring-inset ring-gray-300
-    sm:max-w-xs sm:text-sm sm:leading-6
-    ${focusStyles}
-  `;
-  return (
-    <select
-      {...props}
-      className={classes(styles, props.className)}
-      ref={ref}
-    />
-  );
-});
-
 export const Label = tw.label`
   block
   text-sm
@@ -71,24 +28,34 @@ export const Label = tw.label`
   text-justify
 `;
 
-export const Input = forwardRef(function CustomInput(
-  props: InputHTMLAttributes<HTMLInputElement>,
-  ref: LegacyRef<HTMLInputElement>
-) {
-  const styles = `
-    block w-full rounded-md border-0 py-1.5 px-1.5 text-black
-    shadow-sm ring-1 ring-inset ring-gray-300
-    placeholder:text-gray-400 sm:text-sm sm:leading-6
-    ${focusStyles}
-  `;
-  return (
-    <input
-      {...props}
-      className={classes(styles, props.className)}
-      ref={ref}
-    />
-  );
-});
+const focusStyles = () => `
+  focus:ring-2
+  focus:ring-inset
+  focus:ring-indigo-600
+`;
+
+export const Select = tw.select`
+  block w-full rounded-md border-0 py-1.5 px-1.5 text-black
+  shadow-sm ring-1 ring-inset ring-gray-300
+  sm:max-w-xs sm:text-sm sm:leading-6
+  ${focusStyles}
+`;
+
+export const Input = tw.input`
+  block w-full rounded-md border-0 py-1.5 px-1.5 text-black
+  shadow-sm ring-1 ring-inset ring-gray-300
+  placeholder:text-gray-400 sm:text-sm sm:leading-6
+  ${focusStyles}
+`;
+
+export const Textarea = tw.textarea`
+  p-3
+  w-full
+  rounded-lg
+  border-gray-200
+  text-sm
+  ${focusStyles}
+`;
 
 export const Image = (props: ImageProps) => (
   <ImageWrapper height={props.height} width={props.width}>
