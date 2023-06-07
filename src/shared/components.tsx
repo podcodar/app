@@ -1,3 +1,4 @@
+import tw from "tailwind-styled-components";
 import { classes } from "@/shared/tw";
 import {
   InputHTMLAttributes,
@@ -66,10 +67,10 @@ export const Input = forwardRef(function CustomInput(
   props: InputHTMLAttributes<HTMLInputElement>,
   ref: LegacyRef<HTMLInputElement>
 ) {
-  const styles = ` 
+  const styles = `
     block w-full rounded-md border-0 py-1.5 px-1.5 text-black
     shadow-sm ring-1 ring-inset ring-gray-300
-    placeholder:text-gray-400 sm:text-sm sm:leading-6 
+    placeholder:text-gray-400 sm:text-sm sm:leading-6
     ${focusStyles}
   `;
   return (
@@ -90,3 +91,10 @@ export const Image = (props: ImageProps) => {
     </div>
   );
 };
+
+export const Container = tw.div`
+  mx-auto
+  max-w-7xl
+  px-4 py-6
+  sm:px-6 lg:px-8
+`;
