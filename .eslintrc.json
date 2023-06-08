@@ -3,6 +3,9 @@
     "@podcodar/eslint-config-next",
     "plugin:@typescript-eslint/recommended"
   ],
+  "rules": {
+    "@typescript-eslint/no-non-null-assertion": "off"
+  },
   "env": {
     "jest": true
   }
