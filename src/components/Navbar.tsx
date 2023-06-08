@@ -11,7 +11,7 @@ import { useSession } from "next-auth/react";
 
 const navigation = [{ name: "Home", href: "/app", current: true }];
 
-const profileLinks = [{ name: "Settings", onClick: () => {} }, { name: "Sign out", onClick: () => signOut() },];
+const profileLinks = [{ name: "Settings" }, { name: "Sign out", onClick: () => signOut() },];
 
 export default function Navbar() {
   const { data: session } = useSession();
