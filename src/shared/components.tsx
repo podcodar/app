@@ -1,96 +1,82 @@
 import tw from "tailwind-styled-components";
-import { classes } from "@/shared/tw";
-import {
-  InputHTMLAttributes,
-  LabelHTMLAttributes,
-  SelectHTMLAttributes,
-  FormHTMLAttributes,
-  HTMLAttributes,
-  TextareaHTMLAttributes,
-} from "react";
 import NextImage, { ImageProps } from "next/image";
 
-import { forwardRef, LegacyRef } from "react";
+export const Title = tw.h1`
+  text-lg
+  text-center
+  font-semibold
+  leading-7
+  text-white
+`;
 
-const focusStyles = "focus:ring-2 focus:ring-inset focus:ring-indigo-600";
+export const Form = tw.form`
+  bg-pod-purple
+  w-full
+  mx-auto
+  my-10
+  p-8
+  rounded-lg
+  md:w-9/12
+`;
 
-export const Textarea = forwardRef(function CustomTextarea(
-  props: TextareaHTMLAttributes<HTMLTextAreaElement>,
-  ref: LegacyRef<HTMLTextAreaElement>
-) {
-  const styles = "w-full rounded-lg border-gray-200 p-3 text-sm";
-  return (
-    <textarea
-      {...props}
-      className={classes(styles, props.className)}
-      ref={ref}
-    />
-  );
-});
+export const Label = tw.label`
+  block
+  text-sm
+  font-medium
+  leading-6
+  text-white
+  text-justify
+`;
 
-export const Title = (props: HTMLAttributes<HTMLHeadingElement>) => {
-  const styles =
-    "text-base text-lg text-center font-semibold leading-7 text-white";
-  return <h2 {...props} className={classes(styles, props.className)} />;
-};
+const focusStyles = () => `
+  focus:ring-2
+  focus:ring-inset
+  focus:ring-indigo-600
+`;
 
-export const Form = (props: FormHTMLAttributes<HTMLFormElement>) => {
-  const styles = "bg-pod-purple w-full mx-auto my-10 p-8 rounded-lg md:w-9/12";
-  return <form {...props} className={classes(styles, props.className)} />;
-};
+export const Select = tw.select`
+  block w-full rounded-md border-0 py-1.5 px-1.5 text-black
+  shadow-sm ring-1 ring-inset ring-gray-300
+  sm:max-w-xs sm:text-sm sm:leading-6
+  ${focusStyles}
+`;
 
-export const Select = forwardRef(function CustomSelect(
-  props: SelectHTMLAttributes<HTMLSelectElement>,
-  ref: LegacyRef<HTMLSelectElement>
-) {
-  const styles = `
-    block w-full rounded-md border-0 py-1.5 px-1.5 text-black
-    shadow-sm ring-1 ring-inset ring-gray-300
-    sm:max-w-xs sm:text-sm sm:leading-6
-    ${focusStyles}
-  `;
-  return (
-    <select
-      {...props}
-      className={classes(styles, props.className)}
-      ref={ref}
-    />
-  );
-});
+export const Input = tw.input`
+  block w-full rounded-md border-0 py-1.5 px-1.5 text-black
+  shadow-sm ring-1 ring-inset ring-gray-300
+  placeholder:text-gray-400 sm:text-sm sm:leading-6
+  ${focusStyles}
+`;
 
-export const Label = (props: LabelHTMLAttributes<HTMLLabelElement>) => {
-  const styles = "block text-sm font-medium leading-6 text-white text-justify";
-  return <label {...props} className={classes(styles, props.className)} />;
-};
+export const Textarea = tw.textarea`
+  p-3
+  w-full
+  rounded-lg
+  border-gray-200
+  text-sm
+  ${focusStyles}
+`;
 
-export const Input = forwardRef(function CustomInput(
-  props: InputHTMLAttributes<HTMLInputElement>,
-  ref: LegacyRef<HTMLInputElement>
-) {
-  const styles = `
-    block w-full rounded-md border-0 py-1.5 px-1.5 text-black
-    shadow-sm ring-1 ring-inset ring-gray-300
-    placeholder:text-gray-400 sm:text-sm sm:leading-6
-    ${focusStyles}
-  `;
-  return (
-    <input
-      {...props}
-      className={classes(styles, props.className)}
-      ref={ref}
-    />
-  );
-});
+export const Image = (props: ImageProps) => (
+  <ImageWrapper height={props.height} width={props.width}>
+    <ImageStyled {...props} />
+  </ImageWrapper>
+);
 
-export const Image = (props: ImageProps) => {
-  const wrapperStyle = `max-w-[${props.width}px] max-h-[${props.height}px] flex flex-1`;
-  const imageStyle = "h-full w-full object-cover";
-  return (
-    <div className={wrapperStyle}>
-      <NextImage {...props} className={classes(imageStyle, props.className)} />
-    </div>
-  );
-};
+type WrapperProps = Pick<ImageProps, "width" | "height">;
+
+const ImageWrapper = tw.div<WrapperProps>`
+  flex
+  flex-1
+  max-w-[${(p) => p.width}px]
+  max-h-[${(p) => p.height}px]
+`;
+
+const ImageStyled = tw(NextImage)`
+  h-full
+  w-full
+  object-cover
+`;
 
 export const Container = tw.div`
   mx-auto
