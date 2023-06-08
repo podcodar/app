@@ -57,7 +57,6 @@ export default function OnboardingAboutForm() {
             {errors.qTwo && <span>{errors.qTwo.message}</span>}
           </div>
         </div>
-        <button type="submit"> Enviar </button>
       </Form>
       <pre>
         <code>{JSON.stringify(values, null, 2)}</code>

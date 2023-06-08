@@ -17,7 +17,7 @@ const steps = [
 //TODO: Add persistence and validation to the form
 //TODO: Create Buttons
 //TODO: Design
-//TODO: Transformar dots em um componente separado
+//TODO: Transform progress dots into individual component
 
 export default function Form() {
   const searchParams = useSearchParams();

@@ -75,7 +75,6 @@ export default function OnboardingRegistrationForm() {
             </div>
           </div>
         </div>
-        <button type="submit"> Enviar </button>
       </Form>
 
       <pre>
