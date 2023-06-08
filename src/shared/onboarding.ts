@@ -48,6 +48,7 @@ export const formSchema = z.object({
     .nonempty("Email é obrigatório")
     .email("Insira um email válido"),
   profissao: z.string(),
+  educationLevel: z.string().nonempty("Nível de escolaridade é obrigatório"),
   empresaOrganizacao: z.string(),
   githubPortifolio: z.string(),
   linkedin: z.string(),
