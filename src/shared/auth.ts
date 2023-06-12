@@ -8,6 +8,7 @@ import {
   githubCredentials,
   googleCredentials,
 } from "./settings";
+import { prisma } from "./db";
 
 export type LoginProviders = "github" | "google";
 
@@ -15,6 +16,25 @@ export const authOptions: NextAuthOptions = {
   providers: [GithubProvider(githubCredentials), GoogleProvider(googleCredentials),],
   pages: {
     signIn: "/login",
+  },
+  callbacks: {
+    async signIn(user) {
+      const loginUser = user.user;
+
+      const existingUser = await prisma.user.findUnique({
+        where: { email: loginUser.email },
+      });
+
+      if (!existingUser) {
+        await prisma.user.create({
+          data: {
+            email: loginUser.email,
+          },
+        });
+      }
+
+      return true;
+    },
   },
 };
 
