@@ -1,4 +1,3 @@
-import { Session } from "next-auth";
 import { Image } from "@/shared/components";
 import {
   BuildingOfficeIcon,
@@ -6,13 +5,11 @@ import {
   EnvelopeIcon,
   MapPinIcon,
   StarIcon,
-  UserIcon,
 } from "@heroicons/react/24/outline";
-import { getUserSession } from "@/entities/users";
+import { User } from "@prisma/client";
 
 type Props = {
-  session: Session | null;
-  username: string;
+  profileUser: User;
 };
 
 const infoList = [
@@ -24,30 +21,26 @@ const infoList = [
   { title: "Github", icon: <LinkIcon className="h-6" /> },
 ];
 
-export default function Profile({ session, username }: Props) {
-  const { name, image } = getUserSession(session);
-
+export default function Profile({ profileUser }: Props) {
   return (
     <div className="p-4 w-full rounded-lg bg-pod-purple">
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 w-1/2 lg:w-full mx-auto items-center min-w-[17rem]">
         <div className="relative rounded-full min-h-[12rem] min-w-[12rem] border-white border-8 mx-auto">
-          {image ? (
-            <Image
-              alt={name}
-              className="rounded-full"
-              height={200}
-              src={image}
-              width={200}
-            />
-          ) : (
-            <UserIcon className="text-white" />
-          )}
+          <Image
+            alt={profileUser.name}
+            className="rounded-full"
+            height={200}
+            src={profileUser.avatar as string}
+            width={200}
+          />
         </div>
         <div className="grid grid-cols-1 text-white pb-4 lg:pb-0 border-slate-300 border-b lg:border-none">
           <h1 className="text-3xl font-bold tracking-tight mx-auto lg:mx-0">
-            {name}
+            {profileUser.name}
           </h1>
-          <p className="text-slate-300 mx-auto lg:mx-0">@{username}</p>
+          <p className="text-slate-300 mx-auto lg:mx-0">
+            @{profileUser.username}
+          </p>
           <p className="mt-4 text-xl mx-auto lg:mx-0">Software Engineer</p>
         </div>
         <div className="grid grid-cols-1 text-white pb-4 lg:pb-0 border-slate-300 border-b lg:border-none">
