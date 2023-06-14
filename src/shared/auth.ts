@@ -8,7 +8,8 @@ import {
   githubCredentials,
   googleCredentials,
 } from "./settings";
-import { prisma } from "./db";
+import { createUser } from "./db";
+import { AdapterUser } from "next-auth/adapters";
 
 export type LoginProviders = "github" | "google";
 
@@ -19,20 +20,8 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async signIn(user) {
-      const loginUser = user.user;
-
-      const existingUser = await prisma.user.findUnique({
-        where: { email: loginUser.email },
-      });
-
-      if (!existingUser) {
-        await prisma.user.create({
-          data: {
-            email: loginUser.email,
-          },
-        });
-      }
-
+      const loginUser = user.user as AdapterUser;
+      createUser(loginUser);
       return true;
     },
   },
