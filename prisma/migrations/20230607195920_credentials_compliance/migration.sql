@@ -1,5 +1,0 @@
--- AlterTable
-ALTER TABLE "User" ADD COLUMN     "avatar" TEXT,
-ALTER COLUMN "name" DROP NOT NULL,
-ALTER COLUMN "username" DROP NOT NULL,
-ALTER COLUMN "roles" SET DEFAULT ARRAY['USER']::"Roles"[];

@@ -17,12 +17,12 @@ datasource db {
 
 model User {
   id       Int         @id @default(autoincrement())
-  name     String?
+  name     String
   email    String      @unique
-  username String?     @unique
-  avatar   String?
+  username String      @unique
+  avatar   String      @default("/images/default-user.svg")
   roles    Roles[]     @default([USER])
-  tasks    UserTasks[]
+  tasks    UserTasks[] 
 }
 
 enum Roles {
