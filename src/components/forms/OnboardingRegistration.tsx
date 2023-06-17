@@ -1,19 +1,19 @@
 "use client";
 import { genders } from "@/shared/onboarding";
-import { formSchema } from "@/shared/onboarding";
-import { FormSchema } from "@/shared/onboarding";
+import { registrationSchema } from "@/shared/onboarding";
+import { RegistrationSchema } from "@/shared/onboarding";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input, Label, Select, Form, Title } from "@/shared/components";
 
-export default function OnboardingRegistrationForm() {
+export default function OnboardingRegistration() {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
+  } = useForm<RegistrationSchema>({
+    resolver: zodResolver(registrationSchema),
   });
   const values = watch([
     "nomeSocial",
@@ -21,7 +21,7 @@ export default function OnboardingRegistrationForm() {
     "idade"
   ]);
 
-  function onSubmit(data: FormSchema) {
+  function onSubmit(data: RegistrationSchema) {
     console.log(data);
   }
 
@@ -35,11 +35,7 @@ export default function OnboardingRegistrationForm() {
             <div className="">
               <Label htmlFor="nome-social">Nome Social</Label>
               <div className="mt-2">
-                <Input
-                  id="nome-social"
-                  type="text"
-                  {...register("nomeSocial")}
-                />
+                <Input type="text" {...register("nomeSocial")} />
                 {errors.nomeSocial && <span>{errors.nomeSocial.message}</span>}
               </div>
             </div>
@@ -47,11 +43,7 @@ export default function OnboardingRegistrationForm() {
             <div className="">
               <Label htmlFor="gender">Gênero</Label>
               <div className="mt-2">
-                <Select
-                  defaultValue={""}
-                  id="gender"
-                  {...register("gender")}
-                >
+                <Select defaultValue={""} {...register("gender")}>
                   {genders.map((gender) => (
                     <option key={gender} value={gender}>
                       {gender}
@@ -65,11 +57,7 @@ export default function OnboardingRegistrationForm() {
             <div className="">
               <Label htmlFor="idade">Idade</Label>
               <div className="mt-2">
-                <Input
-                  id="idade"
-                  type="number"
-                  {...register("idade")}
-                />
+                <Input type="number" {...register("idade")} />
                 {errors.idade && <span>{errors.idade.message}</span>}
               </div>
             </div>

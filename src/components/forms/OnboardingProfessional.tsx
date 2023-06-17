@@ -1,19 +1,19 @@
 "use client";
 import { educationLevels } from "@/shared/onboarding";
-import { formSchema } from "@/shared/onboarding";
-import { FormSchema } from "@/shared/onboarding";
+import { professionalSchema } from "@/shared/onboarding";
+import { ProfessionalSchema } from "@/shared/onboarding";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input, Label, Select, Form } from "@/shared/components";
 
-export default function OnboardingProfessionalForm() {
+export default function OnboardingProfessional() {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
+  } = useForm<ProfessionalSchema>({
+    resolver: zodResolver(professionalSchema),
   });
   const values = watch([
     "educationLevel",
@@ -23,7 +23,7 @@ export default function OnboardingProfessionalForm() {
     "linkedin",
   ]);
 
-  function onSubmit(data: FormSchema) {
+  function onSubmit(data: ProfessionalSchema) {
     console.log(data);
   }
 
@@ -34,11 +34,7 @@ export default function OnboardingProfessionalForm() {
           <div className="sm:col-span-2">
             <Label htmlFor="education-level">Formação</Label>
             <div className="mt-2">
-              <Select
-                defaultValue=""
-                id="education-level"
-                {...register("educationLevel")}
-              >
+              <Select defaultValue="" {...register("educationLevel")}>
                 {educationLevels.map((level) => (
                   <option key={level} value={level}>
                     {level}
@@ -56,7 +52,6 @@ export default function OnboardingProfessionalForm() {
             <Label htmlFor="profissao">Profissão</Label>
             <div className="mt-2">
               <Input
-                id="profissao"
                 placeholder="Opcional"
                 type="text"
                 {...register("profissao")}
@@ -68,7 +63,6 @@ export default function OnboardingProfessionalForm() {
             <Label htmlFor="empresa-organizacao">Empresa/Organização</Label>
             <div className="mt-2">
               <Input
-                id="empresa-organizacao"
                 placeholder="Opcional"
                 type="text"
                 {...register("empresaOrganizacao")}
@@ -80,7 +74,6 @@ export default function OnboardingProfessionalForm() {
             <Label htmlFor="github-portifolio">GitHub/Portifólio</Label>
             <div className="mt-2">
               <Input
-                id="github-portifolio"
                 placeholder="Opcional"
                 type="text"
                 {...register("githubPortifolio")}
@@ -92,7 +85,6 @@ export default function OnboardingProfessionalForm() {
             <Label htmlFor="linkedin">LinkedIn</Label>
             <div className="mt-2">
               <Input
-                id="linkedin"
                 placeholder="Opcional"
                 type="text"
                 {...register("linkedin")}

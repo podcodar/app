@@ -1,23 +1,23 @@
 "use client";
 
-import { formSchema } from "@/shared/onboarding";
-import { FormSchema } from "@/shared/onboarding";
+import { aboutSchema } from "@/shared/onboarding";
+import { AboutSchema } from "@/shared/onboarding";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label, Form, Textarea } from "@/shared/components";
 
-export default function OnboardingAboutForm() {
+export default function OnboardingAbout() {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
+  } = useForm<AboutSchema>({
+    resolver: zodResolver(aboutSchema),
   });
   const values = watch(["qOne", "qTwo"]);
 
-  function onSubmit(data: FormSchema) {
+  function onSubmit(data: AboutSchema) {
     console.log(data);
   }
   return (
@@ -30,11 +30,7 @@ export default function OnboardingAboutForm() {
             tecnologia que mais despertam o seu interesse.
           </Label>
           <div className="mt-2">
-            <Textarea
-              id="q-one"
-              rows={5}
-              {...register("qOne")}
-            />
+            <Textarea rows={5} {...register("qOne")} />
             {errors.qOne && <span>{errors.qOne.message}</span>}
           </div>
         </div>
@@ -49,11 +45,7 @@ export default function OnboardingAboutForm() {
             participando da comunidade?
           </Label>
           <div className="mt-2">
-            <Textarea
-              id="q-two"
-              rows={5}
-              {...register("qTwo")}
-            />
+            <Textarea rows={5} {...register("qTwo")} />
             {errors.qTwo && <span>{errors.qTwo.message}</span>}
           </div>
         </div>

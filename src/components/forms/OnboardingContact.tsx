@@ -1,19 +1,19 @@
 "use client";
 
-import { formSchema } from "@/shared/onboarding";
-import { FormSchema } from "@/shared/onboarding";
+import { contactSchema } from "@/shared/onboarding";
+import { ContactSchema } from "@/shared/onboarding";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input, Label, Form } from "@/shared/components";
 
-export default function OnboardingContactForm() {
+export default function OnboardingContact() {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
+  } = useForm<ContactSchema>({
+    resolver: zodResolver(contactSchema),
   });
   const values = watch([
     "telefone",
@@ -22,7 +22,7 @@ export default function OnboardingContactForm() {
     "email"
   ]);
 
-  function onSubmit(data: FormSchema) {
+  function onSubmit(data: ContactSchema) {
     console.log(data);
   }
   return (
@@ -31,11 +31,7 @@ export default function OnboardingContactForm() {
         <div className="sm:col-span-22">
           <Label htmlFor="pais">País</Label>
           <div className="mt-2">
-            <Input
-              id="pais"
-              type="text"
-              {...register("pais")}
-            />
+            <Input type="text" {...register("pais")} />
           </div>
           {errors.pais && <span>{errors.pais.message}</span>}
         </div>
@@ -43,11 +39,7 @@ export default function OnboardingContactForm() {
         <div className="sm:col-span-2">
           <Label htmlFor="cidade-estado">Cidade/Estado</Label>
           <div className="mt-2">
-            <Input
-              id="cidade-estado"
-              type="text"
-              {...register("cidadeEstado")}
-            />
+            <Input type="text" {...register("cidadeEstado")} />
           </div>
           {errors.cidadeEstado && <span>{errors.cidadeEstado.message}</span>}
         </div>
@@ -57,7 +49,6 @@ export default function OnboardingContactForm() {
           <div className="mt-2">
             <Input
               className="placeholder-gray-400"
-              id="telefone"
               placeholder="00 00000 0000"
               type="number"
               {...register("telefone")}
@@ -69,11 +60,7 @@ export default function OnboardingContactForm() {
         <div className="sm:col-span-2">
           <Label htmlFor="email">Email</Label>
           <div className="mt-2">
-            <Input
-              id="email"
-              type="email"
-              {...register("email")}
-            />
+            <Input type="email" {...register("email")} />
           </div>
           {errors.email && <span>{errors.email.message}</span>}
         </div>
