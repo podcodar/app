@@ -14,4 +14,4 @@ FROM base as development
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
 # startup command
-CMD pnpm i && pnpm db:migrate dev && pnpm dk:start
+CMD pnpm i && pnpm db:generate && pnpm db:migrate dev && pnpm dk:start
