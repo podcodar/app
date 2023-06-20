@@ -16,11 +16,16 @@ const steps = [
 export default function Form() {
   const searchParams = useSearchParams();
   const initialStep = searchParams.get("step") ?? "0";
+  const stepNumber = parseInt(initialStep, 10);
 
-  const { step, canMoveNext, canMovePrevious, moveNextStep, movePrevStep } =
-    useOnboardingForm(parseInt(initialStep, 10));
-
-  const content = steps[step];
+  const {
+    step,
+    content,
+    canMoveNext,
+    canMovePrevious,
+    moveNextStep,
+    movePrevStep,
+  } = useOnboardingForm(stepNumber, steps);
 
   return (
     <div className="absolute top-0 bottom-0 z-10 right-0 left-0 bg-pod-purple">

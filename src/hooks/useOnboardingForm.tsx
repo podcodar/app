@@ -1,17 +1,11 @@
 "use client";
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 
-export enum FormSteps {
-  REGISTRATION,
-  CONTACT,
-  PROFESSIONAL_EXP,
-  ABOUT_YOU,
-}
-
-export function useOnboardingForm(initialStep = FormSteps.REGISTRATION) {
-  const [step, setStep] = useState<FormSteps>(initialStep);
-  const canMovePrevious = step !== FormSteps.REGISTRATION;
-  const canMoveNext = step !== FormSteps.ABOUT_YOU;
+export function useOnboardingForm(initialStep = 0, steps: ReactElement[]) {
+  const [step, setStep] = useState(initialStep);
+  const canMovePrevious = step !== 0;
+  const canMoveNext = step !== steps.length - 1;
+  const content = steps[step];
 
   function moveNextStep() {
     if (!canMoveNext) return;
@@ -25,6 +19,7 @@ export function useOnboardingForm(initialStep = FormSteps.REGISTRATION) {
 
   return {
     step,
+    content,
     canMoveNext,
     canMovePrevious,
     moveNextStep,
