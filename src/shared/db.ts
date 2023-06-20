@@ -9,13 +9,23 @@ export async function createUser(loginUser: User) {
   });
 
   if (!existingUser) {
-    await prisma.user.create({
+    const createdUser = await prisma.user.create({
       data: {
         email: loginUser.email as string,
-        avatar: loginUser.image as string,
-        name: loginUser.name as string,
+        avatar: (loginUser.image as string) ?? null,
+        name: (loginUser.name as string) ?? (loginUser.email as string),
         username: loginUser.email as string,
       },
     });
+
+    if (!createdUser) {
+      throw new Error("Server failed to create user");
+    }
   }
+}
+
+export async function fetchUserByUsername(username: string) {
+  return await prisma.user.findUnique({
+    where: { username: decodeURIComponent(username) },
+  });
 }

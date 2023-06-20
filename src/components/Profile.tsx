@@ -30,7 +30,7 @@ export default function Profile({ profileUser }: Props) {
             alt={profileUser.name}
             className="rounded-full"
             height={200}
-            src={profileUser.avatar as string}
+            src={profileUser.avatar}
             width={200}
           />
         </div>
