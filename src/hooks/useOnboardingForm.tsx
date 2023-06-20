@@ -3,17 +3,15 @@ import { useState } from "react";
 
 export enum FormSteps {
   REGISTRATION,
-  ADDRESS,
   CONTACT,
-  ABOUT_YOU,
   PROFESSIONAL_EXP,
+  ABOUT_YOU,
 }
 
 export function useOnboardingForm(initialStep = FormSteps.REGISTRATION) {
   const [step, setStep] = useState<FormSteps>(initialStep);
-  const state = useOnboardingFormStates();
   const canMovePrevious = step !== FormSteps.REGISTRATION;
-  const canMoveNext = step !== FormSteps.PROFESSIONAL_EXP && state.valid;
+  const canMoveNext = step !== FormSteps.ABOUT_YOU;
 
   function moveNextStep() {
     if (!canMoveNext) return;
@@ -27,15 +25,9 @@ export function useOnboardingForm(initialStep = FormSteps.REGISTRATION) {
 
   return {
     step,
-    state,
     canMoveNext,
     canMovePrevious,
     moveNextStep,
     movePrevStep,
   };
-}
-
-function useOnboardingFormStates() {
-  // TODO: zod + form states
-  return { valid: true };
 }
