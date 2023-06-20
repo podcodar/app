@@ -1,5 +1,13 @@
 {
-  "extends": "@podcodar/eslint-config-next",
+  "extends": [
+    "@podcodar/eslint-config-next",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error"
+  },
+
   "env": {
     "jest": true
   }
