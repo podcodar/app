@@ -20,8 +20,9 @@ model User {
   name     String
   email    String      @unique
   username String      @unique
-  roles    Roles[]
-  tasks    UserTasks[]
+  avatar   String      @default("/images/default-user.svg")
+  roles    Roles[]     @default([USER])
+  tasks    UserTasks[] 
 }
 
 enum Roles {

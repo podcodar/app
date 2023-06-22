@@ -8,6 +8,8 @@ import {
   githubCredentials,
   googleCredentials,
 } from "./settings";
+import { createUser } from "./db";
+import { Roles } from "@prisma/client";
 
 export type LoginProviders = "github" | "google";
 
@@ -15,6 +17,12 @@ export const authOptions: NextAuthOptions = {
   providers: [GithubProvider(githubCredentials), GoogleProvider(googleCredentials),],
   pages: {
     signIn: "/login",
+  },
+  callbacks: {
+    async signIn(user) {
+      const loggedUser = await createUser(user.user);
+      return loggedUser.roles.includes(Roles.USER);
+    },
   },
 };
 

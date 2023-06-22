@@ -11,6 +11,7 @@ ADMIN ADMIN
     String name 
     String email 
     String username 
+    String avatar 
     Roles roles 
     }
   
