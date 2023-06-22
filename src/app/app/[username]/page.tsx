@@ -1,5 +1,5 @@
 import Profile from "@/components/Profile";
-import { fetchUserByUsername } from "@/shared/db";
+import { fetchUserBy } from "@/shared/db";
 
 type Props = {
   params: {
@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default async function ProfilePage({ params: { username } }: Props) {
-  const profileUser = await fetchUserByUsername(username);
+  const profileUser = await fetchUserBy({ username });
 
   return (
     <div className="min-h-full">
