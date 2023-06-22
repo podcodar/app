@@ -1,31 +1,35 @@
-import { PrismaClient } from "@prisma/client";
-import { User } from "next-auth";
+import { PrismaClient, Prisma } from "@prisma/client";
+import { User as NextUser } from "next-auth";
 
 export const prisma = new PrismaClient();
 
-export async function createUser(loginUser: User) {
-  const existingUser = await prisma.user.findUnique({
-    where: { email: loginUser.email as string },
+export async function createUser(loginUser: NextUser) {
+  const existingUser = await fetchUserBy({
+    email: loginUser.email!,
   });
 
-  if (!existingUser) {
-    const createdUser = await prisma.user.create({
-      data: {
-        email: loginUser.email as string,
-        avatar: (loginUser.image as string) ?? null,
-        name: (loginUser.name as string) ?? (loginUser.email as string),
-        username: loginUser.email as string,
-      },
-    });
+  if (existingUser) return existingUser;
 
-    if (!createdUser) {
-      throw new Error("Server failed to create user");
-    }
-  }
+  return await prisma.user.create({
+    data: parseNextAuthUser(loginUser),
+  });
 }
 
-export async function fetchUserByUsername(username: string) {
+export async function fetchUserBy(where: Prisma.UserWhereUniqueInput) {
+  if (where.username) {
+    where.username = decodeURIComponent(where.username);
+  }
+
   return await prisma.user.findUnique({
-    where: { username: decodeURIComponent(username) },
+    where,
   });
+}
+
+function parseNextAuthUser(loginUser: NextUser): Prisma.UserCreateInput {
+  return {
+    username: loginUser.email ?? "",
+    email: loginUser.email ?? "",
+    name: loginUser.name ?? "",
+    avatar: loginUser.image ?? undefined,
+  };
 }

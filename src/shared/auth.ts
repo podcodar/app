@@ -1,5 +1,5 @@
 import { headers } from "next/headers";
-import { NextAuthOptions, User } from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import {
@@ -9,6 +9,7 @@ import {
   googleCredentials,
 } from "./settings";
 import { createUser } from "./db";
+import { Roles } from "@prisma/client";
 
 export type LoginProviders = "github" | "google";
 
@@ -19,9 +20,8 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async signIn(user) {
-      const loginUser = user.user as User;
-      await createUser(loginUser);
-      return true;
+      const loggedUser = await createUser(user.user);
+      return loggedUser.roles.includes(Roles.USER);
     },
   },
 };
