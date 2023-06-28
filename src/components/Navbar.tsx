@@ -8,6 +8,7 @@ import { Logo } from "./Logo";
 import { classes } from "@/shared/tw";
 import Image from "next/image";
 import { User } from "@prisma/client";
+import Link from "next/link";
 
 const navigation = [{ name: "Home", href: "/app", current: true }];
 
@@ -82,6 +83,21 @@ export default function Navbar({ loggedUser }: Props) {
                       leaveTo="transform opacity-0 scale-95"
                     >
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link href={`/app/${loggedUser.username}`}>
+                              <Disclosure.Button
+                                as="button"
+                                className={classes(
+                                  active ? "bg-gray-100" : "",
+                                  "block px-4 py-2 text-sm text-gray-700 w-full"
+                                )}
+                              >
+                                Meu Perfil
+                              </Disclosure.Button>
+                            </Link>
+                          )}
+                        </Menu.Item>
                         {profileLinks.map((item) => (
                           <Menu.Item key={item.name}>
                             {({ active }) => (
@@ -139,13 +155,15 @@ export default function Navbar({ loggedUser }: Props) {
             <div className="border-t border-gray-700 pb-3 pt-4">
               <div className="flex items-center px-5">
                 <div className="flex-shrink-0">
-                  <Image
-                    alt=""
-                    className="h-10 w-10 rounded-full"
-                    height="40"
-                    src={loggedUser.avatar}
-                    width="40"
-                  />
+                  <Link href={`/app/${loggedUser.username}`}>
+                    <Image
+                      alt=""
+                      className="h-10 w-10 rounded-full"
+                      height="40"
+                      src={loggedUser.avatar}
+                      width="40"
+                    />
+                  </Link>
                 </div>
                 <div className="ml-3">
                   <div className="text-base font-medium leading-none text-white">
