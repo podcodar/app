@@ -37,17 +37,13 @@ function parseNextAuthUser(loginUser: NextUser): Prisma.UserCreateInput {
 }
 
 export async function fetchUserWithSession(session: Session | null) {
-  if (!session?.user?.email) {
-    const origin = getOriginPath();
-    return redirect(makeRedirectURL(origin));
-  }
+  const redirectUrl = makeRedirectURL(getOriginPath());
+
+  if (!session?.user?.email) return redirect(redirectUrl);
 
   const loggedUser = await fetchUserBy({ email: session.user.email });
 
-  if (!loggedUser) {
-    const origin = getOriginPath();
-    return redirect(makeRedirectURL(origin));
-  }
+  if (!loggedUser) return redirect(redirectUrl);
 
   return loggedUser;
 }
