@@ -1,5 +1,7 @@
 import { PrismaClient, Prisma } from "@prisma/client";
-import { User as NextUser } from "next-auth";
+import { User as NextUser, Session } from "next-auth";
+import { getOriginPath, makeRedirectURL } from "./auth";
+import { redirect } from "next/navigation";
 
 export const prisma = new PrismaClient();
 
@@ -32,4 +34,16 @@ function parseNextAuthUser(loginUser: NextUser): Prisma.UserCreateInput {
     name: loginUser.name ?? "",
     avatar: loginUser.image ?? undefined,
   };
+}
+
+export async function fetchUserWithSession(session: Session | null) {
+  const redirectUrl = makeRedirectURL(getOriginPath());
+
+  if (!session?.user?.email) return redirect(redirectUrl);
+
+  const loggedUser = await fetchUserBy({ email: session.user.email });
+
+  if (!loggedUser) return redirect(redirectUrl);
+
+  return loggedUser;
 }

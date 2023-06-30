@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import { PropsWithChildren } from "react";
 import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
-import { authOptions, makeRedirectURL, getOriginPath } from "@/shared/auth";
+import { authOptions } from "@/shared/auth";
 import Navbar from "@/components/Navbar";
 import AuthProvider from "@/contexts/AuthProvider";
 import { Container } from "@/shared/components";
+import { fetchUserWithSession } from "@/shared/db";
 
 export const metadata: Metadata = {
   title: "PodCodar",
@@ -14,15 +14,12 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: PropsWithChildren) {
   const session = await getServerSession(authOptions);
 
-  if (!session) {
-    const origin = getOriginPath();
-    return redirect(makeRedirectURL(origin));
-  }
+  const loggedUser = await fetchUserWithSession(session);
 
   return (
     <AuthProvider>
       <header className="bg-white shadow">
-        <Navbar />
+        <Navbar loggedUser={loggedUser} />
       </header>
 
       <Container>{children}</Container>
