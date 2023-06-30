@@ -5,8 +5,9 @@ import { AboutSchema } from "@/shared/onboarding";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label, Form, Textarea } from "@/shared/components";
+import { FormProps } from "@/hooks/useOnboardingForm";
 
-export default function OnboardingAbout() {
+export default function OnboardingAbout(props: FormProps) {
   const {
     register,
     handleSubmit,
@@ -18,8 +19,13 @@ export default function OnboardingAbout() {
   const values = watch(["qOne", "qTwo"]);
 
   function onSubmit(data: AboutSchema) {
+    const isValid = aboutSchema.safeParse(data);
+    isValid.success
+      ? props.moveNextStep()
+      : console.log("Dados inválidos:", isValid.error);
     console.log(data);
   }
+
   return (
     <div className="bg-slate-800 grid">
       <Form onSubmit={handleSubmit(onSubmit)}>
@@ -49,6 +55,7 @@ export default function OnboardingAbout() {
             {errors.qTwo && <span>{errors.qTwo.message}</span>}
           </div>
         </div>
+        <button type="submit">TESTE ENVIAR</button>
       </Form>
       <pre>
         <code>{JSON.stringify(values, null, 2)}</code>

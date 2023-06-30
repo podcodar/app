@@ -5,8 +5,10 @@ import { ContactSchema } from "@/shared/onboarding";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input, Label, Form } from "@/shared/components";
+import { FormProps } from "@/hooks/useOnboardingForm";
 
-export default function OnboardingContact() {
+export default function OnboardingContact(props: FormProps) {
+  // TODO: Recebe onSubmit, que vai ser uma função.
   const {
     register,
     handleSubmit,
@@ -22,9 +24,42 @@ export default function OnboardingContact() {
     "email"
   ]);
 
+  // function onSubmit(data: ContactSchema) {
+  //   // props.onSubmit();
+  //   // console.log(data);
+  //   const isValid = contactSchema.safeParse(data);
+  //   if (isValid.success) {
+  //     props.moveNextStep();
+  //     console.log(data);
+  //     return;
+  //   }
+  //   console.log("Dados inválidos:", isValid.error);
+  //   return;
+  // }
+
+  // function onSubmit(data: contactSchema) {
+  //   // props.onSubmit();
+  //   // console.log(data);
+  //   const isValid = contactSchema.safeParse(data);
+  //   if (isValid.success) {
+  //     props.moveNextStep();
+  //     console.log(data);
+  //   } else {
+  //     console.log("Dados inválidos:", isValid.error);
+  //   }
+
+  // }
+
   function onSubmit(data: ContactSchema) {
+    const isValid = contactSchema.safeParse(data);
+    isValid.success
+      ? props.moveNextStep()
+      : console.log("Dados inválidos:", isValid.error);
     console.log(data);
+    // TODO: enviar o dado para o store global.(proxima pr)  "props.onSubmit();"
+    // TODO: Após o envio, seguir para a proxima etapa, chamar o next
   }
+
   return (
     <div className="bg-slate-800 grid">
       <Form onSubmit={handleSubmit(onSubmit)}>
@@ -64,6 +99,7 @@ export default function OnboardingContact() {
           </div>
           {errors.email && <span>{errors.email.message}</span>}
         </div>
+        <button type="submit">TESTE ENVIAR</button>
       </Form>
 
       <pre>

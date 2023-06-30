@@ -1,7 +1,12 @@
 "use client";
-import { ReactElement, useState } from "react";
+import { FC, useState } from "react";
 
-export function useOnboardingForm(initialStep = 0, steps: ReactElement[]) {
+export type FormProps = {
+  onSubmit: () => void;
+  moveNextStep: () => void;
+};
+
+export function useOnboardingForm(initialStep = 0, steps: FC<FormProps>[]) {
   const [step, setStep] = useState(initialStep);
   const canMovePrevious = step !== 0;
   const canMoveNext = step !== steps.length - 1;
