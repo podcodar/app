@@ -34,12 +34,6 @@ export type AboutSchema = z.infer<typeof aboutSchema>;
 export type ContactSchema = z.infer<typeof contactSchema>;
 export type ProfessionalSchema = z.infer<typeof professionalSchema>;
 
-// TESTE DE VALIDAÇÃO
-// .refine((data) => {
-//   const age = parseInt(data.idade, 10);
-//   return !isNaN(age) && age >= 18 && age <= 120;
-// });
-
 export const registrationSchema = z.object({
   nomeSocial: z
     .string()

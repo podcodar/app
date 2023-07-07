@@ -27,7 +27,7 @@ export default function Form() {
     content: Component,
   } = useOnboardingForm(stepNumber, steps);
 
-  function onComponentSubmit() {
+  function onSubmit() {
     // TODO: call submit if it's the last step
     moveNextStep();
   }
@@ -36,7 +36,7 @@ export default function Form() {
     <div className="bg-white">
       <div className="grid gap-4 max-w-sm mx-auto">
         <div className="flex-1">
-          <Component moveNextStep={moveNextStep} onSubmit={onComponentSubmit} />
+          <Component moveNextStep={moveNextStep} onSubmit={onSubmit} />
         </div>
 
         <div className="flex justify-between">
@@ -50,8 +50,11 @@ export default function Form() {
 
           <div>
             {steps.map((_, idx) => (
-              // eslint-disable-next-line react/jsx-max-props-per-line
-              <StepDot idx={idx} key={idx} step={step} />
+              <StepDot
+                idx={idx}
+                key={idx}
+                step={step}
+              />
             ))}
           </div>
 

@@ -24,32 +24,6 @@ export default function OnboardingContact(props: FormProps) {
     "email"
   ]);
 
-  // function onSubmit(data: ContactSchema) {
-  //   // props.onSubmit();
-  //   // console.log(data);
-  //   const isValid = contactSchema.safeParse(data);
-  //   if (isValid.success) {
-  //     props.moveNextStep();
-  //     console.log(data);
-  //     return;
-  //   }
-  //   console.log("Dados inválidos:", isValid.error);
-  //   return;
-  // }
-
-  // function onSubmit(data: contactSchema) {
-  //   // props.onSubmit();
-  //   // console.log(data);
-  //   const isValid = contactSchema.safeParse(data);
-  //   if (isValid.success) {
-  //     props.moveNextStep();
-  //     console.log(data);
-  //   } else {
-  //     console.log("Dados inválidos:", isValid.error);
-  //   }
-
-  // }
-
   function onSubmit(data: ContactSchema) {
     const isValid = contactSchema.safeParse(data);
     isValid.success
