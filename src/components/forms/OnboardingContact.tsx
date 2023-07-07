@@ -2,40 +2,29 @@
 
 import { contactSchema } from "@/shared/onboarding";
 import { ContactSchema } from "@/shared/onboarding";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Input, Label, Form } from "@/shared/components";
 import { useOnboardingContext } from "@/contexts/OnboardingFormProvider";
+import { useOnboardingFormSchema } from "@/hooks/onboarding-form-schema";
 
 export default function OnboardingContact() {
-  const {
-    register,
-    handleSubmit,
-
-    formState: { errors },
-  } = useForm<ContactSchema>({
-    resolver: zodResolver(contactSchema),
-  });
-  const { moveNextStep, onboarding } = useOnboardingContext();
-  const { contact } = onboarding.formState;
-
-  function onSubmit(data: ContactSchema) {
-    const isValid = contactSchema.safeParse(data);
-    if (!isValid.success) {
-      return alert("Invalid form data");
-    }
-    onboarding.actions.setContact(isValid.data);
-    moveNextStep();
-  }
+  const { onboarding } = useOnboardingContext();
+  const { errors, formState, onSubmit, register } =
+    useOnboardingFormSchema<ContactSchema>({
+      schema: contactSchema,
+      selector: ({ contact }) => contact,
+      onSubmitValidData(data) {
+        onboarding.actions.setContact(data);
+      },
+    });
 
   return (
     <div className="bg-slate-800 grid">
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={onSubmit}>
         <div className="sm:col-span-22">
           <Label htmlFor="pais">País</Label>
           <div className="mt-2">
             <Input
-              defaultValue={contact?.pais}
+              defaultValue={formState?.pais}
               type="text"
               {...register("pais")}
             />
@@ -47,7 +36,7 @@ export default function OnboardingContact() {
           <Label htmlFor="cidade-estado">Cidade/Estado</Label>
           <div className="mt-2">
             <Input
-              defaultValue={contact?.cidadeEstado}
+              defaultValue={formState?.cidadeEstado}
               type="text"
               {...register("cidadeEstado")}
             />
@@ -60,7 +49,7 @@ export default function OnboardingContact() {
           <div className="mt-2">
             <Input
               className="placeholder-gray-400"
-              defaultValue={contact?.telefone}
+              defaultValue={formState?.telefone}
               placeholder="00 00000 0000"
               type="number"
               {...register("telefone")}
@@ -73,7 +62,7 @@ export default function OnboardingContact() {
           <Label htmlFor="email">Email</Label>
           <div className="mt-2">
             <Input
-              defaultValue={contact?.email}
+              defaultValue={formState?.email}
               type="email"
               {...register("email")}
             />

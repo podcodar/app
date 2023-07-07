@@ -2,34 +2,24 @@
 
 import { aboutSchema } from "@/shared/onboarding";
 import { AboutSchema } from "@/shared/onboarding";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Label, Form, Textarea } from "@/shared/components";
 import { useOnboardingContext } from "@/contexts/OnboardingFormProvider";
+import { useOnboardingFormSchema } from "@/hooks/onboarding-form-schema";
 
 export default function OnboardingAbout() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<AboutSchema>({
-    resolver: zodResolver(aboutSchema),
-  });
-  const { moveNextStep, onboarding } = useOnboardingContext();
-  const { about } = onboarding.formState;
-
-  function onSubmit(data: AboutSchema) {
-    const isValid = aboutSchema.safeParse(data);
-    if (!isValid.success) {
-      return alert("Invalid form data");
-    }
-    onboarding.actions.setAbout(isValid.data);
-    moveNextStep();
-  }
+  const { onboarding } = useOnboardingContext();
+  const { errors, formState, onSubmit, register } =
+    useOnboardingFormSchema<AboutSchema>({
+      schema: aboutSchema,
+      selector: ({ about }) => about,
+      onSubmitValidData(data) {
+        onboarding.actions.setAbout(data);
+      },
+    });
 
   return (
     <div className="bg-slate-800 grid">
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={onSubmit}>
         <div className="sm:col-span-2">
           <Label className="text-lg mb-8" htmlFor="q-one">
             Estamos ansiosos para conhecê-lo melhor! Por favor, compartilhe um
@@ -38,17 +28,14 @@ export default function OnboardingAbout() {
           </Label>
           <div className="mt-2">
             <Textarea
-              defaultValue={about?.qOne}
+              defaultValue={formState?.qOne}
               rows={5}
               {...register("qOne")}
             />
             {errors.qOne && <span>{errors.qOne.message}</span>}
           </div>
         </div>
-        <button type="submit"> Enviar </button>
-      </Form>
 
-      <Form onSubmit={handleSubmit(onSubmit)}>
         <div className="sm:col-span-2">
           <Label className="text-lg mb-8" htmlFor="q-two">
             Por favor, compartilhe conosco o motivo pelo qual você deseja
@@ -57,7 +44,7 @@ export default function OnboardingAbout() {
           </Label>
           <div className="mt-2">
             <Textarea
-              defaultValue={about?.qTwo}
+              defaultValue={formState?.qTwo}
               rows={5}
               {...register("qTwo")}
             />

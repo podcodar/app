@@ -34,6 +34,12 @@ export type AboutSchema = z.infer<typeof aboutSchema>;
 export type ContactSchema = z.infer<typeof contactSchema>;
 export type ProfessionalSchema = z.infer<typeof professionalSchema>;
 
+export type OnboardingSchemas =
+  | typeof registrationSchema
+  | typeof aboutSchema
+  | typeof contactSchema
+  | typeof professionalSchema;
+
 export const registrationSchema = z.object({
   nomeSocial: z
     .string()

@@ -1,36 +1,27 @@
 "use client";
-import { genders } from "@/shared/onboarding";
-import { registrationSchema } from "@/shared/onboarding";
-import { RegistrationSchema } from "@/shared/onboarding";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  RegistrationSchema,
+  genders,
+  registrationSchema,
+} from "@/shared/onboarding";
 import { Input, Label, Select, Form, Title } from "@/shared/components";
 import { useOnboardingContext } from "@/contexts/OnboardingFormProvider";
+import { useOnboardingFormSchema } from "@/hooks/onboarding-form-schema";
 
 export default function OnboardingRegistration() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<RegistrationSchema>({
-    resolver: zodResolver(registrationSchema),
-  });
-  const { moveNextStep, onboarding } = useOnboardingContext();
-  const { registration } = onboarding.formState;
-
-  function onSubmit(data: RegistrationSchema) {
-    const isValid = registrationSchema.safeParse(data);
-    if (!isValid.success) {
-      return alert("Invalid form data");
-    }
-
-    onboarding.actions.setRegistration(isValid.data);
-    moveNextStep();
-  }
+  const { onboarding } = useOnboardingContext();
+  const { errors, formState, onSubmit, register } =
+    useOnboardingFormSchema<RegistrationSchema>({
+      schema: registrationSchema,
+      selector: ({ registration }) => registration,
+      onSubmitValidData(data) {
+        onboarding.actions.setRegistration(data);
+      },
+    });
 
   return (
     <div className="bg-slate-800 grid">
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={onSubmit}>
         <div className="grid gap-4 border-gray-900/10">
           <Title> Formulário de Inscrição</Title>
 
@@ -39,7 +30,7 @@ export default function OnboardingRegistration() {
               <Label htmlFor="nome-social">Nome Social</Label>
               <div className="mt-2">
                 <Input
-                  defaultValue={registration?.nomeSocial}
+                  defaultValue={formState?.nomeSocial}
                   type="text"
                   {...register("nomeSocial")}
                 />
@@ -51,7 +42,7 @@ export default function OnboardingRegistration() {
               <Label htmlFor="gender">Gênero</Label>
               <div className="mt-2">
                 <Select
-                  defaultValue={registration?.gender}
+                  defaultValue={formState?.gender}
                   {...register("gender")}
                 >
                   {genders.map((gender) => (
@@ -68,7 +59,7 @@ export default function OnboardingRegistration() {
               <Label htmlFor="idade">Idade</Label>
               <div className="mt-2">
                 <Input
-                  defaultValue={registration?.idade}
+                  defaultValue={formState?.idade}
                   type="number"
                   {...register("idade")}
                 />

@@ -7,7 +7,7 @@ import {
 import { Optional } from "@/shared/types";
 import { Dispatch, SetStateAction, useState } from "react";
 
-type FormState = {
+export type FormState = {
   registration: Optional<RegistrationSchema>;
   about: Optional<AboutSchema>;
   contact: Optional<ContactSchema>;
