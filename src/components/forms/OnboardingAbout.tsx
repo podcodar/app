@@ -11,20 +11,20 @@ export default function OnboardingAbout() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<AboutSchema>({
     resolver: zodResolver(aboutSchema),
   });
-  const { moveNextStep } = useOnboardingContext();
-  const values = watch(["qOne", "qTwo"]);
+  const { moveNextStep, onboarding } = useOnboardingContext();
+  const { about } = onboarding.formState;
 
   function onSubmit(data: AboutSchema) {
     const isValid = aboutSchema.safeParse(data);
-    isValid.success
-      ? moveNextStep()
-      : console.log("Dados inválidos:", isValid.error);
-    console.log(data);
+    if (!isValid.success) {
+      return alert("Invalid form data");
+    }
+    onboarding.actions.setAbout(isValid.data);
+    moveNextStep();
   }
 
   return (
@@ -37,7 +37,11 @@ export default function OnboardingAbout() {
             tecnologia que mais despertam o seu interesse.
           </Label>
           <div className="mt-2">
-            <Textarea rows={5} {...register("qOne")} />
+            <Textarea
+              defaultValue={about?.qOne}
+              rows={5}
+              {...register("qOne")}
+            />
             {errors.qOne && <span>{errors.qOne.message}</span>}
           </div>
         </div>
@@ -52,14 +56,18 @@ export default function OnboardingAbout() {
             participando da comunidade?
           </Label>
           <div className="mt-2">
-            <Textarea rows={5} {...register("qTwo")} />
+            <Textarea
+              defaultValue={about?.qTwo}
+              rows={5}
+              {...register("qTwo")}
+            />
             {errors.qTwo && <span>{errors.qTwo.message}</span>}
           </div>
         </div>
         <button type="submit">TESTE ENVIAR</button>
       </Form>
       <pre>
-        <code>{JSON.stringify(values, null, 2)}</code>
+        <code>{JSON.stringify(onboarding.formState, null, 2)}</code>
       </pre>
     </div>
   );

@@ -8,31 +8,24 @@ import { Input, Label, Form } from "@/shared/components";
 import { useOnboardingContext } from "@/contexts/OnboardingFormProvider";
 
 export default function OnboardingContact() {
-  // TODO: Recebe onSubmit, que vai ser uma função.
   const {
     register,
     handleSubmit,
-    watch,
+
     formState: { errors },
   } = useForm<ContactSchema>({
     resolver: zodResolver(contactSchema),
   });
-  const { moveNextStep } = useOnboardingContext();
-  const values = watch([
-    "telefone",
-    "cidadeEstado",
-    "pais",
-    "email"
-  ]);
+  const { moveNextStep, onboarding } = useOnboardingContext();
+  const { contact } = onboarding.formState;
 
   function onSubmit(data: ContactSchema) {
     const isValid = contactSchema.safeParse(data);
-    isValid.success
-      ? moveNextStep()
-      : console.log("Dados inválidos:", isValid.error);
-    console.log(data);
-    // TODO: enviar o dado para o store global.(proxima pr)  "props.onSubmit();"
-    // TODO: Após o envio, seguir para a proxima etapa, chamar o next
+    if (!isValid.success) {
+      return alert("Invalid form data");
+    }
+    onboarding.actions.setContact(isValid.data);
+    moveNextStep();
   }
 
   return (
@@ -41,7 +34,11 @@ export default function OnboardingContact() {
         <div className="sm:col-span-22">
           <Label htmlFor="pais">País</Label>
           <div className="mt-2">
-            <Input type="text" {...register("pais")} />
+            <Input
+              defaultValue={contact?.pais}
+              type="text"
+              {...register("pais")}
+            />
           </div>
           {errors.pais && <span>{errors.pais.message}</span>}
         </div>
@@ -49,7 +46,11 @@ export default function OnboardingContact() {
         <div className="sm:col-span-2">
           <Label htmlFor="cidade-estado">Cidade/Estado</Label>
           <div className="mt-2">
-            <Input type="text" {...register("cidadeEstado")} />
+            <Input
+              defaultValue={contact?.cidadeEstado}
+              type="text"
+              {...register("cidadeEstado")}
+            />
           </div>
           {errors.cidadeEstado && <span>{errors.cidadeEstado.message}</span>}
         </div>
@@ -59,6 +60,7 @@ export default function OnboardingContact() {
           <div className="mt-2">
             <Input
               className="placeholder-gray-400"
+              defaultValue={contact?.telefone}
               placeholder="00 00000 0000"
               type="number"
               {...register("telefone")}
@@ -70,7 +72,11 @@ export default function OnboardingContact() {
         <div className="sm:col-span-2">
           <Label htmlFor="email">Email</Label>
           <div className="mt-2">
-            <Input type="email" {...register("email")} />
+            <Input
+              defaultValue={contact?.email}
+              type="email"
+              {...register("email")}
+            />
           </div>
           {errors.email && <span>{errors.email.message}</span>}
         </div>
@@ -78,7 +84,7 @@ export default function OnboardingContact() {
       </Form>
 
       <pre>
-        <code>{JSON.stringify(values, null, 2)}</code>
+        <code>{JSON.stringify(onboarding.formState, null, 2)}</code>
       </pre>
     </div>
   );

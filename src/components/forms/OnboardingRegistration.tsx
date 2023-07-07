@@ -11,24 +11,21 @@ export default function OnboardingRegistration() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<RegistrationSchema>({
     resolver: zodResolver(registrationSchema),
   });
-  const { moveNextStep } = useOnboardingContext();
-  const values = watch([
-    "nomeSocial",
-    "gender",
-    "idade"
-  ]);
+  const { moveNextStep, onboarding } = useOnboardingContext();
+  const { registration } = onboarding.formState;
 
   function onSubmit(data: RegistrationSchema) {
     const isValid = registrationSchema.safeParse(data);
-    isValid.success
-      ? moveNextStep()
-      : console.log("Dados inválidos:", isValid.error);
-    console.log(data);
+    if (!isValid.success) {
+      return alert("Invalid form data");
+    }
+
+    onboarding.actions.setRegistration(isValid.data);
+    moveNextStep();
   }
 
   return (
@@ -41,7 +38,11 @@ export default function OnboardingRegistration() {
             <div className="">
               <Label htmlFor="nome-social">Nome Social</Label>
               <div className="mt-2">
-                <Input type="text" {...register("nomeSocial")} />
+                <Input
+                  defaultValue={registration?.nomeSocial}
+                  type="text"
+                  {...register("nomeSocial")}
+                />
                 {errors.nomeSocial && <span>{errors.nomeSocial.message}</span>}
               </div>
             </div>
@@ -49,7 +50,10 @@ export default function OnboardingRegistration() {
             <div className="">
               <Label htmlFor="gender">Gênero</Label>
               <div className="mt-2">
-                <Select defaultValue={""} {...register("gender")}>
+                <Select
+                  defaultValue={registration?.gender}
+                  {...register("gender")}
+                >
                   {genders.map((gender) => (
                     <option key={gender} value={gender}>
                       {gender}
@@ -63,7 +67,11 @@ export default function OnboardingRegistration() {
             <div className="">
               <Label htmlFor="idade">Idade</Label>
               <div className="mt-2">
-                <Input type="number" {...register("idade")} />
+                <Input
+                  defaultValue={registration?.idade}
+                  type="number"
+                  {...register("idade")}
+                />
                 {errors.idade && <span>{errors.idade.message}</span>}
               </div>
             </div>
@@ -73,7 +81,7 @@ export default function OnboardingRegistration() {
       </Form>
 
       <pre>
-        <code>{JSON.stringify(values, null, 2)}</code>
+        <code>{JSON.stringify(onboarding.formState, null, 2)}</code>
       </pre>
     </div>
   );

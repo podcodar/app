@@ -11,26 +11,20 @@ export default function OnboardingProfessional() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<ProfessionalSchema>({
     resolver: zodResolver(professionalSchema),
   });
-  const { moveNextStep } = useOnboardingContext();
-  const values = watch([
-    "educationLevel",
-    "profissao",
-    "empresaOrganizacao",
-    "githubPortifolio",
-    "linkedin",
-  ]);
+  const { moveNextStep, onboarding } = useOnboardingContext();
+  const { professional } = onboarding.formState;
 
   function onSubmit(data: ProfessionalSchema) {
     const isValid = professionalSchema.safeParse(data);
-    isValid.success
-      ? moveNextStep()
-      : console.log("Dados inválidos:", isValid.error);
-    console.log(data);
+    if (!isValid.success) {
+      return alert("Invalid form data");
+    }
+    onboarding.actions.setProfessional(isValid.data);
+    moveNextStep();
   }
 
   return (
@@ -40,7 +34,10 @@ export default function OnboardingProfessional() {
           <div className="sm:col-span-2">
             <Label htmlFor="education-level">Formação</Label>
             <div className="mt-2">
-              <Select defaultValue="" {...register("educationLevel")}>
+              <Select
+                defaultValue={professional?.educationLevel}
+                {...register("educationLevel")}
+              >
                 {educationLevels.map((level) => (
                   <option key={level} value={level}>
                     {level}
@@ -58,6 +55,7 @@ export default function OnboardingProfessional() {
             <Label htmlFor="profissao">Profissão</Label>
             <div className="mt-2">
               <Input
+                defaultValue={professional?.profissao}
                 placeholder="Opcional"
                 type="text"
                 {...register("profissao")}
@@ -69,6 +67,7 @@ export default function OnboardingProfessional() {
             <Label htmlFor="empresa-organizacao">Empresa/Organização</Label>
             <div className="mt-2">
               <Input
+                defaultValue={professional?.empresaOrganizacao}
                 placeholder="Opcional"
                 type="text"
                 {...register("empresaOrganizacao")}
@@ -80,6 +79,7 @@ export default function OnboardingProfessional() {
             <Label htmlFor="github-portifolio">GitHub/Portifólio</Label>
             <div className="mt-2">
               <Input
+                defaultValue={professional?.githubPortifolio}
                 placeholder="Opcional"
                 type="text"
                 {...register("githubPortifolio")}
@@ -91,6 +91,7 @@ export default function OnboardingProfessional() {
             <Label htmlFor="linkedin">LinkedIn</Label>
             <div className="mt-2">
               <Input
+                defaultValue={professional?.linkedin}
                 placeholder="Opcional"
                 type="text"
                 {...register("linkedin")}
@@ -101,7 +102,7 @@ export default function OnboardingProfessional() {
         <button type="submit"> TESTE ENVIAR </button>
       </Form>
       <pre>
-        <code>{JSON.stringify(values, null, 2)}</code>
+        <code>{JSON.stringify(onboarding.formState, null, 2)}</code>
       </pre>
     </div>
   );

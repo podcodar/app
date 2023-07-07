@@ -1,6 +1,7 @@
 "use client";
 import { FC, useState, createContext, ReactNode, useContext } from "react";
 import { raise } from "@/shared/exceptions";
+import { useOnboardingFormState } from "@/hooks/onboarding-form";
 
 type OnboardingContextProps = {
   steps: Step[];
@@ -20,6 +21,7 @@ type OnboardingContextValues = {
   content: FC;
   moveNextStep: () => void;
   movePrevStep: () => void;
+  onboarding: ReturnType<typeof useOnboardingFormState>;
 };
 
 export const OnboardingProvider: FC<OnboardingContextProps> = ({
@@ -27,6 +29,7 @@ export const OnboardingProvider: FC<OnboardingContextProps> = ({
   children,
   initialStep = 0,
 }) => {
+  const onboarding = useOnboardingFormState();
   const [step, setStep] = useState(initialStep);
   const canMovePrevious = step !== 0;
   const canMoveNext = step !== steps.length - 1;
@@ -53,6 +56,7 @@ export const OnboardingProvider: FC<OnboardingContextProps> = ({
     content,
     moveNextStep,
     movePrevStep,
+    onboarding,
   };
 
   return (
