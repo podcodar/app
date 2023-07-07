@@ -5,9 +5,9 @@ import { ProfessionalSchema } from "@/shared/onboarding";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input, Label, Select, Form } from "@/shared/components";
-import { FormProps } from "@/hooks/useOnboardingForm";
+import { useOnboardingContext } from "@/contexts/OnboardingFormProvider";
 
-export default function OnboardingProfessional(props: FormProps) {
+export default function OnboardingProfessional() {
   const {
     register,
     handleSubmit,
@@ -16,6 +16,7 @@ export default function OnboardingProfessional(props: FormProps) {
   } = useForm<ProfessionalSchema>({
     resolver: zodResolver(professionalSchema),
   });
+  const { moveNextStep } = useOnboardingContext();
   const values = watch([
     "educationLevel",
     "profissao",
@@ -27,7 +28,7 @@ export default function OnboardingProfessional(props: FormProps) {
   function onSubmit(data: ProfessionalSchema) {
     const isValid = professionalSchema.safeParse(data);
     isValid.success
-      ? props.moveNextStep()
+      ? moveNextStep()
       : console.log("Dados inválidos:", isValid.error);
     console.log(data);
   }

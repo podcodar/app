@@ -1,42 +1,22 @@
 "use client";
-import OnboardingAbout from "@/components/forms/OnboardingAbout";
-import OnboardingProfessional from "@/components/forms/OnboardingProfessional";
-import OnboardingContact from "@/components/forms/OnboardingContact";
-import OnboardingRegistration from "@/components/forms/OnboardingRegistration";
-import { useOnboardingForm } from "@/hooks/useOnboardingForm";
-import { useSearchParams } from "next/navigation";
-
-const steps = [
-  OnboardingRegistration,
-  OnboardingContact,
-  OnboardingProfessional,
-  OnboardingAbout,
-];
+import { useOnboardingContext } from "@/contexts/OnboardingFormProvider";
 
 export default function Form() {
-  const searchParams = useSearchParams();
-  const initialStep = searchParams.get("step") ?? "0";
-  const stepNumber = parseInt(initialStep, 10);
-
   const {
     step,
+    steps,
     canMoveNext,
     canMovePrevious,
     moveNextStep,
     movePrevStep,
     content: Component,
-  } = useOnboardingForm(stepNumber, steps);
-
-  function onSubmit() {
-    // TODO: call submit if it's the last step
-    moveNextStep();
-  }
+  } = useOnboardingContext();
 
   return (
     <div className="bg-white">
       <div className="grid gap-4 max-w-sm mx-auto">
         <div className="flex-1">
-          <Component moveNextStep={moveNextStep} onSubmit={onSubmit} />
+          <Component />
         </div>
 
         <div className="flex justify-between">

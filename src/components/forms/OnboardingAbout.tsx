@@ -5,9 +5,9 @@ import { AboutSchema } from "@/shared/onboarding";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label, Form, Textarea } from "@/shared/components";
-import { FormProps } from "@/hooks/useOnboardingForm";
+import { useOnboardingContext } from "@/contexts/OnboardingFormProvider";
 
-export default function OnboardingAbout(props: FormProps) {
+export default function OnboardingAbout() {
   const {
     register,
     handleSubmit,
@@ -16,12 +16,13 @@ export default function OnboardingAbout(props: FormProps) {
   } = useForm<AboutSchema>({
     resolver: zodResolver(aboutSchema),
   });
+  const { moveNextStep } = useOnboardingContext();
   const values = watch(["qOne", "qTwo"]);
 
   function onSubmit(data: AboutSchema) {
     const isValid = aboutSchema.safeParse(data);
     isValid.success
-      ? props.moveNextStep()
+      ? moveNextStep()
       : console.log("Dados inválidos:", isValid.error);
     console.log(data);
   }

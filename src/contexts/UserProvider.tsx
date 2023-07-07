@@ -1,5 +1,6 @@
 import { User } from "@prisma/client";
 import { ReactNode, createContext, useContext } from "react";
+import { raise } from "@/shared/exceptions";
 
 const UserContext = createContext<User | null>(null);
 
@@ -15,8 +16,4 @@ export const UserProvider = ({ user, children }: Props) => {
 export const useUser = (): User => {
   const user = useContext(UserContext);
   return user ?? raise("No provider found.");
-};
-
-const raise = (error: string): never => {
-  throw new Error(error);
 };
