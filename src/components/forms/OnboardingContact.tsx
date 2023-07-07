@@ -5,8 +5,10 @@ import { ContactSchema } from "@/shared/onboarding";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input, Label, Form } from "@/shared/components";
+import { useOnboardingContext } from "@/contexts/OnboardingFormProvider";
 
 export default function OnboardingContact() {
+  // TODO: Recebe onSubmit, que vai ser uma função.
   const {
     register,
     handleSubmit,
@@ -15,6 +17,7 @@ export default function OnboardingContact() {
   } = useForm<ContactSchema>({
     resolver: zodResolver(contactSchema),
   });
+  const { moveNextStep } = useOnboardingContext();
   const values = watch([
     "telefone",
     "cidadeEstado",
@@ -23,8 +26,15 @@ export default function OnboardingContact() {
   ]);
 
   function onSubmit(data: ContactSchema) {
+    const isValid = contactSchema.safeParse(data);
+    isValid.success
+      ? moveNextStep()
+      : console.log("Dados inválidos:", isValid.error);
     console.log(data);
+    // TODO: enviar o dado para o store global.(proxima pr)  "props.onSubmit();"
+    // TODO: Após o envio, seguir para a proxima etapa, chamar o next
   }
+
   return (
     <div className="bg-slate-800 grid">
       <Form onSubmit={handleSubmit(onSubmit)}>
@@ -64,6 +74,7 @@ export default function OnboardingContact() {
           </div>
           {errors.email && <span>{errors.email.message}</span>}
         </div>
+        <button type="submit">TESTE ENVIAR</button>
       </Form>
 
       <pre>

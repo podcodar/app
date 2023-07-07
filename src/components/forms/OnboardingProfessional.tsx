@@ -5,6 +5,7 @@ import { ProfessionalSchema } from "@/shared/onboarding";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input, Label, Select, Form } from "@/shared/components";
+import { useOnboardingContext } from "@/contexts/OnboardingFormProvider";
 
 export default function OnboardingProfessional() {
   const {
@@ -15,6 +16,7 @@ export default function OnboardingProfessional() {
   } = useForm<ProfessionalSchema>({
     resolver: zodResolver(professionalSchema),
   });
+  const { moveNextStep } = useOnboardingContext();
   const values = watch([
     "educationLevel",
     "profissao",
@@ -24,6 +26,10 @@ export default function OnboardingProfessional() {
   ]);
 
   function onSubmit(data: ProfessionalSchema) {
+    const isValid = professionalSchema.safeParse(data);
+    isValid.success
+      ? moveNextStep()
+      : console.log("Dados inválidos:", isValid.error);
     console.log(data);
   }
 
@@ -92,6 +98,7 @@ export default function OnboardingProfessional() {
             </div>
           </div>
         </div>
+        <button type="submit"> TESTE ENVIAR </button>
       </Form>
       <pre>
         <code>{JSON.stringify(values, null, 2)}</code>

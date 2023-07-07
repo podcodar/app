@@ -1,44 +1,31 @@
 "use client";
-import OnboardingAbout from "@/components/forms/OnboardingAbout";
-import OnboardingProfessional from "@/components/forms/OnboardingProfessional";
-import OnboardingContact from "@/components/forms/OnboardingContact";
-import OnboardingRegistration from "@/components/forms/OnboardingRegistration";
-import { useOnboardingForm } from "@/hooks/useOnboardingForm";
-import { useSearchParams } from "next/navigation";
-
-const steps = [
-  <OnboardingRegistration key={0} />,
-  <OnboardingContact key={1} />,
-  <OnboardingProfessional key={2} />,
-  <OnboardingAbout key={3} />,
-];
+import { useOnboardingContext } from "@/contexts/OnboardingFormProvider";
 
 export default function Form() {
-  const searchParams = useSearchParams();
-  const initialStep = searchParams.get("step") ?? "0";
-  const stepNumber = parseInt(initialStep, 10);
-
   const {
     step,
-    content,
+    steps,
     canMoveNext,
     canMovePrevious,
     moveNextStep,
     movePrevStep,
-  } = useOnboardingForm(stepNumber, steps);
+    content: Component,
+  } = useOnboardingContext();
 
   return (
-    <div className="absolute top-0 bottom-0 z-10 right-0 left-0 bg-pod-purple">
+    <div className="bg-white">
       <div className="grid gap-4 max-w-sm mx-auto">
-        <div className="flex-1">{content}</div>
+        <div className="flex-1">
+          <Component />
+        </div>
 
-        <div className="bg-red-100 flex justify-between">
+        <div className="flex justify-between">
           <button
-            className="disabled:text-gray-400"
+            className="text-white text-sm rounded-xl p-1 w-24 h-12 font-medium border-2 bg-pod-purple shadow-md"
             disabled={!canMovePrevious}
             onClick={movePrevStep}
           >
-            prev
+            Voltar
           </button>
 
           <div>
@@ -52,11 +39,11 @@ export default function Form() {
           </div>
 
           <button
-            className="disabled:text-gray-400"
+            className="text-white text-sm rounded-xl p-1 w-24 h-12 font-medium border-2 bg-pod-purple shadow-md"
             disabled={!canMoveNext}
             onClick={moveNextStep}
           >
-            next
+            Continuar
           </button>
         </div>
       </div>
@@ -68,5 +55,5 @@ function StepDot({ idx = 0, step = 0 }) {
   let color = "text-gray-300";
   if (idx < step) color = "text-blue-400";
   if (idx === step) color = "text-purple-400";
-  return <span className={color}>o</span>;
+  return <span className={`${color} font-medium text-2xl`}>o</span>;
 }

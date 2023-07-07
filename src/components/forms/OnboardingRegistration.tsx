@@ -5,6 +5,7 @@ import { RegistrationSchema } from "@/shared/onboarding";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input, Label, Select, Form, Title } from "@/shared/components";
+import { useOnboardingContext } from "@/contexts/OnboardingFormProvider";
 
 export default function OnboardingRegistration() {
   const {
@@ -15,6 +16,7 @@ export default function OnboardingRegistration() {
   } = useForm<RegistrationSchema>({
     resolver: zodResolver(registrationSchema),
   });
+  const { moveNextStep } = useOnboardingContext();
   const values = watch([
     "nomeSocial",
     "gender",
@@ -22,6 +24,10 @@ export default function OnboardingRegistration() {
   ]);
 
   function onSubmit(data: RegistrationSchema) {
+    const isValid = registrationSchema.safeParse(data);
+    isValid.success
+      ? moveNextStep()
+      : console.log("Dados inválidos:", isValid.error);
     console.log(data);
   }
 
@@ -63,6 +69,7 @@ export default function OnboardingRegistration() {
             </div>
           </div>
         </div>
+        <button type="submit">TESTE ENVIAR</button>
       </Form>
 
       <pre>
