@@ -15,7 +15,6 @@ jobs:
 
       - name: Run integration tests
         run: |
-          docker-compose up -d
           npm run e2e:up
 
       - name: Stop app and cleanup
