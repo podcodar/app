@@ -17,7 +17,37 @@ jobs:
         run: |
           npm run e2e:up
 
+      - name: Set test status
+        id: test-status
+        run: |
+          if [ ${{ needs.integration-tests.result }} = "success" ]; then
+            echo "Tests passed"
+            echo "::set-output name=status::success"
+            echo "::set-output name=description::Tests passed"
+          else
+            echo "Tests failed"
+            echo "::set-output name=status::failure"
+            echo "::set-output name=description::Tests failed"
+          fi
+
       - name: Stop app and cleanup
+        if: ${{ steps.test-status.outputs.status == 'success' }}
         run: |
           npm run down
           docker-compose rm -f -s -v
+          - name: Set GitHub status
+          if: always()
+          uses: actions/github-script@v5
+          with:
+            script: |
+              const status = "${{ steps.test-status.outputs.status }}";
+              const description = "${{ steps.test-status.outputs.description }}";
+
+              github.repos.createCommitStatus({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                sha: context.sha,
+                state: status,
+                description: description,
+                context: 'Integration Tests'
+              })
