@@ -16,6 +16,9 @@ jobs:
       - name: Grant executable permissions to wait-for-it.sh
         run: chmod +x ./.github/workflows/wait-for-it.sh
 
+      - name: Build Docker images
+        run: docker-compose build
+
       - name: Build and run Docker containers
         shell: sh
         run: |
