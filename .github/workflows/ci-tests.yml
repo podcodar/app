@@ -14,20 +14,21 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run integration tests
+        id: integration-tests
         run: |
           npm run e2e:up
 
       - name: Set test status
         id: test-status
         run: |
-          if [ ${{ steps.integration-tests.conclusion }} = "success" ]; then
+          if [ ${{ steps.integration-tests.conclusion == 'success' }} ]; then
             echo "Tests passed"
             echo "status=success" >> $GITHUB_OUTPUT
             echo "description=Tests passed" >> $GITHUB_OUTPUT
           else
             echo "Tests failed"
             echo "status=failure" >> $GITHUB_OUTPUT
-            "description=Testes failed" >> $GITHUB_OUTPUT
+            "description=Tests failed" >> $GITHUB_OUTPUT
           fi
 
       - name: Stop app and cleanup
