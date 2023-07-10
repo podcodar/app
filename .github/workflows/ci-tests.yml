@@ -15,7 +15,7 @@ jobs:
 
       - name: Run integration tests
         run: |
-          npm run e2e:up
+          npm run e2e:up -d
 
       - name: Stop app and cleanup
         run: |
