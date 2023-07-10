@@ -2,46 +2,32 @@
 
 import { contactSchema } from "@/shared/onboarding";
 import { ContactSchema } from "@/shared/onboarding";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Input, Label, Form } from "@/shared/components";
 import { useOnboardingContext } from "@/contexts/OnboardingFormProvider";
+import { useOnboardingFormSchema } from "@/hooks/onboarding-form-schema";
 
 export default function OnboardingContact() {
-  // TODO: Recebe onSubmit, que vai ser uma função.
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<ContactSchema>({
-    resolver: zodResolver(contactSchema),
-  });
-  const { moveNextStep } = useOnboardingContext();
-  const values = watch([
-    "telefone",
-    "cidadeEstado",
-    "pais",
-    "email"
-  ]);
-
-  function onSubmit(data: ContactSchema) {
-    const isValid = contactSchema.safeParse(data);
-    isValid.success
-      ? moveNextStep()
-      : console.log("Dados inválidos:", isValid.error);
-    console.log(data);
-    // TODO: enviar o dado para o store global.(proxima pr)  "props.onSubmit();"
-    // TODO: Após o envio, seguir para a proxima etapa, chamar o next
-  }
+  const { onboarding } = useOnboardingContext();
+  const { errors, formState, onSubmit, register } =
+    useOnboardingFormSchema<ContactSchema>({
+      schema: contactSchema,
+      selector: ({ contact }) => contact,
+      onSubmitValidData(data) {
+        onboarding.actions.setContact(data);
+      },
+    });
 
   return (
     <div className="bg-slate-800 grid">
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={onSubmit}>
         <div className="sm:col-span-22">
           <Label htmlFor="pais">País</Label>
           <div className="mt-2">
-            <Input type="text" {...register("pais")} />
+            <Input
+              defaultValue={formState?.pais}
+              type="text"
+              {...register("pais")}
+            />
           </div>
           {errors.pais && <span>{errors.pais.message}</span>}
         </div>
@@ -49,7 +35,11 @@ export default function OnboardingContact() {
         <div className="sm:col-span-2">
           <Label htmlFor="cidade-estado">Cidade/Estado</Label>
           <div className="mt-2">
-            <Input type="text" {...register("cidadeEstado")} />
+            <Input
+              defaultValue={formState?.cidadeEstado}
+              type="text"
+              {...register("cidadeEstado")}
+            />
           </div>
           {errors.cidadeEstado && <span>{errors.cidadeEstado.message}</span>}
         </div>
@@ -59,6 +49,7 @@ export default function OnboardingContact() {
           <div className="mt-2">
             <Input
               className="placeholder-gray-400"
+              defaultValue={formState?.telefone}
               placeholder="00 00000 0000"
               type="number"
               {...register("telefone")}
@@ -70,7 +61,11 @@ export default function OnboardingContact() {
         <div className="sm:col-span-2">
           <Label htmlFor="email">Email</Label>
           <div className="mt-2">
-            <Input type="email" {...register("email")} />
+            <Input
+              defaultValue={formState?.email}
+              type="email"
+              {...register("email")}
+            />
           </div>
           {errors.email && <span>{errors.email.message}</span>}
         </div>
@@ -78,7 +73,7 @@ export default function OnboardingContact() {
       </Form>
 
       <pre>
-        <code>{JSON.stringify(values, null, 2)}</code>
+        <code>{JSON.stringify(onboarding.formState, null, 2)}</code>
       </pre>
     </div>
   );
