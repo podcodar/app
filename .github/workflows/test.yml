@@ -16,7 +16,7 @@ jobs:
       - name: Build and run Docker containers
         run: |
           docker-compose up -d
-          docker-compose exec integration-test sh -c './.github/workflows/wait-for-it.sh -t 60 app:3000 -- pnpm db:migrate reset --force && pnpm db:migrate dev && pnpm test'
+          docker-compose run --rm integration-test sh -c './.github/workflows/wait-for-it.sh -t 60 app:3000 -- pnpm db:migrate reset --force && pnpm db:migrate dev && pnpm test'
 
       - name: Stop and remove Docker containers
         run: docker-compose down
