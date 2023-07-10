@@ -1,0 +1,28 @@
+name: Integration Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  integration-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.x
+          cache: npm
+
+      - name: Run integration tests
+        run: npm run e2e:up
+
+      - name: Stop app and cleanup
+        run: |
+          pnpm down
+          docker-compose rm -f -s -v
