@@ -24,31 +24,30 @@ jobs:
           if [ ${{ steps.integration-tests.conclusion }} = "success" ]; then
             echo "Tests passed"
             echo "status=success" >> $GITHUB_OUTPUT
-            echo "description=Tests passed" >> $GITHUB_OUTPUT
+            echo "description=CI tests passed" >> $GITHUB_OUTPUT
           else
             echo "Tests failed"
             echo "status=failure" >> $GITHUB_OUTPUT
-            echo "description=Tests failed" >> $GITHUB_OUTPUT
+            echo "description=CI tests failed" >> $GITHUB_OUTPUT
           fi
 
       - name: Stop app and cleanup
-        if: ${{ steps.test-status.outputs.status == 'success' }}
         run: |
           npm run down
           docker-compose rm -f -s -v
-          - name: Set GitHub status
-          if: always()
-          uses: actions/github-script@v5
-          with:
-            script: |
-              const status = "${{ steps.test-status.outputs.status }}";
-              const description = "${{ steps.test-status.outputs.description }}";
 
-              github.repos.createCommitStatus({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                sha: context.sha,
-                state: status,
-                description: description,
-                context: 'Integration Tests'
-              })
+      - name: Set GitHub status
+        if: always()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const status = "${{ steps.test-status.outputs.status }}";
+            const description = "${{ steps.test-status.outputs.description }}";
+             github.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: status,
+              description: description,
+              context: 'Integration Tests'
+            })
