@@ -17,7 +17,7 @@ jobs:
         run: chmod +x ./.github/workflows/wait-for-it.sh
 
       - name: Build and run Docker containers
-        shell: bash
+        shell: sh
         run: |
           docker-compose up -d
           docker-compose run --rm integration-test sh -c './.github/workflows/wait-for-it.sh -t 60 app:3000 -- pnpm db:migrate reset --force && pnpm db:migrate dev && pnpm test'
