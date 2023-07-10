@@ -9,7 +9,7 @@
     "fmt": "prettier --write . && next lint --fix",
     "lint-staged": "lint-staged",
     "lint": "next lint",
-    "test": "jest --watchAll",
+    "test": "jest",
     "analyze": "ANALYZE=true pnpm build",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate",
