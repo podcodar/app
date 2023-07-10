@@ -1,0 +1,22 @@
+name: Docker Compose Integration Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and run Docker containers
+        run: |
+          docker-compose up -d
+          docker-compose exec integration-test sh -c './.github/workflows/wait-for-it.sh -t 60 app:3000 -- pnpm db:migrate reset --force && pnpm db:migrate dev && pnpm test'
+
+      - name: Stop and remove Docker containers
+        run: docker-compose down
