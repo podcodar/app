@@ -1,4 +1,4 @@
-name: Docker Compose Integration Tests
+name: Integration Tests
 
 on:
   pull_request:
@@ -6,24 +6,45 @@ on:
       - main
 
 jobs:
-  build:
+  integration-tests:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: "podcodar"
+          POSTGRES_PASSWORD: "my-password"
+          POSTGRES_DB: "podcodar-app-test-db"
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
-      - name: Checkout code
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Check out code
         uses: actions/checkout@v2
 
-      - name: Grant executable permissions to wait-for-it.sh
-        run: chmod +x ./.github/workflows/wait-for-it.sh
-
-      - name: Build Docker images
-        run: docker-compose build
-
-      - name: Build and run Docker containers
-        shell: sh
+      - name: Build and start app
         run: |
-          docker-compose up -d
-          docker-compose run --rm integration-test sh -c './.github/workflows/wait-for-it.sh -t 60 app:3000 -- pnpm db:migrate reset --force && pnpm db:migrate dev && pnpm test'
+          npm ci
+          npm run build
+          npm run start &
 
-      - name: Stop and remove Docker containers
-        run: docker-compose down
+      - name: Wait for app to start
+        run: npm run wait-for-app
+
+      - name: Install dependencies
+        run: npm ci --production=false
+
+      - name: Run integration tests
+        run: npm run e2e:up
+
+      - name: Stop app and cleanup
+        run: |
+          npm run down
+          docker-compose rm -f -s -v
