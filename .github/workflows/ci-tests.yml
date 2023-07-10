@@ -22,12 +22,12 @@ jobs:
         run: |
           if [ ${{ steps.integration-tests.conclusion }} = "success" ]; then
             echo "Tests passed"
-            echo "::set-output name=status::success"
-            echo "::set-output name=description::Tests passed"
+            echo "status=success" >> $GITHUB_OUTPUT
+            echo "description=Tests passed" >> $GITHUB_OUTPUT
           else
             echo "Tests failed"
-            echo "::set-output name=status::failure"
-            echo "::set-output name=description::Tests failed"
+            echo "status=failure" >> $GITHUB_OUTPUT
+            "description=Testes failed" >> $GITHUB_OUTPUT
           fi
 
       - name: Stop app and cleanup
