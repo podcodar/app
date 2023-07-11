@@ -106,7 +106,7 @@ describe("user test cases", () => {
     });
 
     await createFailingUser.catch((e: Error) => {
-      expect(e.message).toContain("");
+      expect(e.message).toContain("email");
     });
   });
 });
