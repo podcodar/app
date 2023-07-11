@@ -1,49 +1,39 @@
 import { PrismaClient, Prisma } from "@prisma/client";
-import { User as NextUser, Session } from "next-auth";
-import { getOriginPath, makeRedirectURL } from "./auth";
-import { redirect } from "next/navigation";
+import { User as NextUser } from "next-auth";
 
 export const prisma = new PrismaClient();
 
-export async function createUser(loginUser: NextUser) {
-  const existingUser = await fetchUserBy({
-    email: loginUser.email!,
-  });
+class UserDAO {
+  async createUser(loginUser: NextUser) {
+    const existingUser = await this.fetchUserBy({
+      email: loginUser.email!,
+    });
 
-  if (existingUser) return existingUser;
+    if (existingUser) return existingUser;
 
-  return await prisma.user.create({
-    data: parseNextAuthUser(loginUser),
-  });
-}
-
-export async function fetchUserBy(where: Prisma.UserWhereUniqueInput) {
-  if (where.username) {
-    where.username = decodeURIComponent(where.username);
+    return await prisma.user.create({
+      data: this.parseNextAuthUser(loginUser),
+    });
   }
 
-  return await prisma.user.findUnique({
-    where,
-  });
+  async fetchUserBy(where: Prisma.UserWhereUniqueInput) {
+    if (where.username) {
+      where.username = decodeURIComponent(where.username);
+    }
+
+    return await prisma.user.findUnique({
+      where,
+    });
+  }
+
+  private parseNextAuthUser(loginUser: NextUser): Prisma.UserCreateInput {
+    return {
+      username: loginUser.email ?? "",
+      email: loginUser.email ?? "",
+      name: loginUser.name ?? "",
+      avatar: loginUser.image ?? undefined,
+    };
+  }
 }
 
-function parseNextAuthUser(loginUser: NextUser): Prisma.UserCreateInput {
-  return {
-    username: loginUser.email ?? "",
-    email: loginUser.email ?? "",
-    name: loginUser.name ?? "",
-    avatar: loginUser.image ?? undefined,
-  };
-}
-
-export async function fetchUserWithSession(session: Session | null) {
-  const redirectUrl = makeRedirectURL(getOriginPath());
-
-  if (!session?.user?.email) return redirect(redirectUrl);
-
-  const loggedUser = await fetchUserBy({ email: session.user.email });
-
-  if (!loggedUser) return redirect(redirectUrl);
-
-  return loggedUser;
-}
+export const user = new UserDAO();

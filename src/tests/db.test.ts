@@ -75,10 +75,30 @@ describe("user test cases", () => {
       },
     });
 
-    expect(createFailingUser).rejects.toThrowError();
+    await createFailingUser.catch((e: Error) => {
+      expect(e.message).toContain("username");
+    });
+  });
 
-    await createFailingUser.catch((e) => {
-      expect((e as Error).message).toContain("username");
+  it("should not be able to add a user with a duplicated email", async () => {
+    const user = await prisma.user.findUnique({
+      where: { username: "amy" },
+    });
+    expect(user).toBeTruthy();
+
+    const email = user?.email ?? "";
+    expect(email).not.toBe("");
+
+    const createFailingUser = prisma.user.create({
+      data: {
+        email,
+        name: "user",
+        username: "amy-2",
+      },
+    });
+
+    await createFailingUser.catch((e: Error) => {
+      expect(e.message).toContain("email");
     });
   });
 });

@@ -1,5 +1,5 @@
 import { headers } from "next/headers";
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, Session } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import {
@@ -8,8 +8,9 @@ import {
   githubCredentials,
   googleCredentials,
 } from "./settings";
-import { createUser } from "./db";
+import { user } from "./db";
 import { Roles } from "@prisma/client";
+import { redirect } from "next/navigation";
 
 export type LoginProviders = "github" | "google";
 
@@ -19,8 +20,8 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
   callbacks: {
-    async signIn(user) {
-      const loggedUser = await createUser(user.user);
+    async signIn(authUser) {
+      const loggedUser = await user.createUser(authUser.user);
       return loggedUser.roles.includes(Roles.USER);
     },
   },
@@ -34,4 +35,15 @@ export function getOriginPath() {
 
 export function makeRedirectURL(origin: string) {
   return `${NO_SESSION_REDIRECT}${origin}`;
+}
+
+export async function fetchUserWithSession(session: Session | null) {
+  const redirectUrl = makeRedirectURL(getOriginPath());
+
+  if (!session?.user?.email) return redirect(redirectUrl);
+
+  const loggedUser = await user.fetchUserBy({ email: session.user.email });
+  if (!loggedUser) return redirect(redirectUrl);
+
+  return loggedUser;
 }
