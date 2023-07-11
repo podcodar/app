@@ -19,4 +19,4 @@ jobs:
 
       - name: Run Integration Tests
         id: integration-tests
-        run: docker-compose run integration-test
+        run: npm run e2e:run

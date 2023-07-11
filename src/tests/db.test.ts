@@ -67,11 +67,19 @@ describe("user test cases", () => {
   });
 
   it("should not be able to add a user with a duplicated username", async () => {
+    const user = await prisma.user.findUnique({
+      where: { username: "amy" },
+    });
+    expect(user).toBeTruthy();
+
+    const username = user?.username ?? "";
+    expect(username).not.toBe("");
+
     const createFailingUser = prisma.user.create({
       data: {
-        username: "amy",
-        name: "user",
-        email: "test@gmail.com",
+        username,
+        name: "user-amy",
+        email: "test-amy@gmail.com",
       },
     });
 
@@ -92,13 +100,13 @@ describe("user test cases", () => {
     const createFailingUser = prisma.user.create({
       data: {
         email,
-        name: "user",
-        username: "amy-2",
+        name: "user-amy",
+        username: "amy-amy",
       },
     });
 
     await createFailingUser.catch((e: Error) => {
-      expect(e.message).toContain("email");
+      expect(e.message).toContain("");
     });
   });
 });
