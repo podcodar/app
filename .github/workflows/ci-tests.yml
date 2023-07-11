@@ -13,6 +13,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Build container images
+        id: build-docker-images
+        run: docker-compose build
+
       - name: Run integration tests
         id: integration-tests
         run: docker-compose run integration-test
