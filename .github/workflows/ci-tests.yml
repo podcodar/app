@@ -15,7 +15,7 @@ jobs:
 
       - name: Run integration tests
         id: integration-tests
-        run: docker-compose run integration-test -it
+        run: docker-compose run integration-test
 
       # - name: Set test status
       #   id: test-status
