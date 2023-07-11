@@ -20,8 +20,8 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
   callbacks: {
-    async signIn(user) {
-      const loggedUser = await user.createUser(user.user);
+    async signIn(authUser) {
+      const loggedUser = await user.createUser(authUser.user);
       return loggedUser.roles.includes(Roles.USER);
     },
   },
