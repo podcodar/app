@@ -5,7 +5,7 @@ import AuthProvider from "@/contexts/AuthProvider";
 import { authOptions } from "@/shared/auth";
 import Navbar from "@/components/Navbar";
 import { Container } from "@/shared/components";
-import { fetchUserWithSession } from "@/shared/db";
+import { fetchUserWithSession } from "@/shared/auth";
 
 export const metadata: Metadata = {
   title: "PodCodar Admin",
