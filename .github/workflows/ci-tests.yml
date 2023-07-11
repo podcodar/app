@@ -1,0 +1,22 @@
+name: Integration Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  integration-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build Container Images
+        id: build-docker-images
+        run: docker-compose build
+
+      - name: Run Integration Tests
+        id: integration-tests
+        run: docker-compose run integration-test
