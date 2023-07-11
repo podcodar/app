@@ -4,11 +4,21 @@ export const seed = async () => {
   // create product categories
   await prisma.user.createMany({
     data: [
-      { id: 1, email: "amy@example.com", name: "Amy", username: "amy" },
-      { id: 2, email: "josh@example.com", name: "Josh", username: "josh" },
-      { id: 3, email: "danny@example.com", name: "Danny", username: "danny" },
+      { email: "amy@example.com", name: "Amy", username: "amy" },
+      { email: "josh@example.com", name: "Josh", username: "josh" },
+      { email: "danny@example.com", name: "Danny", username: "danny" },
     ],
   });
+
+  const [
+    amy,
+    josh,
+    danny
+  ] = await Promise.all([
+    prisma.user.findUnique({ where: { username: "amy" } }),
+    prisma.user.findUnique({ where: { username: "josh" } }),
+    prisma.user.findUnique({ where: { username: "danny" } }),
+  ]);
 
   console.log("✨ 3 users successfully created!");
 
@@ -16,31 +26,34 @@ export const seed = async () => {
   await prisma.task.createMany({
     data: [
       {
-        id: 1,
         title: "Task 1",
         description: "First task",
       },
       {
-        id: 2,
         title: "Task 2",
         description: "Second task",
       },
       {
-        id: 3,
         title: "Task 3",
         description: "Third task",
       },
     ],
   });
 
+  const whereList = [{ title: "Task 1" }, { title: "Task 2" }];
+  const [t1, t2] = await Promise.all(
+    whereList.map((where) => prisma.task.findUnique({ where }))
+  );
+
   console.log("✨ 3 tasks successfully created!");
 
   // create user tasks
   await prisma.userTasks.createMany({
     data: [
-      { completed: false, taskId: 1, userId: 1 },
-      { completed: true, taskId: 1, userId: 2 },
-      { completed: false, taskId: 2, userId: 2 },
+      { completed: false, taskId: t1!.id, userId: amy!.id },
+      { completed: true, taskId: t1!.id, userId: josh!.id },
+      { completed: true, taskId: t1!.id, userId: danny!.id },
+      { completed: false, taskId: t2!.id, userId: josh!.id },
     ],
   });
 
@@ -49,8 +62,8 @@ export const seed = async () => {
   // create tasks dependencies
   await prisma.tasksDependencies.create({
     data: {
-      taskId: 1,
-      dependentTaskId: 2,
+      taskId: t1!.id,
+      dependentTaskId: t2!.id,
     },
   });
 
