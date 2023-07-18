@@ -2,12 +2,19 @@
 
 import { contactSchema } from "@/shared/onboarding";
 import { ContactSchema } from "@/shared/onboarding";
-import { Input, Label, Form } from "@/shared/components";
+import {
+  Input,
+  Label,
+  Form,
+  ButtonWrapper,
+  Button,
+  ErrorMessage,
+} from "@/shared/components";
 import { useOnboardingContext } from "@/contexts/OnboardingFormProvider";
 import { useOnboardingFormSchema } from "@/hooks/onboarding-form-schema";
 
 export default function OnboardingContact() {
-  const { onboarding } = useOnboardingContext();
+  const { onboarding, canMovePrevious, movePrevStep } = useOnboardingContext();
   const { errors, formState, onSubmit, register } =
     useOnboardingFormSchema<ContactSchema>({
       schema: contactSchema,
@@ -18,63 +25,66 @@ export default function OnboardingContact() {
     });
 
   return (
-    <div className="bg-slate-800 grid">
-      <Form onSubmit={onSubmit}>
-        <div className="sm:col-span-22">
-          <Label htmlFor="pais">País</Label>
-          <div className="mt-2">
-            <Input
-              defaultValue={formState?.pais}
-              type="text"
-              {...register("pais")}
-            />
-          </div>
-          {errors.pais && <span>{errors.pais.message}</span>}
+    <Form onSubmit={onSubmit}>
+      <div>
+        <Label htmlFor="pais">País</Label>
+        <div>
+          <Input
+            defaultValue={formState?.pais}
+            type="text"
+            {...register("pais")}
+          />
         </div>
+        {errors.pais && <ErrorMessage>{errors.pais.message}</ErrorMessage>}
+      </div>
 
-        <div className="sm:col-span-2">
-          <Label htmlFor="cidade-estado">Cidade/Estado</Label>
-          <div className="mt-2">
-            <Input
-              defaultValue={formState?.cidadeEstado}
-              type="text"
-              {...register("cidadeEstado")}
-            />
-          </div>
-          {errors.cidadeEstado && <span>{errors.cidadeEstado.message}</span>}
+      <div>
+        <Label htmlFor="cidade-estado">Cidade/Estado</Label>
+        <div>
+          <Input
+            defaultValue={formState?.cidadeEstado}
+            type="text"
+            {...register("cidadeEstado")}
+          />
         </div>
+        {errors.cidadeEstado && (
+          <ErrorMessage>{errors.cidadeEstado.message}</ErrorMessage>
+        )}
+      </div>
 
-        <div className="sm:col-span-22">
-          <Label htmlFor="telefone">Telefone</Label>
-          <div className="mt-2">
-            <Input
-              className="placeholder-gray-400"
-              defaultValue={formState?.telefone}
-              placeholder="00 00000 0000"
-              type="number"
-              {...register("telefone")}
-            />
-          </div>
-          {errors.telefone && <span>{errors.telefone.message}</span>}
+      <div>
+        <Label htmlFor="telefone">Telefone</Label>
+        <div>
+          <Input
+            defaultValue={formState?.telefone}
+            placeholder="00 00000 0000"
+            type="number"
+            {...register("telefone")}
+          />
         </div>
+        {errors.telefone && (
+          <ErrorMessage>{errors.telefone.message}</ErrorMessage>
+        )}
+      </div>
 
-        <div className="sm:col-span-2">
-          <Label htmlFor="email">Email</Label>
-          <div className="mt-2">
-            <Input
-              defaultValue={formState?.email}
-              type="email"
-              {...register("email")}
-            />
-          </div>
-          {errors.email && <span>{errors.email.message}</span>}
+      <div>
+        <Label htmlFor="email">Email</Label>
+        <div>
+          <Input
+            defaultValue={formState?.email}
+            type="email"
+            {...register("email")}
+          />
         </div>
-        <button type="submit">TESTE ENVIAR</button>
-      </Form>
+        {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
+      </div>
+      <ButtonWrapper>
+        <Button disabled={!canMovePrevious} onClick={movePrevStep}>
+          Voltar
+        </Button>
 
-      <pre>
-        <code>{JSON.stringify(onboarding.formState, null, 2)}</code>
-      </pre>
-    </div>
+        <Button type="submit">Próximo</Button>
+      </ButtonWrapper>
+    </Form>
   );
 }
