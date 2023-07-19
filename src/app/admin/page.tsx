@@ -1,5 +1,3 @@
-import { Container } from "@/shared/components";
-
 type Status = "active" | "inactive";
 
 type Role = "admin" | "user";
@@ -44,7 +42,7 @@ const users: User[] = [
 
 export default function Dashboard() {
   return (
-    <Container className="w-full grid p-8 gap-8">
+    <div className="w-full grid p-8 gap-8">
       <div className="header flex w-full justify-between">
         <div className="flex-1">
           <h2 className="text-xl">Inscrito</h2>
@@ -89,6 +87,6 @@ export default function Dashboard() {
           </tbody>
         </table>
       </div>
-    </Container>
+    </div>
   );
 }

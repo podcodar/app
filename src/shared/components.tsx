@@ -76,14 +76,10 @@ const ImageStyled = tw(NextImage)`
   object-cover
 `;
 
-export const Container = tw.div`
-h-screen bg-slate-50
-`;
-
 export const ErrorMessage = tw.p`
-text-xs text-red-400
+  text-xs text-red-400
 `;
 
 export const ButtonWrapper = tw.div`
-flex flex-wrap justify-around
+  flex flex-wrap justify-around
 `;
