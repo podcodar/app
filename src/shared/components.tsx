@@ -25,24 +25,26 @@ const focusStyles = () => `
 `;
 
 export const Select = tw.select`
-  block w-72 border-0 p-1.5 text-gray-700 bg-white
+  block border-0 w-full p-1.5 text-gray-700 bg-white
   shadow-sm ring-1 ring-inset ring-gray-300
   sm:max-w-xs sm:text-sm sm:leading-6
   ${focusStyles}
 `;
 
 export const Input = tw.input`
-  block w-72 border-1 p-1.5 text-gray-700
+  block border-1 w-full p-1.5 text-gray-700
   shadow-sm ring-1 ring-inset ring-gray-300
-  placeholder:text-gray-400 sm:text-sm sm:leading-6 col-span-2
-  [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none
+  placeholder:text-gray-400 sm:text-sm sm:leading-6
+  
+  [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none 
+  [&::-webkit-inner-spin-button]:appearance-none
   ${focusStyles}
 `;
 
 export const Textarea = tw.textarea`
   block w-full border-1 p-1.5 mt-2 text-gray-700
   shadow-sm ring-1 ring-inset ring-gray-300
-  placeholder:text-gray-400 sm:text-sm sm:leading-6 sm:col-span-1 col-span-2 
+  placeholder:text-gray-400 sm:text-sm sm:leading-6 sm:col-span-1
   resize-none 
   ${focusStyles}
 `;
