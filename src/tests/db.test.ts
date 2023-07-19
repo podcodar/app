@@ -1,5 +1,6 @@
 import { prisma } from "@/shared/db";
 import { seed, teardown } from "./db.utils";
+import { raise } from "@/shared/exceptions";
 
 beforeAll(seed);
 
@@ -11,6 +12,7 @@ describe("user test cases", () => {
     const user = await prisma.user.findFirst({
       where: { username },
     });
+
     expect(user).not.toBeNull();
     expect(user?.username).toBe(username);
   });
@@ -20,10 +22,10 @@ describe("user test cases", () => {
       where: { id: 2 },
     });
 
-    expect(user).not.toBeNull();
+    if (!user) return raise("User not created");
 
     const userTasks = await prisma.userTasks.findMany({
-      where: { userId: user!.id },
+      where: { userId: user.id },
     });
 
     expect(userTasks).toHaveLength(2);
@@ -34,10 +36,10 @@ describe("user test cases", () => {
     const anotherTask = await prisma.task.findFirst({ where: { id: 2 } });
 
     for (const t of [task, anotherTask]) {
-      expect(t).not.toBeNull();
+      if (!t) return raise("Task not created");
 
       const userTasks = await prisma.userTasks.findMany({
-        where: { taskId: t!.id },
+        where: { taskId: t.id },
       });
 
       expect(userTasks.length).toBeGreaterThan(0);
@@ -47,20 +49,20 @@ describe("user test cases", () => {
   it("should be able to fetch dependent tasks from a giving task", async () => {
     const task = await prisma.task.findFirst({ where: { id: 2 } });
 
-    expect(task).not.toBeNull();
+    if (!task) return raise("Task not created");
 
     let dependentTasks = await prisma.tasksDependencies.findMany({
-      where: { task: task! },
+      where: { task: task },
     });
 
     expect(dependentTasks).toHaveLength(0);
 
     const anotherTask = await prisma.task.findFirst({ where: { id: 1 } });
 
-    expect(anotherTask).not.toBeNull();
+    if (!anotherTask) return raise("Task not created");
 
     dependentTasks = await prisma.tasksDependencies.findMany({
-      where: { task: anotherTask! },
+      where: { task: anotherTask },
     });
 
     expect(dependentTasks).toHaveLength(1);

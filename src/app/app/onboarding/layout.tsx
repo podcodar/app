@@ -14,9 +14,7 @@ const steps: Step[] = [
   { content: OnboardingAbout },
 ];
 
-export default async function OnboardingLayout({
-  children,
-}: PropsWithChildren) {
+export default function OnboardingLayout({ children }: PropsWithChildren) {
   const searchParams = useSearchParams();
   const initialStep = searchParams.get("step") ?? "0";
 

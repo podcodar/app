@@ -1,12 +1,13 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 import { User as NextUser } from "next-auth";
+import { raise } from "./exceptions";
 
 export const prisma = new PrismaClient();
 
 class UserDAO {
   async createUser(loginUser: NextUser) {
     const existingUser = await this.fetchUserBy({
-      email: loginUser.email!,
+      email: loginUser.email ?? raise("E-mail not found"),
     });
 
     if (existingUser) return existingUser;

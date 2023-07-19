@@ -1,4 +1,5 @@
 import { prisma } from "@/shared/db";
+import { raise } from "@/shared/exceptions";
 
 export const seed = async () => {
   // create product categories
@@ -19,6 +20,8 @@ export const seed = async () => {
     prisma.user.findUnique({ where: { username: "josh" } }),
     prisma.user.findUnique({ where: { username: "danny" } }),
   ]);
+
+  if (!amy || !josh || !danny) return raise("Users not created");
 
   console.log("✨ 3 users successfully created!");
 
@@ -45,15 +48,17 @@ export const seed = async () => {
     whereList.map((where) => prisma.task.findUnique({ where }))
   );
 
+  if (!t1 || !t2) return raise("Tasks not created");
+
   console.log("✨ 3 tasks successfully created!");
 
   // create user tasks
   await prisma.userTasks.createMany({
     data: [
-      { completed: false, taskId: t1!.id, userId: amy!.id },
-      { completed: true, taskId: t1!.id, userId: josh!.id },
-      { completed: true, taskId: t1!.id, userId: danny!.id },
-      { completed: false, taskId: t2!.id, userId: josh!.id },
+      { completed: false, taskId: t1.id, userId: amy.id },
+      { completed: true, taskId: t1.id, userId: josh.id },
+      { completed: true, taskId: t1.id, userId: danny.id },
+      { completed: false, taskId: t2.id, userId: josh.id },
     ],
   });
 
@@ -62,8 +67,8 @@ export const seed = async () => {
   // create tasks dependencies
   await prisma.tasksDependencies.create({
     data: {
-      taskId: t1!.id,
-      dependentTaskId: t2!.id,
+      taskId: t1.id,
+      dependentTaskId: t2.id,
     },
   });
 
