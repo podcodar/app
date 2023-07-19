@@ -1,60 +1,59 @@
 import tw from "tailwind-styled-components";
 import NextImage, { ImageProps } from "next/image";
 
-export const Title = tw.h1`
-  text-lg
-  text-center
-  font-semibold
-  leading-7
-  text-white
+export const TitleLabel = tw.h1`
+  text-lg text-center font-mono font-semibold leading-7 text-gray-800
+  p-10 my-6 mx-auto bg-slate-100 w-72
+  shadow-md sm:leading-9 sm:w-1/2
 `;
 
 export const Form = tw.form`
-  bg-pod-purple
-  w-full
-  mx-auto
-  my-10
-  p-8
-  rounded-lg
-  md:w-9/12
+  bg-slate-100
+  grid gap-6 p-10 mx-auto justify-center
+  shadow-md sm:w-1/2 w-72
 `;
 
 export const Label = tw.label`
-  block
-  text-sm
-  font-medium
-  leading-6
-  text-white
-  text-justify
+  block 
+  text-sm text-justify font-medium text-gray-700
 `;
 
 const focusStyles = () => `
-  focus:ring-2
-  focus:ring-inset
-  focus:ring-indigo-600
+  shadow-sm 
+  focus:outline-none focus:ring-1 focus:ring-pod-purple focus:shadow-sm focus:shadow-pod-purple-light
+  transition duration-300 
 `;
 
 export const Select = tw.select`
-  block w-full rounded-md border-0 py-1.5 px-1.5 text-black
+  block border-0 w-full p-1.5 text-gray-700 bg-white
   shadow-sm ring-1 ring-inset ring-gray-300
   sm:max-w-xs sm:text-sm sm:leading-6
   ${focusStyles}
 `;
 
 export const Input = tw.input`
-  block w-full rounded-md border-0 py-1.5 px-1.5 text-black
+  block border-1 w-full p-1.5 text-gray-700
   shadow-sm ring-1 ring-inset ring-gray-300
   placeholder:text-gray-400 sm:text-sm sm:leading-6
+  [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none 
+  [&::-webkit-inner-spin-button]:appearance-none
   ${focusStyles}
 `;
 
 export const Textarea = tw.textarea`
-  p-3
-  w-full
-  rounded-lg
-  border-gray-200
-  text-sm
+  block w-full border-1 p-1.5 mt-2 text-gray-700
+  shadow-sm ring-1 ring-inset ring-gray-300
+  placeholder:text-gray-400 sm:text-sm sm:leading-6 sm:col-span-1
+  resize-none 
   ${focusStyles}
+`;
+
+export const Button = tw.button`
+  text-sm font-medium text-white 
+  w-20 h-10 p-1 bg-pod-purple 
+  shadow-sm border-none
+  hover:bg-pod-purple-dark hover:shadow-md hover:text-slate-100
+  active:shadow-none cursor-pointer
 `;
 
 export const Image = (props: ImageProps) => (
@@ -78,9 +77,10 @@ const ImageStyled = tw(NextImage)`
   object-cover
 `;
 
-export const Container = tw.div`
-  mx-auto
-  max-w-7xl
-  px-4 py-6
-  sm:px-6 lg:px-8
+export const ErrorMessage = tw.p`
+  text-xs text-red-400
+`;
+
+export const ButtonWrapper = tw.div`
+  flex flex-wrap justify-around
 `;

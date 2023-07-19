@@ -2,12 +2,19 @@
 
 import { aboutSchema } from "@/shared/onboarding";
 import { AboutSchema } from "@/shared/onboarding";
-import { Label, Form, Textarea } from "@/shared/components";
+import {
+  Label,
+  Form,
+  Textarea,
+  ButtonWrapper,
+  Button,
+  ErrorMessage,
+} from "@/shared/components";
 import { useOnboardingContext } from "@/contexts/OnboardingFormProvider";
 import { useOnboardingFormSchema } from "@/hooks/onboarding-form-schema";
 
 export default function OnboardingAbout() {
-  const { onboarding } = useOnboardingContext();
+  const { onboarding, canMovePrevious, movePrevStep } = useOnboardingContext();
   const { errors, formState, onSubmit, register } =
     useOnboardingFormSchema<AboutSchema>({
       schema: aboutSchema,
@@ -18,44 +25,46 @@ export default function OnboardingAbout() {
     });
 
   return (
-    <div className="bg-slate-800 grid">
-      <Form onSubmit={onSubmit}>
-        <div className="sm:col-span-2">
-          <Label className="text-lg mb-8" htmlFor="q-one">
-            Estamos ansiosos para conhecê-lo melhor! Por favor, compartilhe um
-            pouco da sua experiência e nos conte quais são as áreas da
-            tecnologia que mais despertam o seu interesse.
-          </Label>
-          <div className="mt-2">
-            <Textarea
-              defaultValue={formState?.qOne}
-              rows={5}
-              {...register("qOne")}
-            />
-            {errors.qOne && <span>{errors.qOne.message}</span>}
-          </div>
+    <Form onSubmit={onSubmit}>
+      <div>
+        <Label htmlFor="q-one">
+          Estamos ansiosos para conhecê-lo melhor! Por favor, compartilhe um
+          pouco da sua experiência e nos conte quais são as áreas da tecnologia
+          que mais despertam o seu interesse.
+        </Label>
+        <div>
+          <Textarea
+            defaultValue={formState?.qOne}
+            rows={5}
+            {...register("qOne")}
+          />
+          {errors.qOne && <ErrorMessage>{errors.qOne.message}</ErrorMessage>}
         </div>
+      </div>
 
-        <div className="sm:col-span-2">
-          <Label className="text-lg mb-8" htmlFor="q-two">
-            Por favor, compartilhe conosco o motivo pelo qual você deseja
-            ingressar na PodCodar, o que espera aprender ou vivenciar
-            participando da comunidade?
-          </Label>
-          <div className="mt-2">
-            <Textarea
-              defaultValue={formState?.qTwo}
-              rows={5}
-              {...register("qTwo")}
-            />
-            {errors.qTwo && <span>{errors.qTwo.message}</span>}
-          </div>
+      <div>
+        <Label htmlFor="q-two">
+          Por favor, compartilhe conosco o motivo pelo qual você deseja
+          ingressar na PodCodar, o que espera aprender ou vivenciar participando
+          da comunidade?
+        </Label>
+        <div>
+          <Textarea
+            defaultValue={formState?.qTwo}
+            rows={5}
+            {...register("qTwo")}
+          />
+          {errors.qTwo && <ErrorMessage>{errors.qTwo.message}</ErrorMessage>}
         </div>
-        <button type="submit">TESTE ENVIAR</button>
-      </Form>
-      <pre>
-        <code>{JSON.stringify(onboarding.formState, null, 2)}</code>
-      </pre>
-    </div>
+      </div>
+      <ButtonWrapper>
+        <Button disabled={!canMovePrevious} onClick={movePrevStep}>
+          Voltar
+        </Button>
+
+        <Button type="submit">Finalizar</Button>
+      </ButtonWrapper>
+    </Form>
   );
 }
+//TODO: Lead to after onboarding page

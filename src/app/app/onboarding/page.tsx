@@ -1,59 +1,34 @@
 "use client";
 import { useOnboardingContext } from "@/contexts/OnboardingFormProvider";
+import { TitleLabel } from "@/shared/components";
 
 export default function Form() {
-  const {
-    step,
-    steps,
-    canMoveNext,
-    canMovePrevious,
-    moveNextStep,
-    movePrevStep,
-    content: Component,
-  } = useOnboardingContext();
-
+  const { step, steps, content: Component } = useOnboardingContext();
   return (
-    <div className="bg-white">
-      <div className="grid gap-4 max-w-sm mx-auto">
-        <div className="flex-1">
-          <Component />
-        </div>
+    <div className="bg-slate-50 gap-6 grid absolute right-0 left-0 bottom-0 top-0 content-center">
+      <TitleLabel>Formulário de Inscrição</TitleLabel>
+      <Component />
 
-        <div className="flex justify-between">
-          <button
-            className="text-white text-sm rounded-xl p-1 w-24 h-12 font-medium border-2 bg-pod-purple shadow-md"
-            disabled={!canMovePrevious}
-            onClick={movePrevStep}
-          >
-            Voltar
-          </button>
-
-          <div>
-            {steps.map((_, idx) => (
-              <StepDot
-                idx={idx}
-                key={idx}
-                step={step}
-              />
-            ))}
-          </div>
-
-          <button
-            className="text-white text-sm rounded-xl p-1 w-24 h-12 font-medium border-2 bg-pod-purple shadow-md"
-            disabled={!canMoveNext}
-            onClick={moveNextStep}
-          >
-            Continuar
-          </button>
-        </div>
+      <div className="mx-auto flex">
+        {steps.map((_, idx) => (
+          <StepDot
+            idx={idx}
+            key={idx}
+            step={step}
+          />
+        ))}
       </div>
     </div>
   );
 }
 
 function StepDot({ idx = 0, step = 0 }) {
-  let color = "text-gray-300";
-  if (idx < step) color = "text-blue-400";
-  if (idx === step) color = "text-purple-400";
-  return <span className={`${color} font-medium text-2xl`}>o</span>;
+  let color = "bg-gray-300";
+  if (idx < step) color = "bg-blue-400";
+  if (idx === step) color = "bg-purple-400";
+  return (
+    <div
+      className={`${color} w-3 h-3 mx-1 mb-6 font-medium text-2xl rounded-full`}
+    />
+  );
 }
