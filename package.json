@@ -2,6 +2,9 @@
   "name": "app",
   "version": "0.1.0",
   "private": true,
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -14,8 +17,10 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate",
     "db:studio": "prisma studio",
+    "db:seed": "prisma db seed",
     "dk:start": "concurrently 'pnpm dev' 'pnpm db:studio --browser none'",
     "migrate": "docker-compose run -it migrate",
+    "seed": "docker-compose run -it seed",
     "app:up": "docker-compose up app",
     "e2e:run": "docker-compose run integration-test",
     "down": "docker-compose down",
