@@ -35,7 +35,6 @@ export const Input = tw.input`
   block border-1 w-full p-1.5 text-gray-700
   shadow-sm ring-1 ring-inset ring-gray-300
   placeholder:text-gray-400 sm:text-sm sm:leading-6
-  
   [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none 
   [&::-webkit-inner-spin-button]:appearance-none
   ${focusStyles}
