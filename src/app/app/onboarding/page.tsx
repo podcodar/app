@@ -4,7 +4,6 @@ import { TitleLabel } from "@/shared/components";
 
 export default function Form() {
   const { step, steps, content: Component } = useOnboardingContext();
-  //Remo colspan
   return (
     <div className="bg-slate-50 gap-6 grid absolute right-0 left-0 bottom-0 top-0 content-center">
       <TitleLabel>Formulário de Inscrição</TitleLabel>
