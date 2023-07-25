@@ -33,7 +33,8 @@ export type OnboardingSchemas =
   | typeof registrationSchema
   | typeof aboutSchema
   | typeof contactSchema
-  | typeof professionalSchema;
+  | typeof professionalSchema
+  | typeof formSchema;
 
 export const registrationSchema = z.object({
   nomeSocial: z
@@ -69,3 +70,12 @@ export const professionalSchema = z.object({
   githubPortifolio: z.string(),
   linkedin: z.string(),
 });
+
+export const formSchema = z.object({
+  registration: registrationSchema,
+  about: aboutSchema,
+  contact: contactSchema,
+  professional: professionalSchema,
+});
+
+export type FormState = Partial<z.infer<typeof formSchema>>;
