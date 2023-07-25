@@ -67,4 +67,3 @@ export default function OnboardingAbout() {
     </Form>
   );
 }
-//TODO: Lead to after onboarding page
