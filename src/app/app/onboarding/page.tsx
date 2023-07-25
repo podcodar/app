@@ -1,24 +1,29 @@
 "use client";
 import { useOnboardingContext } from "@/contexts/OnboardingFormProvider";
 import { TitleLabel } from "@/shared/components";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 export default function Form() {
   const { step, steps, content: Component } = useOnboardingContext();
   return (
-    <div className="bg-slate-50 gap-6 grid absolute right-0 left-0 bottom-0 top-0 content-center">
-      <TitleLabel>Formulário de Inscrição</TitleLabel>
-      <Component />
+    <QueryClientProvider client={queryClient}>
+      <div className="bg-slate-50 gap-6 grid absolute right-0 left-0 bottom-0 top-0 content-center">
+        <TitleLabel>Formulário de Inscrição</TitleLabel>
+        <Component />
 
-      <div className="mx-auto flex">
-        {steps.map((_, idx) => (
-          <StepDot
-            idx={idx}
-            key={idx}
-            step={step}
-          />
-        ))}
+        <div className="mx-auto flex">
+          {steps.map((_, idx) => (
+            <StepDot
+              idx={idx}
+              key={idx}
+              step={step}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </QueryClientProvider>
   );
 }
 
