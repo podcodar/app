@@ -3,23 +3,11 @@ import {
   ContactSchema,
   ProfessionalSchema,
   RegistrationSchema,
+  FormState,
 } from "@/shared/onboarding";
-import { Optional } from "@/shared/types";
 import { Dispatch, SetStateAction, useState } from "react";
 
-export type FormState = {
-  registration: Optional<RegistrationSchema>;
-  about: Optional<AboutSchema>;
-  contact: Optional<ContactSchema>;
-  professional: Optional<ProfessionalSchema>;
-};
-
-const initialState: FormState = {
-  about: null,
-  contact: null,
-  professional: null,
-  registration: null,
-};
+const initialState: FormState = {};
 
 export function useOnboardingFormState() {
   const [formState, setFormState] = useState(initialState);

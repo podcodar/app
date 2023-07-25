@@ -6,17 +6,17 @@ import OnboardingContact from "@/components/forms/OnboardingContact";
 import OnboardingProfessional from "@/components/forms/OnboardingProfessional";
 import OnboardingAbout from "@/components/forms/OnboardingAbout";
 import { useSearchParams } from "next/navigation";
+import OnboardingReview from "@/components/forms/OnboardingReview";
 
 const steps: Step[] = [
   { content: OnboardingRegistration },
   { content: OnboardingContact },
   { content: OnboardingProfessional },
   { content: OnboardingAbout },
+  { content: OnboardingReview },
 ];
 
-export default async function OnboardingLayout({
-  children,
-}: PropsWithChildren) {
+export default function OnboardingLayout({ children }: PropsWithChildren) {
   const searchParams = useSearchParams();
   const initialStep = searchParams.get("step") ?? "0";
 

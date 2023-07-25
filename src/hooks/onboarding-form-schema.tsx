@@ -3,8 +3,8 @@ import { OnboardingSchemas } from "@/shared/onboarding";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useOnboardingContext } from "@/contexts/OnboardingFormProvider";
-import { FormState } from "@/hooks/onboarding-form";
 import { Optional } from "@/shared/types";
+import { FormState } from "@/shared/onboarding";
 
 type Args<Schema> = {
   schema: OnboardingSchemas;
