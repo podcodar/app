@@ -13,6 +13,19 @@ ADMIN ADMIN
     String username 
     String avatar 
     Roles roles 
+    String socialName "❓"
+    String gender "❓"
+    Int age "❓"
+    String country "❓"
+    String city "❓"
+    String phoneNumber "❓"
+    String educationLevel "❓"
+    String profession "❓"
+    String company "❓"
+    String github "❓"
+    String linkedin "❓"
+    String qOne "❓"
+    String qTwo "❓"
     }
   
 
