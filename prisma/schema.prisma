@@ -16,13 +16,26 @@ datasource db {
 }
 
 model User {
-  id       Int         @id @default(autoincrement())
-  name     String
-  email    String      @unique
-  username String      @unique
-  avatar   String      @default("/images/default-user.svg")
-  roles    Roles[]     @default([USER])
-  tasks    UserTasks[] 
+  id              Int         @id @default(autoincrement())
+  name            String
+  email           String      @unique
+  username        String      @unique
+  avatar          String      @default("/images/default-user.svg")
+  roles           Roles[]     @default([USER])
+  tasks           UserTasks[] 
+  socialName      String?
+  gender          String?
+  age             Int?
+  country         String?
+  city            String?
+  phoneNumber     String?
+  educationLevel  String?
+  profession      String?
+  company         String?
+  github          String?
+  linkedin        String?
+  techInterests   String?
+  expectations    String?
 }
 
 enum Roles {
