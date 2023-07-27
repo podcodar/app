@@ -4,21 +4,20 @@ import { Label, Form, ButtonWrapper, Button } from "@/shared/components";
 import { useOnboardingContext } from "@/contexts/OnboardingFormProvider";
 import { useMutation } from "@tanstack/react-query";
 import { FormState } from "@/shared/onboarding";
-import { useUser } from "@/contexts/UserProvider";
+import { useRouter } from "next/navigation";
 
 export default function OnboardingReview() {
-  const user = useUser();
-  const sendDataToApi = useMutation((data: FormState) => {
-    const dataWithId = {
-      data,
-      id: user.id,
-    };
-    return fetch("/api/onboarding", {
+  const router = useRouter();
+  const sendDataToApi = useMutation(async (data: FormState) => {
+    return fetch("http://localhost:3000/api/onboarding", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(dataWithId),
+      body: JSON.stringify(data),
+    }).then((res) => {
+      if (res.ok) router.push("/app");
+      // TODO: make an else with error toast
     });
   });
 
