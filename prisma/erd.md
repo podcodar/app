@@ -24,8 +24,8 @@ ADMIN ADMIN
     String company "❓"
     String github "❓"
     String linkedin "❓"
-    String qOne "❓"
-    String qTwo "❓"
+    String techInterests "❓"
+    String expectations "❓"
     }
   
 
