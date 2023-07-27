@@ -1,41 +1,25 @@
+import { authOptions } from "@/shared/auth";
 import { formSchema } from "@/shared/onboarding";
-import { NextResponse } from "next/server";
-import { prisma } from "@/shared/db";
+import { user } from "@/shared/db";
+import { getServerSession } from "next-auth";
+import { NextRequest, NextResponse } from "next/server";
+import { raise } from "@/shared/exceptions";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const dataWithId = await request.json();
-    const { data } = dataWithId;
-    const { id } = dataWithId;
+    const data = await request.json();
     const formValues = formSchema.safeParse(data);
 
     if (!formValues.success)
       return new NextResponse(JSON.stringify(formValues), { status: 403 });
 
-    try {
-      await prisma.user.update({
-        where: { id: id },
-        data: {
-          socialName: data.registration.nomeSocial,
-          gender: data.registration.gender,
-          age: parseInt(data.registration.idade),
-          country: data.contact.pais,
-          city: data.contact.cidadeEstado,
-          phoneNumber: data.contact.telefone,
-          educationLevel: data.professional.educationLevel,
-          profession: data.professional.profissao,
-          company: data.professional.empresaOrganizacao,
-          github: data.professional.githubPortifolio,
-          linkedin: data.professional.linkedin,
-          qOne: data.about.qOne,
-          qTwo: data.about.qTwo,
-        },
-      });
-    } catch (error) {
-      console.log("DB could not update user:", error);
-    }
+    const session = await getServerSession(authOptions);
 
-    return new NextResponse(JSON.stringify(data));
+    const email = session?.user?.email ?? raise("E-mail not available");
+
+    await user.updateUserOnboardingBy({ email }, data);
+
+    return new NextResponse(null, { status: 201 });
   } catch (error) {
     console.error("Erro na API:", error);
 
