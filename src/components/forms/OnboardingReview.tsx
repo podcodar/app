@@ -8,8 +8,8 @@ import { useRouter } from "next/navigation";
 
 export default function OnboardingReview() {
   const router = useRouter();
-  const sendDataToApi = useMutation(async (data: FormState) => {
-    return fetch("/api/onboarding", {
+  const sendDataToApi = useMutation(async (data: FormState) =>
+    fetch("/api/onboarding", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -18,8 +18,8 @@ export default function OnboardingReview() {
     }).then((res) => {
       if (res.ok) router.push("/app");
       // TODO: make an else with error toast
-    });
-  });
+    })
+  );
 
   const { onboarding } = useOnboardingContext();
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
