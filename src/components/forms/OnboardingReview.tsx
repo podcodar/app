@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 export default function OnboardingReview() {
   const router = useRouter();
   const sendDataToApi = useMutation(async (data: FormState) => {
-    return fetch("http://localhost:3000/api/onboarding", {
+    return fetch("/api/onboarding", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
