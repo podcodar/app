@@ -1,6 +1,8 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 import { User as NextUser } from "next-auth";
 import { raise } from "./exceptions";
+import { formSchema } from "./onboarding";
+import { z } from "zod";
 
 export const prisma = new PrismaClient();
 
@@ -24,6 +26,30 @@ class UserDAO {
 
     return await prisma.user.findUnique({
       where,
+    });
+  }
+
+  async updateUserOnboardingBy(
+    where: Prisma.UserWhereUniqueInput,
+    data: z.infer<typeof formSchema>
+  ) {
+    await prisma.user.update({
+      where,
+      data: {
+        socialName: data.registration.nomeSocial,
+        gender: data.registration.gender,
+        age: parseInt(data.registration.idade),
+        country: data.contact.pais,
+        city: data.contact.cidadeEstado,
+        phoneNumber: data.contact.telefone,
+        educationLevel: data.professional.educationLevel,
+        profession: data.professional.profissao,
+        company: data.professional.empresaOrganizacao,
+        github: data.professional.githubPortifolio,
+        linkedin: data.professional.linkedin,
+        techInterests: data.about.qOne,
+        expectations: data.about.qTwo,
+      },
     });
   }
 
