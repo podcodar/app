@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
 
     if (!formValues.success)
       return new NextResponse(JSON.stringify(formValues), { status: 403 });
-      
+
     const session = await getServerSession(authOptions);
     const email = session?.user?.email ?? raise("E-mail not available");
     await user.updateUserOnboardingBy({ email }, data);
