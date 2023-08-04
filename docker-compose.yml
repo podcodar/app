@@ -33,7 +33,7 @@ services:
       context: .
       target: development
     env_file: .env.postgres
-    command: pnpm db:seed
+    command: pnpm i && pnpm db:seed
     volumes:
       - .:/app
       - /app/node_modules
