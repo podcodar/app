@@ -29,6 +29,14 @@ class UserDAO {
     });
   }
 
+  async isOboardingFinished(username: string) {
+    const user =
+      (await this.fetchUserBy({ username })) ??
+      raise("Could not find user on DB");
+
+    return Boolean(user.expectations);
+  }
+
   async updateUserOnboardingBy(
     where: Prisma.UserWhereUniqueInput,
     data: z.infer<typeof formSchema>
