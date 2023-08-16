@@ -7,18 +7,15 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Logo } from "./Logo";
 import { classes } from "@/shared/tw";
 import Image from "next/image";
-import { User } from "@prisma/client";
 import Link from "next/link";
+import { useUser } from "@/contexts/UserProvider";
 
 const navigation = [{ name: "Home", href: "/app", current: true }];
 
 const profileLinks = [{ name: "Sign out", onClick: () => signOut() }];
 
-type Props = {
-  loggedUser: User;
-};
-
-export default function Navbar({ loggedUser }: Props) {
+export default function Navbar() {
+  const loggedUser = useUser();
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (

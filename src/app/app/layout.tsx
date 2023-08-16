@@ -32,7 +32,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
     <AuthProvider>
       <UserProvider user={loggedUser}>
         <div className="shadow-md">
-          <Navbar loggedUser={loggedUser} />
+          <Navbar />
         </div>
         {children}
       </UserProvider>

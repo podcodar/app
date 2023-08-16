@@ -6,6 +6,7 @@ import { authOptions } from "@/shared/auth";
 import Navbar from "@/components/Navbar";
 
 import { fetchUserWithSession } from "@/shared/auth";
+import { UserProvider } from "@/contexts/UserProvider";
 
 export const metadata: Metadata = {
   title: "PodCodar Admin",
@@ -19,10 +20,12 @@ export default async function RootLayout({ children }: PropsWithChildren) {
   return (
     <body>
       <AuthProvider>
-        <div className="bg-white shadow">
-          <Navbar loggedUser={loggedUser} />
-        </div>
-        {children}
+        <UserProvider user={loggedUser}>
+          <div className="bg-white shadow">
+            <Navbar />
+          </div>
+          {children}
+        </UserProvider>
       </AuthProvider>
     </body>
   );
