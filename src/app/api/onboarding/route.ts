@@ -4,6 +4,7 @@ import { user } from "@/shared/db";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { raise } from "@/shared/exceptions";
+import { task } from "@/shared/tasks.dao";
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,7 +16,13 @@ export async function POST(request: NextRequest) {
 
     const session = await getServerSession(authOptions);
     const email = session?.user?.email ?? raise("E-mail not available");
+    const userData =
+      (await user.fetchUserBy({ email })) ?? raise("User not found");
+
     await user.updateUserOnboardingBy({ email }, data);
+
+    const tasksWithNoDependencies = await task.listNoDependenciesTasks();
+    await user.assignTasksToUser(userData?.id, tasksWithNoDependencies);
 
     return new NextResponse(null, { status: 201 });
   } catch (error) {
