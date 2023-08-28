@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma } from "@prisma/client";
+import { PrismaClient, Prisma, Task } from "@prisma/client";
 import { User as NextUser } from "next-auth";
 import { raise } from "./exceptions";
 import { formSchema } from "./onboarding";
@@ -58,6 +58,18 @@ class UserDAO {
         techInterests: data.about.qOne,
         expectations: data.about.qTwo,
       },
+    });
+  }
+
+  async assignTasksToUser(userId: number, tasks: Task[]) {
+    const tasksData = tasks.map((task) => ({
+      userId: userId,
+      taskId: task.id,
+      completed: false,
+    }));
+
+    await prisma.userTasks.createMany({
+      data: tasksData,
     });
   }
 
