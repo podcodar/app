@@ -1,4 +1,4 @@
-import { prisma } from "@/shared/db";
+import { prisma } from "../src/shared/db";
 
 async function main() {
   const tasksData = [
@@ -28,15 +28,15 @@ async function main() {
 
   await prisma.tasksDependencies.create({
     data: {
-      task: { connect: { id: task2.id } },
-      dependentTask: { connect: { id: task1.id } },
+      taskId: task1.id,
+      dependentTaskId: task2.id,
     },
   });
 
   await prisma.tasksDependencies.create({
     data: {
-      task: { connect: { id: task3.id } },
-      dependentTask: { connect: { id: task1.id } },
+      taskId: task2.id,
+      dependentTaskId: task3.id,
     },
   });
 }

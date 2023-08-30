@@ -42,7 +42,7 @@ describe("user test cases", () => {
         where: { taskId: t.id },
       });
 
-      expect(userTasks.length).toBeGreaterThan(0);
+      expect(userTasks).toHaveLength(0);
     }
   });
 
@@ -55,7 +55,7 @@ describe("user test cases", () => {
       where: { task: task },
     });
 
-    expect(dependentTasks).toHaveLength(0);
+    expect(dependentTasks.length).toBeGreaterThan(0);
 
     const anotherTask = await prisma.task.findFirst({ where: { id: 1 } });
 
