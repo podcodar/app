@@ -42,7 +42,7 @@ describe("user test cases", () => {
         where: { taskId: t.id },
       });
 
-      expect(userTasks.length);
+      expect(userTasks).toHaveLength(0);
     }
   });
 
