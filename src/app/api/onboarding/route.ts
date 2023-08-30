@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     await user.updateUserOnboardingBy({ email }, data);
 
     const tasksWithNoDependencies = await task.listNoDependenciesTasks();
-    await user.assignTasksToUser(userData?.id, tasksWithNoDependencies);
+    await user.assignTasksToUser(userData.id, tasksWithNoDependencies);
 
     return new NextResponse(null, { status: 201 });
   } catch (error) {

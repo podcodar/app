@@ -63,7 +63,7 @@ class UserDAO {
 
   async assignTasksToUser(userId: number, tasks: Task[]) {
     const tasksData = tasks.map((task) => ({
-      userId: userId,
+      userId,
       taskId: task.id,
       completed: false,
     }));
