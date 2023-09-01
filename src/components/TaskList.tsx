@@ -1,40 +1,52 @@
 "use client";
-import { useState, useCallback, useEffect } from "react";
-import { ChevronDownIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
-import { TaskItem } from "@/entities/tasks";
 
-export type TaskProps = {
-  items: TaskItem[];
+import { useCallback, useState } from "react";
+import { ChevronDownIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
+import { Task, UserTasks } from "@prisma/client";
+import { api } from "@/shared/api";
+
+type UserTask = UserTasks & {
+  Task: Task;
 };
 
-export default function TaskList({ items }: TaskProps) {
-  // TODO: Fetch real list
+type Props = {
+  tasks: UserTask[];
+};
+
+export default function TaskList({ tasks }: Props) {
   return (
     <div className="border-x border-t rounded">
-      {items.map((item) => (
-        <ExpandableTaskItem item={item} key={item.id} />
+      {tasks.map((task) => (
+        <ExpandableTaskItem key={task.taskId} userTask={task} />
       ))}
     </div>
   );
 }
 
-function ExpandableTaskItem({ item }: { item: TaskItem }) {
-  const storage = createTaskLocalStorage(item.id);
-  const [isChecked, setIsChecked] = useState(storage.get());
+function ExpandableTaskItem({ userTask }: { userTask: UserTask }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isChecked, setIsChecked] = useState(userTask.completed);
 
-  // function which will not be re-created for each re-rendering
   const handleClick = useCallback(() => {
-    setIsExpanded((expanded) => !expanded);
+    setIsExpanded((prev) => !prev);
   }, []);
 
   const handleCheckboxChange = useCallback(() => {
-    setIsChecked((checked) => !checked);
-  }, []);
+    setIsChecked((prev) => {
+      const completed = !prev;
 
-  useEffect(() => {
-    storage.set(isChecked);
-  }, [isChecked, storage]);
+      fetch(api.tasks.completed, {
+        method: "PUT",
+        body: JSON.stringify({
+          userId: userTask.userId,
+          taskId: userTask.taskId,
+          completed,
+        }),
+      });
+
+      return completed;
+    });
+  }, [userTask.userId, userTask.taskId]);
 
   const icon = (
     <span className="block h-6 w-6">
@@ -43,12 +55,12 @@ function ExpandableTaskItem({ item }: { item: TaskItem }) {
   );
 
   return (
-    <div key={item.id}>
+    <div key={userTask.Task.id}>
       <div className="flex bg-gray-50 border-b center">
         <input
           checked={isChecked}
           className="mr-2 mt-3 ml-2 h-6 w-6 inline-block"
-          id={item.id}
+          id={userTask.Task.id.toString()}
           onChange={handleCheckboxChange}
           type="checkbox"
         />
@@ -57,25 +69,13 @@ function ExpandableTaskItem({ item }: { item: TaskItem }) {
           className="text-xl p-3 flex justify-between bg-gray-50 grow border-b cursor-pointer"
           onClick={handleClick}
         >
-          {item.label}
+          {userTask.Task.title}
           {icon}
         </div>
       </div>
-      {isExpanded && <div className="border-b p-5">{item.content}</div>}
+      {isExpanded && (
+        <div className="border-b p-5">{userTask.Task.description}</div>
+      )}
     </div>
   );
-}
-
-const TASK_KEY_PREFIX = "TASK_CHECKED";
-
-function createTaskLocalStorage(itemId: TaskItem["id"]) {
-  const taskCheckId = `${TASK_KEY_PREFIX}:${itemId}`;
-
-  const get = (): boolean =>
-    JSON.parse(localStorage.getItem(taskCheckId) ?? "false");
-
-  const set = (value: boolean) =>
-    localStorage.setItem(taskCheckId, JSON.stringify(value));
-
-  return { get, set };
 }
