@@ -60,7 +60,6 @@ function ExpandableTaskItem({ userTask }: { userTask: UserTask }) {
         <input
           checked={isChecked}
           className="mr-2 mt-3 ml-2 h-6 w-6 inline-block"
-          id={userTask.Task.id.toString()}
           onChange={handleCheckboxChange}
           type="checkbox"
         />
