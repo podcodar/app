@@ -1,7 +1,14 @@
 import TaskList from "@/components/TaskList";
-import { items } from "@/shared/settings";
+import { authOptions, fetchUserWithSession } from "@/shared/auth";
+import { task } from "@/shared/tasks.dao";
+import { getServerSession } from "next-auth";
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const session = await getServerSession(authOptions);
+
+  const loggedUser = await fetchUserWithSession(session);
+  const userTasks = await task.fetchUserTasksBy({ userId: loggedUser.id });
+
   return (
     <div className="min-h-full">
       <div className="bg-white shadow">
@@ -10,9 +17,8 @@ export default function Dashboard() {
             Dashboard
           </h1>
         </div>
-
         <div className="mx-auto max-w-7xl py-6 sm:-6 lg:px-8">
-          <TaskList items={items} />
+          <TaskList tasks={userTasks} />
         </div>
       </div>
     </div>
