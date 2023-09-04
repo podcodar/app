@@ -6,6 +6,14 @@ erDiagram
 ADMIN ADMIN
         }
     
+
+
+        CheckType {
+            MANUAL MANUAL
+AUTOMATED AUTOMATED
+VERIFIED VERIFIED
+        }
+    
   "User" {
     Int id "🗝️"
     String name 
@@ -33,6 +41,7 @@ ADMIN ADMIN
     Int id "🗝️"
     String title 
     String description 
+    CheckType checkType 
     }
   
 
@@ -50,6 +59,7 @@ ADMIN ADMIN
     "User" o|--}o "Roles" : "enum:roles"
     "User" o{--}o "UserTasks" : "tasks"
     "Task" o{--}o "UserTasks" : "users"
+    "Task" o|--|| "CheckType" : "enum:checkType"
     "Task" o{--}o "TasksDependencies" : "followUp"
     "Task" o{--}o "TasksDependencies" : "dependsOn"
     "UserTasks" o|--|| "User" : "user"
