@@ -1,18 +1,37 @@
 import { prisma } from "../src/shared/db";
+import { CheckType } from "@prisma/client";
 
 async function main() {
   const tasksData = [
     {
       title: "Seed Task 1",
       description: "Description for Seed Task 1",
+      checkType: CheckType.MANUAL,
     },
     {
       title: "Seed Task 2",
       description: "Description for Seed Task 2",
+      checkType: CheckType.AUTOMATED,
     },
     {
       title: "Seed Task 3",
       description: "Description for Seed Task 3",
+      checkType: CheckType.VERIFIED,
+    },
+    {
+      title: "Seed Task 4",
+      description: "Description for Seed Task 4",
+      checkType: CheckType.MANUAL,
+    },
+    {
+      title: "Seed Task 5",
+      description: "Description for Seed Task 5",
+      checkType: CheckType.AUTOMATED,
+    },
+    {
+      title: "Seed Task 6",
+      description: "Description for Seed Task 6",
+      checkType: CheckType.VERIFIED,
     },
   ];
 

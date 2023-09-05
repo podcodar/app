@@ -48,8 +48,15 @@ model Task {
   title       String              @unique
   description String
   users       UserTasks[]
+  checkType   CheckType
   followUp    TasksDependencies[] @relation("followUp")
   dependsOn   TasksDependencies[] @relation("dependsOn")
+}
+
+enum CheckType {
+  MANUAL
+  AUTOMATED
+  VERIFIED
 }
 
 model UserTasks {

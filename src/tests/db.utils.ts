@@ -1,5 +1,6 @@
 import { prisma } from "@/shared/db";
 import { raise } from "@/shared/exceptions";
+import { CheckType } from "@prisma/client";
 
 export const seed = async () => {
   // create product categories
@@ -31,14 +32,17 @@ export const seed = async () => {
       {
         title: "Task 1",
         description: "First task",
+        checkType: CheckType.MANUAL,
       },
       {
         title: "Task 2",
         description: "Second task",
+        checkType: CheckType.MANUAL,
       },
       {
         title: "Task 3",
         description: "Third task",
+        checkType: CheckType.MANUAL,
       },
     ],
   });

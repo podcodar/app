@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { ChevronDownIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
-import { Task, UserTasks } from "@prisma/client";
+import { CheckType, Task, UserTasks } from "@prisma/client";
 import { api } from "@/shared/api";
 
 type UserTask = UserTasks & {
@@ -54,12 +54,15 @@ function ExpandableTaskItem({ userTask }: { userTask: UserTask }) {
     </span>
   );
 
+  const isManuallyChecked = userTask.Task.checkType === CheckType.MANUAL;
+
   return (
     <div key={userTask.Task.id}>
       <div className="flex bg-gray-50 border-b center">
         <input
           checked={isChecked}
           className="mr-2 mt-3 ml-2 h-6 w-6 inline-block"
+          disabled={!isManuallyChecked}
           onChange={handleCheckboxChange}
           type="checkbox"
         />
