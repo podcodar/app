@@ -1,12 +1,32 @@
 # PodCodar App
 
-Este projeto tem por objetivo facilitar o processo de recepção de novos membros, por estarmos enfrentando uma grande dificuldade em recepcionar com qualidade a todos que estavam chegando, resolvemos então adicionar algumas funcionalidades que podem nos ajudar.
+First of all, welcome!!!
 
-## Instalação
+## Objective
 
-1. Clone o repositório
+The primary goal of this project is to streamline the onboarding process for new members. In response to the challenges posed by the increasing number of newcomers, we've taken steps to implement a range of features designed to greatly enhance our capacity to warmly and efficiently welcome them.
 
-- para fazer isso basta abrir o terminal e rodar o seguinte comando `git clone https://github.com/podcodar/app.git`
+## Requirements
+
+- It is highly recommended to use a Unix-based system (such as Ubuntu, Fedora, Kali, or any other) or MacOS. Windows may encounter certain issues with Docker.
+- Git is essential before anything else;
+- Yarn, Node, and TypeScript;
+- Docker
+
+
+1. Clone the Repository
+
+To clone the repository, follow these steps:
+
+Open your terminal or command prompt.
+
+Go to the file that you want to download the project. (you can use the command ls to see where your location and the comand myfiles/projectPodCodar
+
+Then, run the following command to clone the repository:
+
+git clone https://github.com/podcodar/app.git
+This command will download the project to your local machine.
+
 
 2. Execute o comando `yarn` para instalar as dependências do projeto.
 
