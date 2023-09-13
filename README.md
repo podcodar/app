@@ -13,6 +13,9 @@ The primary goal of this project is to streamline the onboarding process for new
 - [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable), [Node](https://nodejs.org/pt-br/download), and [TypeScript](https://www.typescriptlang.org/); 
 - If you are on MacOs, you can install above using [homebrew](https://brew.sh/);
 -[ Docker](https://docs.docker.com/engine/install/)
+-[pnpm](https://pnpm.io/pt/installation)
+-Prisma
+-PostGres
 
 ## Installation
 
@@ -82,6 +85,23 @@ yarn dev
 
 Now, for make sure that is working, try to open the link: [http://localhost:3000](http://localhost:3000)
 
+## Possible errors
+
+1 - One possible error happens when the prisma client hasn't been generated. Normally shows this:
+
+Error: @prisma/client did not initialize yet. Please run "prisma generate" and try to import it again.
+In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues
+
+To fix this you can use: 
+npx prisma generate
+
+or if you are using yarn:
+yarn prisma generate
+
+2 - You can see the localhost but nothing happens from there
+Make sure that you are using docker. 
+
+Open docker and then try to run the project again. 
 
 ## Technologies Used
 
