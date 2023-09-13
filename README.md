@@ -99,6 +99,7 @@ or if you are using yarn:
 yarn prisma generate
 
 2 - You can see the localhost but nothing happens from there
+
 Make sure that you are using docker. 
 
 Open docker and then try to run the project again. 
