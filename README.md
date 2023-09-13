@@ -13,6 +13,7 @@ The primary goal of this project is to streamline the onboarding process for new
 - Yarn, Node, and TypeScript;
 - Docker
 
+## Installation
 
 1. Clone the Repository
 
@@ -28,9 +29,22 @@ git clone https://github.com/podcodar/app.git
 This command will download the project to your local machine.
 
 
-2. Execute o comando `yarn` para instalar as dependências do projeto.
+2. Install Project Dependencies
 
-- lembre-se de navegar até a pasta onde o projeto se encontra e então quando la estiver, execute o comando acima! Ps: para navegar entre pastas pelo terminal basta usar o comando`cd nome da pasta` para entrar na pasta e `cd ..` para regredir.
+To install the project's dependencies, follow these steps:
+
+Open your terminal or command prompt.
+
+Navigate to the folder where your project is located. You can do this by using the cd command followed by the folder name to enter a folder and cd .. to go back up one level. For example:
+
+To enter a folder: cd folder-name
+To go back one level: cd ..
+Once you're in the project's folder, execute the following command:
+
+yarn
+
+This command will automatically download and install all the necessary dependencies for the project. Please note that you should be in the correct project folder when running this command.
+
 
 ## Utilização
 
