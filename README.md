@@ -53,6 +53,7 @@ To start the development server, run one of the following commands:
 
 Using npm:
 npm run dev
+
 Using yarn:
 yarn dev
 
@@ -79,23 +80,21 @@ yarn dev
 
  If you've addressed these potential issues and still encounter problems, feel free to seek assistance in the project's community or support channels.
 
-- Now we use PNPM
+Now, for make sure that is working, try to open the link: [http://localhost:3000](http://localhost:3000)
 
-Com o passo anterior feito, abra o link [http://localhost:3000](http://localhost:3000) para ver o resultado.
 
-## Tecnologias Utilizadas
+## Technologies Used
 
-- Next JS
-- Typescript
-- Tailwind
-- Prisma
-- Jest
-- Supabase
+Next.js
+TypeScript
+Tailwind CSS
+Prisma
+Jest
+Supabase
 
-## Contribuição
-
-1. Faça o fork do projeto
-2. Crie uma branch com a sua feature: git checkout -b my-feature
-3. Faça o commit das suas alterações: `git commit -m 'fea: My new feature'`
-4. Faça o push da sua branch: git push origin my-feature
-5. Envie um Pull Request
+## Contribution
+1 - Fork the project.
+2 - Create a branch for your feature: git checkout -b my-feature.
+3 - Commit your changes: git commit -m 'feat: My new feature'.
+4 - Push your branch: git push origin my-feature.
+5 - Submit a Pull Request.
