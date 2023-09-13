@@ -15,7 +15,7 @@ The primary goal of this project is to streamline the onboarding process for new
 
 ## Installation
 
-1. Clone the Repository
+1 - Clone the Repository
 
 To clone the repository, follow these steps:
 
@@ -28,8 +28,7 @@ Then, run the following command to clone the repository:
 git clone https://github.com/podcodar/app.git
 This command will download the project to your local machine.
 
-
-2. Install Project Dependencies
+2 - Install Project Dependencies
 
 To install the project's dependencies, follow these steps:
 
