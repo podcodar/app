@@ -4,6 +4,8 @@ Este projeto tem por objetivo facilitar o processo de recepção de novos membro
 
 ## Instalação
 
+test
+
 1. Clone o repositório
 
 - para fazer isso basta abrir o terminal e rodar o seguinte comando `git clone https://github.com/podcodar/app.git`
