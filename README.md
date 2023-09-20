@@ -8,4 +8,4 @@
 4. [Using the app](docs/using-the-app.md)
 5. [Possible errors](docs/possible-errors.md)
 6. [Technologies used](docs/technologies.md)
-7. [Contribution](docs/contribution.md)
+7. [Contribution Guidelines](docs/contribution-guidelines.md)
