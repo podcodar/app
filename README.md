@@ -20,7 +20,12 @@ Deployed at Vercel
 
 ## Getting Started
 
-1. [Setup and Running](docs/installation.md)
-2. [Using the app](docs/using-the-app.md)
-3. [Possible errors](docs/possible-errors.md)
-4. [Contribution Guidelines](docs/contribution-guidelines.md)
+1. [Setup and Running][1]
+2. [Using the app][2]
+3. [Possible errors][3]
+4. [Contribution Guidelines][4]
+
+[1]: docs/installation.md
+[2]: docs/using-the-app.md
+[3]: docs/possible-errors.md
+[4]: docs/contribution-guidelines.md
