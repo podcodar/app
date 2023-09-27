@@ -10,7 +10,9 @@ It is highly recommended to use a Unix-based system (such as Ubuntu, Fedora, Kal
 - [Docker][4]
 - [pnpm][5]
 - [Prisma][6]
-- [PostGres][7]
+- [GPG][7]
+- [PostGres][8]
+- [Ansible Vault][9]
 
 ### 1 - Clone the Repository
 
@@ -42,8 +44,8 @@ to run the script provided in package.json
 ### 3 - Install Docker
 
 To install Docker and Docker Compose on your system, follow the official installation instructions for your operating system.\
-[Docker Installation][8] \
-[Docker Compose Installation][9]
+[Docker Installation][10] \
+[Docker Compose Installation][11]
 
 Now you can run the project by typing:
 
@@ -54,7 +56,7 @@ docker-compose up -d
 docker-compose -f docker-compose.yml -f docker-compose.portforward.yml up -d
 ```
 
-[Next page ➔][10]
+[Next page ➔][12]
 
 [1]: https://nodejs.org/pt-br/download
 [2]: https://www.typescriptlang.org/
@@ -62,7 +64,9 @@ docker-compose -f docker-compose.yml -f docker-compose.portforward.yml up -d
 [4]: https://docs.docker.com/engine/install/
 [5]: https://pnpm.io/pt/installation
 [6]: https://www.prisma.io/
-[7]: https://www.postgresql.org/docs/current/
-[8]: https://docs.docker.com/get-docker/
-[9]: https://docs.docker.com/compose/install/
-[10]: using-the-app.md
+[7]: https://www.gnupg.org/documentation/
+[8]: https://www.postgresql.org/docs/current/
+[9]: https://docs.ansible.com/ansible/2.9/user_guide/vault.html
+[10]: https://docs.docker.com/get-docker/
+[11]: https://docs.docker.com/compose/install/
+[12]: using-the-app.md
