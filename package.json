@@ -13,6 +13,8 @@
     "lint-staged": "lint-staged",
     "lint": "next lint",
     "test": "jest",
+    "encrypt": "gpg -c .env.local",
+    "decrypt": "gpg --output .env.local -d .env.local.gpg",
     "analyze": "ANALYZE=true pnpm build",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate",
