@@ -2,15 +2,18 @@
 
 Before we proceed, please make sure there were no issues with the installation. If you are having any problems, please contact one of the tech leaders.
 
-To start the development server, run one of the following command:
+To start the development server, run the following command:
 
-`pnpm run`
+`pnpm dev`
 
+Now, for make sure that is working, try to open the link: [http://localhost:3000][1]
+
+<br>
 If you encounter any issues or errors during this step, here are some common troubleshooting tips:
 
 1.  Ensure Dependencies are Installed:
     Make sure you've already run `pnpm install` to install project dependencies.
-    If not, run this command before running the `pnpm run`.
+    If not, run this command before running the `pnpm dev`.
 
 2.  Verify Configuration:
     Ensure that your project's configuration files (e.g., 'package.json') are correctly set up, including any scripts necessary for development.
@@ -23,4 +26,7 @@ If you encounter any issues or errors during this step, here are some common tro
 
 If you've addressed these potential issues and still encounter problems, feel free to seek assistance in the project's community or support channels.
 
-Now, for make sure that is working, try to open the link: [http://localhost:3000](http://localhost:3000)
+[Next page ➔][2]
+
+[1]: http://localhost:3000
+[2]: possible-errors.md
