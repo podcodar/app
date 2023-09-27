@@ -34,6 +34,7 @@ Com o passo anterior feito, abra o link [http://localhost:3000](http://localhost
 - Prisma
 - Jest
 - Supabase
+- GPG
 
 ## Contribuição
 
