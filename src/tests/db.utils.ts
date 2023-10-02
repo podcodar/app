@@ -1,4 +1,4 @@
-import { prisma } from "@/shared/db";
+import { prisma } from "@/dao/client";
 import { raise } from "@/shared/exceptions";
 import { CheckType } from "@prisma/client";
 

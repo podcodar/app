@@ -1,5 +1,5 @@
 import Profile from "@/components/Profile";
-import { user } from "@/shared/db";
+import { user } from "@/dao/user.dao";
 
 type Props = {
   params: {

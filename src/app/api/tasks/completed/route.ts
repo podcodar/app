@@ -1,4 +1,4 @@
-import { task } from "@/shared/tasks.dao";
+import { task } from "@/dao/tasks.dao";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -15,6 +15,7 @@ export async function PUT(req: NextRequest) {
   const { userId, taskId, completed } = checkUserTaskParams.parse(data);
 
   const userTask = await task.checkUserTask(taskId, userId, completed);
+  await task.unlockAvailableTasks(taskId, userId);
 
   return NextResponse.json(userTask);
 }

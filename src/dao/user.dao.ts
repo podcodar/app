@@ -1,10 +1,9 @@
-import { PrismaClient, Prisma, Task } from "@prisma/client";
+import { Prisma, Task } from "@prisma/client";
 import { User as NextUser } from "next-auth";
-import { raise } from "./exceptions";
-import { formSchema } from "./onboarding";
 import { z } from "zod";
-
-export const prisma = new PrismaClient();
+import { prisma } from "./client";
+import { raise } from "@/shared/exceptions";
+import { formSchema } from "@/shared/onboarding";
 
 class UserDAO {
   async createUser(loginUser: NextUser) {

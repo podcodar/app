@@ -1,4 +1,4 @@
-import { prisma } from "@/shared/db";
+import { prisma } from "@/dao/client";
 import { seed, teardown } from "./db.utils";
 import { raise } from "@/shared/exceptions";
 

@@ -8,9 +8,9 @@ import {
   githubCredentials,
   googleCredentials,
 } from "./settings";
-import { user } from "./db";
 import { Roles } from "@prisma/client";
 import { redirect } from "next/navigation";
+import { user } from "@/dao/user.dao";
 
 export type LoginProviders = "github" | "google";
 

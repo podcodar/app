@@ -1,6 +1,6 @@
 import TaskList from "@/components/TaskList";
 import { authOptions, fetchUserWithSession } from "@/shared/auth";
-import { task } from "@/shared/tasks.dao";
+import { task } from "@/dao/tasks.dao";
 import { getServerSession } from "next-auth";
 
 export default async function Dashboard() {

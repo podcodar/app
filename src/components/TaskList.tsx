@@ -44,6 +44,10 @@ function ExpandableTaskItem({ userTask }: { userTask: UserTask }) {
         }),
       });
 
+      // TODO: temporary reload page to get latest tasks
+      // replace with react-query in future
+      window.location.reload();
+
       return completed;
     });
   }, [userTask.userId, userTask.taskId]);
