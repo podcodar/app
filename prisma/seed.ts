@@ -1,4 +1,4 @@
-import { prisma } from "../src/shared/db";
+import { prisma } from "../src/dao/client";
 import { CheckType } from "@prisma/client";
 
 async function main() {

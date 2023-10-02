@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import AuthProvider from "@/contexts/AuthProvider";
 import { fetchUserWithSession } from "@/shared/auth";
 import { UserProvider } from "@/contexts/UserProvider";
-import { user } from "@/shared/db";
+import { user } from "@/dao/user.dao";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {

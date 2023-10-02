@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import { prisma } from "./db";
+import { prisma } from "./client";
 
 class TaskDAO {
   async listNoDependenciesTasks() {

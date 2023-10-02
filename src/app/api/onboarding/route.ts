@@ -1,10 +1,10 @@
 import { authOptions } from "@/shared/auth";
 import { formSchema } from "@/shared/onboarding";
-import { user } from "@/shared/db";
+import { user } from "@/dao/user.dao";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { raise } from "@/shared/exceptions";
-import { task } from "@/shared/tasks.dao";
+import { task } from "@/dao/tasks.dao";
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     const userData =
       (await user.fetchUserBy({ email })) ?? raise("User not found");
 
-    await user.updateUserOnboardingBy({ email }, data);
+    await user.updateUserOnboardingBy({ email }, formValues.data);
 
     const tasksWithNoDependencies = await task.listNoDependenciesTasks();
     await user.assignTasksToUser(userData.id, tasksWithNoDependencies);
