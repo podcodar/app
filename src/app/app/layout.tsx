@@ -8,6 +8,7 @@ import { fetchUserWithSession } from "@/shared/auth";
 import { UserProvider } from "@/contexts/UserProvider";
 import { user } from "@/dao/user.dao";
 import { redirect } from "next/navigation";
+import { logger } from "@/shared/logger";
 
 export const metadata: Metadata = {
   title: "PodCodar",
@@ -15,18 +16,26 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: PropsWithChildren) {
   const session = await getServerSession(authOptions);
-
-  const loggedUser = await fetchUserWithSession(session);
-
-  const isUserOnboardingFinished = await user.isOboardingFinished(
-    loggedUser.username
-  );
   const pathname = getOriginPath();
   const isOnboardingPage = pathname.endsWith("onboarding");
 
-  if (!isUserOnboardingFinished && !isOnboardingPage)
-    redirect("/app/onboarding");
-  if (isUserOnboardingFinished && isOnboardingPage) redirect("/app");
+  const loggedUser = await fetchUserWithSession(session);
+  const { username } = loggedUser;
+  const isUserOnboardingFinished = await user.isOboardingFinished(username);
+  const shouldRedirectToOnboardingPage =
+    !isUserOnboardingFinished && !isOnboardingPage;
+  const shouldRedirectToAppPage =
+    !isUserOnboardingFinished && !isOnboardingPage;
+
+  logger.log({
+    context: "AppLayout",
+    username,
+    shouldRedirectToAppPage,
+    shouldRedirectToOnboardingPage,
+  });
+
+  if (shouldRedirectToOnboardingPage) redirect("/app/onboarding");
+  if (shouldRedirectToAppPage) redirect("/app");
 
   return (
     <AuthProvider>
