@@ -1,12 +1,12 @@
 # PodCodar App
 
-### First of all, welcome! :rocket:
+### First of all, welcome! :tada:
 
 <br/>
 
 ## Objective
 
-The primary goal of this project is to streamline the onboarding process for new members. In response to the challenges posed by the increasing number of newcomers, we've taken steps to implement a range of features designed to greatly enhance our capacity to warmly and efficiently welcome them.
+The primary goal of this project is to streamline the onboarding process for new members. In response to the challenges posed by the increasing number of newcomers, we've taken steps to implement a range of features designed to greatly enhance our capacity to warmly and efficiently welcome them. Let's go! :rocket::star2:
 
 ## Technologies we use
 
@@ -18,7 +18,7 @@ Jest \
 Supabase \
 Deployed at Vercel
 
-## Getting Started
+## Getting Started :running:
 
 1. [Setup and Running][1]
 2. [Using the app][2]
