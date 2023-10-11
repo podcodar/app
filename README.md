@@ -13,9 +13,9 @@ The primary goal of this project is to streamline the onboarding process for new
 Next.js \
 TypeScript \
 Tailwind CSS \
+Tailwind-Styled-Component \
 Prisma \
 Jest \
-Supabase \
 Deployed at Vercel
 
 ## Getting Started :running:
@@ -25,7 +25,7 @@ Deployed at Vercel
 3. [Possible errors][3]
 4. [Contribution Guidelines][4]
 
-[1]: docs/installation.md
+[1]: docs/setup-and-running.md
 [2]: docs/using-the-app.md
 [3]: docs/possible-errors.md
 [4]: docs/contribution-guidelines.md
