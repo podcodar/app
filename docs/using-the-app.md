@@ -1,6 +1,6 @@
 ## Using the app
 
-Before we proceed, please make sure there were no issues with the installation. If you are having any problems, please contact one of the tech leaders.
+Before we proceed, please make sure there were no issues with the installation. If you are having any problems, please contact one of the tech leaders.:bulb:
 
 To start the development server, run the following command:
 
