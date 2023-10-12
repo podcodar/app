@@ -38,6 +38,8 @@ Always do [semantics commits][1]. Use the following commit pattern to keep an or
 |   style   | Style changes that do not affect the meaning of the code |      sty       |
 |   test    |           Addition or modification of tests\.            |      tes       |
 
+Example:
+
 `git commit -m fea: my new feature`.
 
 ### 5º - Push your branch:
