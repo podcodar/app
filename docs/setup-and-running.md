@@ -23,17 +23,20 @@ Go to the file that you want to download the project (you can use the command `l
 
 Then, run the following command to clone the repository:
 
-`git clone https://github.com/podcodar/app.git` \
-This command will download the project to your local machine. ✨
+`git clone https://github.com/podcodar/app.git`
+
+This command will download the project files to your local machine in the folder `app`. ✨
 
 ## 2 - Install Project Dependencies
 
-To install pnpm on your system, simply run this command if node is installed. \
-`npm install -g pnpm` \
-For other ways to install, follow the official installation instructions for your operating system. \
-[pnpm Installation][5]
+To install pnpm on your system, simply run this command if node is installed.
 
-Then use the commands: \
+`npm install -g pnpm`
+
+For other ways to install, follow [the official installation instructions][5] for your operating system.
+
+Then use the commands:
+
 `pnpm install`
 to install package.json dependencies
 
@@ -46,7 +49,8 @@ We use [GPG][9] for credential managing, first make sure you have it installed o
 
 ### Generating environment variables
 
-**Installation for GPG** \
+**Installation for GPG**
+
 Now install GPG:
 
 ```shell
@@ -79,6 +83,8 @@ docker-compose up -d
 # Linux users
 docker-compose -f docker-compose.yml -f docker-compose.portforward.yml up -d
 ```
+
+<br>
 
 [Next page ➔][12]
 

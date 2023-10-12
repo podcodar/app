@@ -34,6 +34,8 @@ Depending on the operating system (Windows, macOS, Linux), you may encounter spe
 
 Configuration errors in TypeScript, such as mismatched settings in the `tsconfig.json` file, can occur and cause issues during code compilation.
 
+<br>
+
 [Next page ➔][1]
 
 [1]: contribution-guidelines.md

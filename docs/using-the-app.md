@@ -6,10 +6,11 @@ To start the development server, run the following command:
 
 `pnpm dev`
 
-Now, for make sure that is working, try to open the link: [http://localhost:3000][1]
+It's a walk in the park. :grin::leaves: Now, for make sure that is working, try to open the link: [http://localhost:3000][1]
 
 <br>
-If you encounter any issues or errors during this step, here are some common troubleshooting tips:
+
+:arrow_right: If you encounter any issues or errors during this step, here are some common troubleshooting tips:
 
 1.  Ensure Dependencies are Installed:
     Make sure you've already run `pnpm install` to install project dependencies.
@@ -24,7 +25,9 @@ If you encounter any issues or errors during this step, here are some common tro
 4.  Check for Environment Variables:
     Some projects require environment variables to be set. Check the project documentation for any specific environment variables you need to configure.
 
-If you've addressed these potential issues and still encounter problems, feel free to seek assistance in the project's community or support channels.
+:arrow_right: If you've addressed these potential issues and still encounter problems, feel free to seek assistance in the project's community or support channels. :wink:
+
+<br>
 
 [Next page ➔][2]
 
