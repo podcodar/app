@@ -1,30 +1,30 @@
-## Contribution Guidelines
+# Contribution Guidelines
 
-Do you want to contribute to the project and don't know how to do it? :confused::question:\
-Follow the steps below and get to work!
-:satisfied:
+Do you want to contribute to the project and don't know how to do it? :confused::question:
 
-### 1º - Clone the project.
+Follow the steps below and get to work! :satisfied:
 
-### 2º - Create a branch for your feature.
+## 1º - Clone the project
+
+## 2º - Create a branch for your feature
 
 The branch needs to be off of `master`. Follow the steps to create your branch name:
 
-1. First open the issue on GitHub and click "Open in new tab". ![](example-images/print01.png)
+1. First open the issue on GitHub and click "Open in new tab". ![Open issue in a new tab](images/contribution-guidelines/open-in-new-tab.png)
 
-2. Then click "Create a branch" to create a new branch already linked to your issue. ![](example-images/print02.png)
+2. Then click "Create a branch" to create a new branch already linked to your issue. ![Click to create a new branch linked to issue](images/contribution-guidelines/create-branch-linked-issue.png)
 
-3. In the new window, the branch name suggestion will appear according to the issue. ![](example-images/print03.png)
+3. In the new window, the branch name suggestion will appear according to the issue. ![Window with a branch name](images/contribution-guidelines/window-with-name-branch.png)
 
-4. Now add your GitHub username at the beginning of the branch name, separating them with a bar `/`. ![](example-images/print04.png)
+4. Now add your GitHub username at the beginning of the branch name, separating them with a bar `/`. ![In the window, edit the branch name by adding a username at the beginning and save](images/contribution-guidelines/edit-name-branch-and-save.png)
 
 In your terminal, access your branch using the command:
 
 `git checkout your-branch-name`.
 
-### 3º - Make your modifications.
+## 3º - Make your modifications
 
-### 4º - Commit your changes.
+## 4º - Commit your changes
 
 Always do [semantics commits][1]. Use the following commit pattern to keep an organized history and use only the first 3 letters of each type:
 
@@ -42,11 +42,11 @@ Example:
 
 `git commit -m fea: my new feature`.
 
-### 5º - Push your branch:
+## 5º - Push your branch
 
 `git push origin your-branch-name`.
 
-### 6º - Create a pull request on Github.
+## 6º - Create a pull request on Github
 
 Describe what changes were made and how they affect the project. Provide detailed information about your changes. Piece of cake :cake::star:
 

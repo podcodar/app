@@ -1,8 +1,8 @@
-## Setup and Running
+# Setup and Running
 
 It is highly recommended to use a Unix-based system (such as Ubuntu, Fedora, Kali, or any other) or MacOS. Windows may encounter certain issues with Docker.
 
-### Requirements
+## Requirements
 
 - Git is essential before anything else;
 - [Node][1] and [TypeScript][2];
@@ -49,18 +49,19 @@ We use [GPG][9] for credential managing, first make sure you have it installed o
 
 ### Generating environment variables
 
-**Installation for GPG**
+#### Installation for GPG
 
 Now install GPG:
 
-```shell
+```sh
 brew install gnupg
 ```
 
-**On main branch** \
+#### On main branch
+
 Generating keys for project
 
-```shell
+```sh
 pnpm decrypt
 ```
 
@@ -76,7 +77,7 @@ To install Docker and Docker Compose on your system, follow the official install
 
 Now you can run the project by typing:
 
-```
+```sh
 # MacOs users
 docker-compose up -d
 
@@ -84,7 +85,7 @@ docker-compose up -d
 docker-compose -f docker-compose.yml -f docker-compose.portforward.yml up -d
 ```
 
-<br>
+&nbsp;
 
 [Next page ➔][12]
 

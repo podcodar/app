@@ -1,8 +1,8 @@
 # PodCodar App
 
-### First of all, welcome! :tada:
+## First of all, welcome! :tada:
 
-<br/>
+&nbsp;
 
 ## Objective
 
@@ -13,7 +13,7 @@ The primary goal of this project is to streamline the onboarding process for new
 Next.js \
 TypeScript \
 Tailwind CSS \
-Tailwind-Styled-Component \
+Tailwind-styled-components \
 Prisma \
 Jest \
 Deployed at Vercel
