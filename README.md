@@ -1,45 +1,31 @@
 # PodCodar App
 
-Este projeto tem por objetivo facilitar o processo de recepção de novos membros, por estarmos enfrentando uma grande dificuldade em recepcionar com qualidade a todos que estavam chegando, resolvemos então adicionar algumas funcionalidades que podem nos ajudar.
+## First of all, welcome! :tada:
 
-## Instalação
+&nbsp;
 
-1. Clone o repositório
+## Objective
 
-- para fazer isso basta abrir o terminal e rodar o seguinte comando `git clone https://github.com/podcodar/app.git`
+The primary goal of this project is to streamline the onboarding process for new members. In response to the challenges posed by the increasing number of newcomers, we've taken steps to implement a range of features designed to greatly enhance our capacity to warmly and efficiently welcome them. Let's go! :rocket::star2:
 
-2. Execute o comando `yarn` para instalar as dependências do projeto.
+## Technologies we use
 
-- lembre-se de navegar até a pasta onde o projeto se encontra e então quando la estiver, execute o comando acima! Ps: para navegar entre pastas pelo terminal basta usar o comando`cd nome da pasta` para entrar na pasta e `cd ..` para regredir.
+Next.js \
+TypeScript \
+Tailwind CSS \
+Tailwind-styled-components \
+Prisma \
+Jest \
+Deployed at Vercel
 
-## Utilização
+## Getting Started :running:
 
-- Certifique-se de que os passos de instalação já estejam concluídos! E então execute um desses comandos,
+1. [Setup and Running][1]
+2. [Using the app][2]
+3. [Possible errors][3]
+4. [Contribution Guidelines][4]
 
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-- Now we use PNPM
-
-Com o passo anterior feito, abra o link [http://localhost:3000](http://localhost:3000) para ver o resultado.
-
-## Tecnologias Utilizadas
-
-- Next JS
-- Typescript
-- Tailwind
-- Prisma
-- Jest
-- Supabase
-- GPG
-
-## Contribuição
-
-1. Faça o fork do projeto
-2. Crie uma branch com a sua feature: git checkout -b my-feature
-3. Faça o commit das suas alterações: `git commit -m 'fea: My new feature'`
-4. Faça o push da sua branch: git push origin my-feature
-5. Envie um Pull Request
+[1]: docs/setup-and-running.md
+[2]: docs/using-the-app.md
+[3]: docs/possible-errors.md
+[4]: docs/contribution-guidelines.md
