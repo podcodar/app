@@ -28,6 +28,10 @@ class UserDAO {
     });
   }
 
+  async fetchUsers() {
+    return await prisma.user.findMany();
+  }
+
   async isOboardingFinished(username: string) {
     const user =
       (await this.fetchUserBy({ username })) ??
