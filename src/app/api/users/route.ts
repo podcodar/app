@@ -1,4 +1,4 @@
-import { user } from "@/dao/user.dao";
+import { getAllUsers } from "@/dao/user.dao";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -7,9 +7,8 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     try {
-      await user;
-
-      res.status(200).json(user);
+      const users = await getAllUsers();
+      res.status(200).json(users);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Internal Server Error. Please try again" });
