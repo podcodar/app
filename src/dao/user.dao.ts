@@ -28,11 +28,7 @@ class UserDAO {
     });
   }
 
-  async fetchUsers() {
-    return await prisma.user.findMany();
-  }
-
-   async fetchUsers(
+  async fetchUsers(
     filter: { username?: string; email?: string }, 
     page: number = 1, 
     pageSize: number = 10
