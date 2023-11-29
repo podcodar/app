@@ -1,4 +1,4 @@
-import { user } from "@/dao/user.dao";
+import prisma from "@/prisma/client";
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
@@ -14,10 +14,17 @@ export default async function handler(
         email: email as string | undefined,
       };
 
-      const users = await user.fetchUsers(filter, parseInt(page as string) || 1, parseInt(pageSize as string) || 10);
+      const users = await prisma.user.findMany({
+        where: {
+          username: filter.username ? { contains: filter.username } : undefined,
+          email: filter.email ? { contains: filter.email } : undefined,
+        },
+        skip: (parseInt(page as string) || 1 - 1) * (parseInt(pageSize as string) || 10),
+        take: parseInt(pageSize as string) || 10,
+      });
+
       res.status(200).json(users);
     } catch (error) {
-      console.error('Error fetching users:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   } else if (req.method === 'POST') {
@@ -28,10 +35,18 @@ export default async function handler(
         return res.status(400).json({ error: 'Missing loginUser data' });
       }
 
-      const createdUser = await user.createUser(loginUser);
+      const createdUser = await prisma.user.create({
+        data: {
+          username: loginUser.email ?? "",
+          email: loginUser.email ?? "",
+          name: loginUser.name ?? "",
+          avatar: loginUser.image ?? undefined,
+        },
+      });
 
       res.status(201).json(createdUser);
     } catch (error) {
+      console.error('Error creating user:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   } else {
