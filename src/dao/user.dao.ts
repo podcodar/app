@@ -32,6 +32,23 @@ class UserDAO {
     return await prisma.user.findMany();
   }
 
+   async fetchUsers(
+    filter: { username?: string; email?: string }, 
+    page: number = 1, 
+    pageSize: number = 10
+  ) {
+    const skip = (page - 1) * pageSize;
+
+    return await prisma.user.findMany({
+      where: {
+        username: filter.username ? { contains: filter.username } : undefined,
+        email: filter.email ? { contains: filter.email } : undefined,
+      },
+      skip,
+      take: pageSize,
+    });
+  }
+
   async isOboardingFinished(username: string) {
     const user =
       (await this.fetchUserBy({ username })) ??
