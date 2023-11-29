@@ -7,7 +7,14 @@ export default async function handler(
 ) {
   if (req.method === 'GET') {
     try {
-      const users = await user.fetchUsers();
+      const { username, email, page, pageSize } = req.query;
+
+      const filter = {
+        username: username as string | undefined,
+        email: email as string | undefined,
+      };
+
+      const users = await user.fetchUsers(filter, parseInt(page as string) || 1, parseInt(pageSize as string) || 10);
       res.status(200).json(users);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -15,7 +22,7 @@ export default async function handler(
     }
   } else if (req.method === 'POST') {
     try {
-      const { loginUser } = req.body; 
+      const { loginUser } = req.body;
 
       if (!loginUser) {
         return res.status(400).json({ error: 'Missing loginUser data' });
