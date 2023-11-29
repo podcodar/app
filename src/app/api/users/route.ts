@@ -32,7 +32,6 @@ export default async function handler(
 
       res.status(201).json(createdUser);
     } catch (error) {
-      console.error('Error creating user:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   } else {
