@@ -1,46 +1,34 @@
 import { user } from "@/dao/user.dao";
-import { NextResponse } from "next/server";
+import { NextApiRequest, NextApiResponse } from 'next';
 
-// export default async function handler(
-//   req: NextRequest,
-//   res: NextResponse
-// ) {
-//   if (req.method === "GET") {
-//     try {
-//       await user;
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (req.method === 'GET') {
+    try {
+      const users = await user.fetchUsers();
+      res.status(200).json(users);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  } else if (req.method === 'POST') {
+    try {
+      const { loginUser } = req.body; 
 
-//       res.status(200).json(user);
-//     } catch (error) {
-//       console.error(error);
-//       res
-//         .status(500)
-//         .json({ error: "Internal Server Error. Please try again" });
-//     }podcodar
-//   } else {
-//     res.status(405).json({ error: "Method not allowed" });
-//   }
-// }
+      if (!loginUser) {
+        return res.status(400).json({ error: 'Missing loginUser data' });
+      }
 
-export async function GET() {
-  // fetch all user data from database
-  const users = await user.fetchUsers();
-  return NextResponse.json({ users });
+      const createdUser = await user.createUser(loginUser);
+
+      res.status(201).json(createdUser);
+    } catch (error) {
+      console.error('Error creating user:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  } else {
+    res.status(405).json({ error: 'Method Not Allowed' });
+  }
 }
-
-// Modificações commit Ogata
-// export default async function handler(
-//   req: NextApiRequest,
-//   res: NextApiResponse
-// ) {
-//   if (req.method === "GET") {
-//     try {
-//       const users = await getAllUsers();
-//       res.status(200).json(users);
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).json({ error: "Internal Server Error. Please try again" });
-//     }
-//   } else {
-//     res.status(405).json({ error: "Method not allowed" });
-//   }
-// }
