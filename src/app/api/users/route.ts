@@ -5,21 +5,25 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === 'GET') {
-    try {
+  try {
+    if (req.method === 'GET') {
       const { username, email, page, pageSize } = req.query;
 
       const filter = {
-        username: username as string | undefined,
-        email: email as string | undefined,
+        username: typeof username === 'string' ? username : undefined,
+        email: typeof email === 'string' ? email : undefined,
       };
 
-      const users = await user.fetchUsers(filter, parseInt(page as string) || 1, parseInt(pageSize as string) || 10);
+      const pageNum = parseInt(page as string, 10);
+      const size = parseInt(pageSize as string, 10);
+
+      const users = await user.fetchUsers(filter, isNaN(pageNum) ? 1 : pageNum, isNaN(size) ? 10 : size);
       res.status(200).json(users);
-    } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.setHeader('Allow', ['GET']);
+      res.status(405).end(`Method ${req.method} Not Allowed`);
     }
-  } else {
-    res.status(405).json({ error: 'Method Not Allowed' });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 }
