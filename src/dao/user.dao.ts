@@ -28,22 +28,24 @@ class UserDAO {
     });
   }
 
-  async fetchUsers(
-    filter: { username?: string; email?: string }, 
-    page: number = 0, 
-    pageSize: number = 10
-  ) {
-    const skip = (page - 1) * pageSize;
+async fetchUsers(
+  filter: { username?: string; email?: string }, 
+  page: number = 1, 
+  pageSize: number = 10
+) {
+  const skip = (page - 1) * pageSize;
+  const where = {};
 
-    return await prisma.user.findMany({
-      where: {
-        username: filter.username ? { contains: filter.username } : string,
-        email: filter.email ? { contains: filter.email } : string,
-      },
-      skip,
-      take: pageSize,
-    });
-  }
+  if (filter.email) where.email = { contains: filter.email };
+  if (filter.username) where.username = { contains: filter.username };
+
+  return await prisma.user.findMany({
+    where,
+    skip,
+    take: pageSize,
+  });
+}
+
 
   async isOboardingFinished(username: string) {
     const user =
