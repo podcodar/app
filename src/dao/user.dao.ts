@@ -34,18 +34,24 @@ async fetchUsers(
   pageSize: number = 10
 ) {
   const skip = (page - 1) * pageSize;
-  const where = {};
-
-  if (filter.email) where.email = { contains: filter.email };
-  if (filter.username) where.username = { contains: filter.username };
-
+  const where = {
+    OR: []
+  };
+  if (filter.email) {
+    where.OR.push({ email: { contains: filter.email } });
+  }
+  if (filter.username) {
+    where.OR.push({ username: { contains: filter.username } });
+  }
+if (where.OR.length === 0) {
+    delete where.OR;
+  }
   return await prisma.user.findMany({
     where,
     skip,
     take: pageSize,
   });
 }
-
 
   async isOboardingFinished(username: string) {
     const user =
