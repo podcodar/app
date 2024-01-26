@@ -7,57 +7,57 @@ import { formSchema } from "@/shared/onboarding";
 
 class UserDAO {
   async createUser(loginUser: NextUser) {
-    const existingUser = await this.fetchUserBy({
-      email: loginUser.email ?? raise("E-mail not found"),
-    });
+    if (!loginUser.email) {
+      throw raise("E-mail not found");
+    }
+    const existingUser = await this.fetchUserBy({ email: loginUser.email });
 
     if (existingUser) return existingUser;
 
-    return await prisma.user.create({
+    return prisma.user.create({
       data: this.parseNextAuthUser(loginUser),
     });
   }
 
   async fetchUserBy(where: Prisma.UserWhereUniqueInput) {
-    if (where.username) {
-      where.username = decodeURIComponent(where.username);
+    const query = { ...where };
+    if (query.username) {
+      query.username = decodeURIComponent(query.username);
     }
 
-    return await prisma.user.findUnique({
+    return prisma.user.findUnique({ where: query });
+  }
+
+  async fetchUsers(
+    filter: { username?: string; email?: string }, 
+    page: number = 1, 
+    pageSize: number = 10
+  ) {
+    const skip = (page - 1) * pageSize;
+    const where = {
+      OR: []
+    };
+    if (filter.email) {
+      where.OR.push({ email: { contains: filter.email } });
+    }
+    if (filter.username) {
+      where.OR.push({ username: { contains: filter.username } });
+    }
+    if (where.OR.length === 0) {
+      delete where.OR;
+    }
+    return prisma.user.findMany({
       where,
+      skip,
+      take: pageSize,
     });
   }
 
-async fetchUsers(
-  filter: { username?: string; email?: string }, 
-  page: number = 1, 
-  pageSize: number = 10
-) {
-  const skip = (page - 1) * pageSize;
-  const where = {
-    OR: []
-  };
-  if (filter.email) {
-    where.OR.push({ email: { contains: filter.email } });
-  }
-  if (filter.username) {
-    where.OR.push({ username: { contains: filter.username } });
-  }
-if (where.OR.length === 0) {
-    delete where.OR;
-  }
-  return await prisma.user.findMany({
-    where,
-    skip,
-    take: pageSize,
-  });
-}
-
   async isOboardingFinished(username: string) {
-    const user =
-      (await this.fetchUserBy({ username })) ??
-      raise("Could not find user on DB");
-
+    const user = await this.fetchUserBy({ username });
+    if (!user) {
+      throw raise("Could not find user in DB");
+    }
     return Boolean(user.expectations);
   }
 
@@ -70,7 +70,7 @@ if (where.OR.length === 0) {
       data: {
         socialName: data.registration.nomeSocial,
         gender: data.registration.gender,
-        age: parseInt(data.registration.idade),
+        age: parseInt(data.registration.idade, 10),
         country: data.contact.pais,
         city: data.contact.cidadeEstado,
         phoneNumber: data.contact.telefone,
@@ -86,7 +86,7 @@ if (where.OR.length === 0) {
   }
 
   async assignTasksToUser(userId: number, tasks: Task[]) {
-    const tasksData = tasks.map((task) => ({
+    const tasksData = tasks.map(task => ({
       userId,
       taskId: task.id,
       completed: false,
