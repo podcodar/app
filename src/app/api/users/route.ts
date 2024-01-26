@@ -1,7 +1,7 @@
 import { user } from "@/dao/user.dao";
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse, NextResponse } from 'next';
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextApiRequest) {
   try {
     const { username, email, page, pageSize } = req.query;
 
@@ -10,10 +10,10 @@ export async function GET(req: NextRequest) {
       email: typeof email === 'string' ? email : undefined,
     };
 
-    const pageNum = parseInt(page as string, 10);
-    const size = parseInt(pageSize as string, 10);
+    const pageNum = page ? parseInt(page as string, 10) : 1;
+    const size = pageSize ? parseInt(pageSize as string, 10) : 10;
 
-    const users = await user.fetchUsers(filter, isNaN(pageNum) ? 1 : pageNum, isNaN(size) ? 10 : size);
+    const users = await user.fetchUsers(filter, pageNum, size);
     return NextResponse.json(users);
   } catch (error) {
     return new NextResponse(JSON.stringify({ error: 'Internal Server Error' }), { status: 500 });
