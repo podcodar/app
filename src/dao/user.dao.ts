@@ -29,13 +29,13 @@ class UserDAO {
   }
 
   async fetchUsers(
-    filter: { username?: string; email?: string }, 
-    page: number = 1, 
-    pageSize: number = 10
+    filter: { username?: string; email?: string },
+    page = 1,
+    pageSize = 10
   ) {
     const skip = (page - 1) * pageSize;
     const where = {
-      OR: []
+      OR: [],
     };
     if (filter.email) {
       where.OR.push({ email: { contains: filter.email } });
@@ -86,7 +86,7 @@ class UserDAO {
   }
 
   async assignTasksToUser(userId: number, tasks: Task[]) {
-    const tasksData = tasks.map(task => ({
+    const tasksData = tasks.map((task) => ({
       userId,
       taskId: task.id,
       completed: false,
