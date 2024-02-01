@@ -34,23 +34,26 @@ class UserDAO {
     pageSize = 10
   ) {
     const skip = (page - 1) * pageSize;
-    const where = {
-      OR: [],
-    };
-    if (filter.email) {
-      where.OR.push({ email: { contains: filter.email } });
+    const where: Prisma.UserWhereInput = {};
+
+    if (filter.email || filter.username) {
+      where.OR = [];
+
+      if (filter.email) {
+        where.OR?.push({ email: { contains: filter.email } });
+      }
+      if (filter.username) {
+        where.OR?.push({ username: { contains: filter.username } });
+      }
+      if (where.OR?.length === 0) {
+        delete where.OR;
+      }
+      return prisma.user.findMany({
+        where: where as Prisma.UserWhereInput,
+        skip,
+        take: pageSize,
+      });
     }
-    if (filter.username) {
-      where.OR.push({ username: { contains: filter.username } });
-    }
-    if (where.OR.length === 0) {
-      delete where.OR;
-    }
-    return prisma.user.findMany({
-      where,
-      skip,
-      take: pageSize,
-    });
   }
 
   async isOboardingFinished(username: string) {
