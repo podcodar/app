@@ -1,27 +1,30 @@
 import { user } from "@/dao/user.dao";
-import { NextApiRequest } from "next";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
+import { z } from "zod";
 
-export async function GET(req: NextApiRequest) {
+const checkGetAllUsersParams = z.object({
+  username: z.string().optional(),
+  email: z.string().optional(),
+  page: z.number().optional().transform((val) => (val ? Number(val) : undefined)),
+  pageSize: z.number().optional().transform((val) => (val ? Number(val) : undefined)),
+});
+
+export async function GET(req: NextRequest) {
   try {
-    const { username, email, page, pageSize } = req.query || {};
+   
+    const queryParams = checkGetAllUsersParams.parse(Object.fromEntries(req.nextUrl.searchParams));
 
-    const filter = {
-      username: typeof username === "string" ? username : undefined,
-      email: typeof email === "string" ? email : undefined,
-    };
+    const { username, email, page, pageSize } = queryParams;
+    
+    const users = await user.fetchUsers({ username, email }, page, pageSize);
 
-    const pageNum = page ? parseInt(page as string, 10) : 1;
-    const size = pageSize ? parseInt(pageSize as string, 10) : 10;
-
-    const users = await user.fetchUsers(filter, pageNum, size);
     return new NextResponse(JSON.stringify(users), {
-      status: 201,
+      status: 200,
     });
   } catch (error) {
-    return new NextResponse(
-      JSON.stringify({ error: "Internal Server Error" }),
-      { status: 500 }
-    );
+    console.error(error);
+    return new NextResponse(JSON.stringify({ error: "Internal Server Error" }), {
+      status: 500,
+    });
   }
 }
