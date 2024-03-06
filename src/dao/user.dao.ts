@@ -7,25 +7,25 @@ import { formSchema } from "@/shared/onboarding";
 
 class UserDAO {
   async createUser(loginUser: NextUser) {
-    if (!loginUser.email) {
-      throw raise("E-mail not found");
-    }
-    const existingUser = await this.fetchUserBy({ email: loginUser.email });
+    const existingUser = await this.fetchUserBy({
+      email: loginUser.email ?? raise("E-mail not found"),
+    });
 
     if (existingUser) return existingUser;
 
-    return prisma.user.create({
+    return await prisma.user.create({
       data: this.parseNextAuthUser(loginUser),
     });
   }
 
   async fetchUserBy(where: Prisma.UserWhereUniqueInput) {
-    const query = { ...where };
-    if (query.username) {
-      query.username = decodeURIComponent(query.username);
+    if (where.username) {
+      where.username = decodeURIComponent(where.username);
     }
 
-    return prisma.user.findUnique({ where: query });
+    return await prisma.user.findUnique({
+      where,
+    });
   }
 
   async fetchUsers(
@@ -57,10 +57,10 @@ class UserDAO {
   }
 
   async isOboardingFinished(username: string) {
-    const user = await this.fetchUserBy({ username });
-    if (!user) {
-      throw raise("Could not find user in DB");
-    }
+    const user =
+      (await this.fetchUserBy({ username })) ??
+      raise("Could not find user on DB");
+
     return Boolean(user.expectations);
   }
 
@@ -73,7 +73,7 @@ class UserDAO {
       data: {
         socialName: data.registration.nomeSocial,
         gender: data.registration.gender,
-        age: parseInt(data.registration.idade, 10),
+        age: parseInt(data.registration.idade),
         country: data.contact.pais,
         city: data.contact.cidadeEstado,
         phoneNumber: data.contact.telefone,
