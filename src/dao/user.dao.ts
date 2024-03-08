@@ -4,6 +4,7 @@ import { z } from "zod";
 import { prisma } from "./client";
 import { raise } from "@/shared/exceptions";
 import { formSchema } from "@/shared/onboarding";
+import { GetUsers } from "@/entities/users";
 
 class UserDAO {
   async createUser(loginUser: NextUser) {
@@ -28,29 +29,42 @@ class UserDAO {
     });
   }
 
-  async fetchUsers(
-    filter: { username?: string; email?: string },
-    page = 1,
-    pageSize = 10
-  ) {
+  async fetchUsers(filter: GetUsers, page = 1, pageSize = 10) {
     const skip = (page - 1) * pageSize;
-    const hasFilters = Object.values(filter).some((value) => value);
+    const whereCondition: Prisma.Enumerable<Prisma.UserWhereInput> = [];
 
-    const whereCondition = [{
-      email: { contains: filter.email },
-    }, {
-      username: { contains: filter.username },
-    },];
+    Object.keys(filter).forEach((key) => {
+      const property = key as keyof typeof filter;
+      const value = filter[property];
 
-    const where: Prisma.UserWhereInput = {
-      OR: hasFilters ? whereCondition : undefined,
-    };
+      if (value !== undefined) {
+        whereCondition.push({
+          [key]: { contains: value, mode: "insensitive" },
+        });
+      }
+    });
 
-    return prisma.user.findMany({
+    let where: Prisma.UserWhereInput = {};
+    if (whereCondition.length > 0) {
+      where = { OR: whereCondition };
+    }
+
+    const [users, total] = await prisma.$transaction([prisma.user.findMany({
       where: where,
       skip,
       take: pageSize,
-    });
+    }), prisma.user.count({
+      where: where,
+    }),]);
+
+    return {
+      total,
+      data: users,
+      pagination: {
+        page,
+        pageSize,
+      },
+    };
   }
 
   async isOboardingFinished(username: string) {

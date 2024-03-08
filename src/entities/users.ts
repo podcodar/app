@@ -1,9 +1,15 @@
 import { Session } from "next-auth";
-
+import { User as UserEntity } from "@prisma/client";
 export type User = {
   name: string;
   email: string;
   image: string;
+};
+
+export type GetUsers = {
+  name?: UserEntity["name"];
+  email?: UserEntity["email"];
+  username?: UserEntity["username"];
 };
 
 export function getUserSession(session: Session | null): User {
